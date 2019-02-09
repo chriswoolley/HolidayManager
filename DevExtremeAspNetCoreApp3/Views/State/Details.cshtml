@@ -1,0 +1,30 @@
+﻿@model IEnumerable<HolidayWeb.Models.State>
+
+@{
+    ViewData["Title"] = "Current States available";
+}
+
+<h2>Details</h2>
+
+
+<table class="table table-condensed table-bordered">
+    <tr>
+        <th>Name</th>
+        <th>Action</th>
+    </tr>
+
+    @foreach (State state in Model)
+    {
+    <tr>
+        <td>@state.Name</td>    
+        <td>
+            <form asp-action="Delete" asp-route-id="@state.Id" method="post">
+                <a class="btn btn-sm btn-primary" asp-action="Edit" asp-route-id="@state.Id">Edit</a>
+                <button type="submit" onclick="return confirm('Do you really want to archive this state?');" class="btn btn-sm btn-danger">
+                    Archive
+                </button>
+            </form>
+        </td>
+    </tr>
+    }
+</table>

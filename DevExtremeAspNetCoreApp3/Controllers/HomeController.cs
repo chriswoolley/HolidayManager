@@ -4,7 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 
-namespace DevExtremeAspNetCoreApp3.Controllers
+namespace HolidayWeb.Controllers
 {
     public class HomeController : Controller
     {

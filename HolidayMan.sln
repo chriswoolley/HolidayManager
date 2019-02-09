@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
 VisualStudioVersion = 15.0.28307.271
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DevExtremeAspNetCoreApp3", "DevExtremeAspNetCoreApp3\DevExtremeAspNetCoreApp3.csproj", "{70EB0675-6306-4612-B4BC-ABCD27F0109B}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HolidayWeb", "DevExtremeAspNetCoreApp3\HolidayWeb.csproj", "{70EB0675-6306-4612-B4BC-ABCD27F0109B}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

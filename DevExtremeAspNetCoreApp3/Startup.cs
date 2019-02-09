@@ -2,19 +2,29 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using HolidayWeb.Models;
+using HolidayWeb.Models.Interface;
+using HolidayWeb.Models.Repositories;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Newtonsoft.Json.Serialization;
 
-namespace DevExtremeAspNetCoreApp3
+namespace HolidayWeb
 {
     public class Startup
     {
-        public Startup(IConfiguration configuration)
+        private IConfigurationRoot _configurationRoot;
+
+        public Startup(IHostingEnvironment hostingEnvironment)
         {
-            Configuration = configuration;
+            _configurationRoot = new ConfigurationBuilder()
+                           .SetBasePath(hostingEnvironment.ContentRootPath)
+                           .AddJsonFile("appsettings.json")
+                           .Build();
         }
 
         public IConfiguration Configuration { get; }
@@ -26,6 +36,32 @@ namespace DevExtremeAspNetCoreApp3
             services
                 .AddMvc()
                 .AddJsonOptions(options => options.SerializerSettings.ContractResolver = new DefaultContractResolver());
+
+
+            services.AddDbContext<AppDbContext>(options =>
+                options.UseSqlServer(_configurationRoot.GetConnectionString("DefaultConnection")));
+
+            services.AddTransient<IDepartment, DepartmentRepository>();
+            //services.AddTransient<IDepartmentManager, DepartmentManagerRepository>();
+            services.AddTransient<IEvent, EventRepository>();
+            services.AddTransient<IEventType, EventTypeRepository>();
+            //services.AddTransient<xIUser, xUserRepository>();
+            services.AddTransient<IState, StateRepository>();
+            services.AddTransient<IHolidayEntitlement, HolidayEntitlementRepository>();
+
+
+
+            services.AddIdentity<IdentityUser, IdentityRole>(options =>
+            {
+                options.Password.RequiredLength = 8;
+                options.Password.RequireNonAlphanumeric = true;
+                options.Password.RequireUppercase = true;
+                options.User.RequireUniqueEmail = true;
+
+            })
+                .AddEntityFrameworkStores<AppDbContext>();
+
+
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -41,7 +77,10 @@ namespace DevExtremeAspNetCoreApp3
                 app.UseExceptionHandler("/Home/Error");
             }
 
+
             app.UseStaticFiles();
+
+            app.UseAuthentication();
 
             app.UseMvc(routes =>
             {

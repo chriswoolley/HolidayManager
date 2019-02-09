@@ -8,10 +8,16 @@
     <PackageReference Include="Microsoft.AspNetCore.All" Version="2.0.9" />
     <PackageReference Include="DevExtreme.AspNet.Data" Version="2.0.0" />
     <PackageReference Include="DevExtreme.AspNet.Core" Version="18.2.5" />
+    <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="2.0.4" />
   </ItemGroup>
 
   <ItemGroup>
     <DotNetCliToolReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Tools" Version="2.0.3" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Models\Interface\" />
+    <Folder Include="Models\Repositories\" />
   </ItemGroup>
 
 </Project>
