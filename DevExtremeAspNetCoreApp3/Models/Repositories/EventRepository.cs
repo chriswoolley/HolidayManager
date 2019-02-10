@@ -21,7 +21,7 @@ namespace HolidayWeb.Models.Repositories
 
         public IEnumerable<Event> GetAllEvent()
         {
-            throw new NotImplementedException();
+            return _AppDbContext.Event.OrderBy(p => p.StartTime);
         }
 
         public Event GetEventById(int eventId)

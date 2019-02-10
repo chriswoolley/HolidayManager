@@ -1,112 +1,160 @@
-@model IEnumerable<HolidayWeb.Models.Workout>
+@model IEnumerable<Event>
 
 @(Html.DevExtreme().Scheduler()
         .DataSource(Model)
-        .TextExpr("Text")
         .StartDateExpr("StartDate")
-        .EndDateExpr("EndDate")
+        .TextExpr("Subject")
+        .EndDateExpr("DueDate")
         .Views(new SchedulerViewType[] {
-SchedulerViewType.Month
+SchedulerViewType.TimelineDay,
+SchedulerViewType.TimelineWeek,
+SchedulerViewType.TimelineWorkWeek,
+SchedulerViewType.TimelineMonth
         })
-        .CurrentView(SchedulerViewType.Month)
-        .CurrentDate(new DateTime(2019, 8, 2, 11, 30, 0))
-        .FirstDayOfWeek(FirstDayOfWeek.Monday)
-        .StartDayHour(9)
+        .CurrentView(SchedulerViewType.TimelineMonth)
+        .CurrentDate(new DateTime(2017, 5, 1))
+        .FirstDayOfWeek(FirstDayOfWeek.Sunday)
+        .StartDayHour(8)
         .EndDayHour(18)
-        .ShowAllDayPanel(true)
-        .Height(600)
-        .Groups(new string[] { "EmployeeID" })
+        .CellDuration(60)
+        .Groups(new string[] { "Period" })
         .Resources(res =>
         {
+            //    res.Add()
+            //        .FieldExpr("OwnerId")
+            //        .AllowMultiple(true)
+            //        .Label("Owner")
+            //        .UseColorAsDefault(true)
+            //        .DataSource(new object[] {
+            //new { id = 1, text = "Samantha Bright", color = "#cb6bb2" },
+            //new { id = 2, text = "John Heart", color = "#56ca85" },
+            //new { id = 3, text = "Todd Hoffman", color = "#1e90ff" },
+            //new { id = 4, text = "Sandra Johnson", color = "#ff9747" }
+            //        });
+
             res.Add()
-                .FieldExpr("EmployeeID")
-                .ColorExpr("Color")
-                .DisplayExpr("Text")
-                .ValueExpr("Id")
-                .AllowMultiple(false)
-                .Label("Employee")
+                .FieldExpr("Period")
+                .AllowMultiple(true)
+                .Label("Period")
                 .DataSource(new object[] {
-       new {
-           Id = 1,
-           Text = "Accounts",
-           Color = "#A4952D",
-           Avatar = "../Static/Accounts.png",
-           Age = 27,
-           Discipline = "ABS, Fitball, StepFit",
-
-       },
-       new {
-           Id = 2,
-           Text = "QA",
-           Color = "#9556C8",
-           Avatar = "../Static/QA.png",
-           Age = 27,
-           Discipline = "ABS, Fitball, StepFit",
-
-       },
-
-       new {
-           Id = 3,
-           Text = "Development",
-           Color = "#ae2215",
-           Avatar = "../Static/Winners.png",
-           Age = 27,
-           Discipline = "ABS, Fitball, StepFit",
-
-       },
-
-       new {
-           Id = 4,
-           Text = "Sales",
-           Color = "#ff9747",
-           Avatar = "../Static/Sales.png",
-           Age = 25,
-           Discipline = "ABS, Fitball, StepFit"
-       }
+                new { id = "Morning", text = "Morning", color = "#1e90ff" },
+                new { id = "Afternoon", text = "Afternoon", color = "#ff9747" }
                 });
         })
-        .DataCellTemplate(new JS(@"
-function dataCellTemplate(cellData, index, container) {
-    var employeeID = cellData.groups.EmployeeID,
-        currentTraining = getCurrentTraining(cellData.startDate.getDate(), employeeID);
-
-    var wrapper = $('<div>')
-        .toggleClass('employee-weekend-' + employeeID, isWeekEnd(cellData.startDate)).appendTo(container)
-        .addClass('employee-' + employeeID)
-        .addClass('dx-template-wrapper');
-
-    wrapper.append($('<div>')
-        .text(cellData.text)
-        .addClass(currentTraining)
-        .addClass('day-cell')
-    );
-}"))
-        .ResourceCellTemplate(@<text>
-            <div>
-                <div class="name" style="background-color: <%= data.Color %>;">
-                    <h2><%= data.Text %></h2>
-                </div>
-                <div class="avatar" title="<%= data.Text %>">
-                    <img src="<%= data.Avatar %>" alt="" />
-                </div>
-                <div class="info" style="color: <%= data.Color %>;">
-                    Age: <%= data.Age %> <br />
-                    <b><%= data.Discipline %></b>
-                </div>
-            </div>
-        </text>)
+        .Height(580)
 )
 
-<script>
-    function isWeekEnd(date) {
-        var day = date.getDay();
-        return day === 0 || day === 6;
-    }
 
-    function getCurrentTraining(date, employeeID) {
-        var result = (date + employeeID) % 3,
-            currentTraining = "training-background-" + result;
 
-        return currentTraining;
-    }
-</script>
+@*@model IEnumerable<HolidayWeb.Models.Workout>
+
+    @(Html.DevExtreme().Scheduler()
+            .DataSource(Model)
+            .TextExpr("Text")
+            .StartDateExpr("StartDate")
+            .EndDateExpr("EndDate")
+            .Views(new SchedulerViewType[] {
+    SchedulerViewType.Month
+            })
+            .CurrentView(SchedulerViewType.Month)
+            .CurrentDate(new DateTime(2019, 8, 2, 11, 30, 0))
+            .FirstDayOfWeek(FirstDayOfWeek.Monday)
+            .StartDayHour(9)
+            .EndDayHour(18)
+            .ShowAllDayPanel(true)
+            .Height(600)
+            .Groups(new string[] { "EmployeeID" })
+            .Resources(res =>
+            {
+                res.Add()
+                    .FieldExpr("EmployeeID")
+                    .ColorExpr("Color")
+                    .DisplayExpr("Text")
+                    .ValueExpr("Id")
+                    .AllowMultiple(false)
+                    .Label("Employee")
+                    .DataSource(new object[] {
+           new {
+               Id = 1,
+               Text = "Accounts",
+               Color = "#A4952D",
+               Avatar = "../Static/Accounts.png",
+               Age = 27,
+               Discipline = "ABS, Fitball, StepFit",
+
+           },
+           new {
+               Id = 2,
+               Text = "QA",
+               Color = "#9556C8",
+               Avatar = "../Static/QA.png",
+               Age = 27,
+               Discipline = "ABS, Fitball, StepFit",
+
+           },
+
+           new {
+               Id = 3,
+               Text = "Development",
+               Color = "#ae2215",
+               Avatar = "../Static/Winners.png",
+               Age = 27,
+               Discipline = "ABS, Fitball, StepFit",
+
+           },
+
+           new {
+               Id = 4,
+               Text = "Sales",
+               Color = "#ff9747",
+               Avatar = "../Static/Sales.png",
+               Age = 25,
+               Discipline = "ABS, Fitball, StepFit"
+           }
+                    });
+            })
+            .DataCellTemplate(new JS(@"
+    function dataCellTemplate(cellData, index, container) {
+        var employeeID = cellData.groups.EmployeeID,
+            currentTraining = getCurrentTraining(cellData.startDate.getDate(), employeeID);
+
+        var wrapper = $('<div>')
+            .toggleClass('employee-weekend-' + employeeID, isWeekEnd(cellData.startDate)).appendTo(container)
+            .addClass('employee-' + employeeID)
+            .addClass('dx-template-wrapper');
+
+        wrapper.append($('<div>')
+            .text(cellData.text)
+            .addClass(currentTraining)
+            .addClass('day-cell')
+        );
+    }"))
+            .ResourceCellTemplate(@<text>
+                <div>
+                    <div class="name" style="background-color: <%= data.Color %>;">
+                        <h2><%= data.Text %></h2>
+                    </div>
+                    <div class="avatar" title="<%= data.Text %>">
+                        <img src="<%= data.Avatar %>" alt="" />
+                    </div>
+                    <div class="info" style="color: <%= data.Color %>;">
+                        Age: <%= data.Age %> <br />
+                        <b><%= data.Discipline %></b>
+                    </div>
+                </div>
+            </text>)
+    )
+
+    <script>
+        function isWeekEnd(date) {
+            var day = date.getDay();
+            return day === 0 || day === 6;
+        }
+
+        function getCurrentTraining(date, employeeID) {
+            var result = (date + employeeID) % 3,
+                currentTraining = "training-background-" + result;
+
+            return currentTraining;
+        }
+    </script>*@

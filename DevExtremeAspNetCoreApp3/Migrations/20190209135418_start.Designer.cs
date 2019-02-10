@@ -11,8 +11,8 @@ using System;
 namespace HolidayWeb.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20190208081002_add main units")]
-    partial class addmainunits
+    [Migration("20190209135418_start")]
+    partial class start
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {

@@ -1,35 +1,38 @@
-﻿@model IEnumerable<HolidayWeb.Models.Department>
+﻿@model IEnumerable<Department>
 
-@{
-    ViewData["Title"] = "Details";
+<h2>Departments</h2>
+
+@if (!Model.Any())
+{
+    <tr><td colspan="3" class="text-center">No User Accounts</td></tr>
 }
+else
+{
+    <table class="table table-condensed table-bordered">
+        <tr>
+            <th>Name</th>
+            <th>Action</th>
+            @*<th>Actions</th>*@
+        </tr>
 
-<h2>Details</h2>
+        @foreach (Department department in Model)
+        {
+            <tr>
+                @*<td>@user.Id</td>*@
+                <td>@department.DepartmentName</td>
+                <td>
+                    <form asp-action="Delete" asp-route-id="@department.Id" method="post">
+                        <a class="btn btn-sm btn-primary" asp-action="Edit" asp-route-id="@department.Id">Edit</a>
+                        <button type="submit" onclick="return confirm('Do you really want to archive this Department?');" class="btn btn-sm btn-danger">
+                            Archive
+                        </button>
+                    </form>
+                </td>
+            </tr>
+        }
+    </table>
+}
 
 <p>
-    <a asp-action="Create">Create New</a>
+    <a class="btn btn-primary" asp-action="Create">Add Department</a>
 </p>
-<table class="table">
-    <thead>
-        <tr>
-                <th>
-                    @Html.DisplayNameFor(model => model.DepartmentName)
-                </th>
-            <th></th>
-        </tr>
-    </thead>
-    <tbody>
-@foreach (var item in Model) {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.DepartmentName)
-            </td>
-            <td>
-                <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
-                <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
-                <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
-            </td>
-        </tr>
-}
-    </tbody>
-</table>

@@ -11,8 +11,8 @@ using System;
 namespace HolidayWeb.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20190207161957_scond")]
-    partial class scond
+    [Migration("20190209161418_second")]
+    partial class second
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -20,6 +20,90 @@ namespace HolidayWeb.Migrations
             modelBuilder
                 .HasAnnotation("ProductVersion", "2.0.3-rtm-10026")
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+            modelBuilder.Entity("HolidayWeb.Models.Department", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<string>("DepartmentName")
+                        .IsRequired()
+                        .HasMaxLength(120);
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Departments");
+                });
+
+            modelBuilder.Entity("HolidayWeb.Models.Event", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<DateTime>("EndTime");
+
+                    b.Property<int?>("EventTypeId");
+
+                    b.Property<DateTime>("StartTime");
+
+                    b.Property<int?>("StateId");
+
+                    b.Property<string>("Subject");
+
+                    b.Property<string>("UserId");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("EventTypeId");
+
+                    b.HasIndex("StateId");
+
+                    b.HasIndex("UserId");
+
+                    b.ToTable("Event");
+                });
+
+            modelBuilder.Entity("HolidayWeb.Models.EventType", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasMaxLength(120);
+
+                    b.HasKey("Id");
+
+                    b.ToTable("EventTypes");
+                });
+
+            modelBuilder.Entity("HolidayWeb.Models.HolidayEntitlement", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<int>("Year");
+
+                    b.Property<int>("YearsEntitlement");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("HolidayEntitlements");
+                });
+
+            modelBuilder.Entity("HolidayWeb.Models.State", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasMaxLength(120);
+
+                    b.HasKey("Id");
+
+                    b.ToTable("States");
+                });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole", b =>
                 {
@@ -178,6 +262,21 @@ namespace HolidayWeb.Migrations
                     b.HasKey("UserId", "LoginProvider", "Name");
 
                     b.ToTable("AspNetUserTokens");
+                });
+
+            modelBuilder.Entity("HolidayWeb.Models.Event", b =>
+                {
+                    b.HasOne("HolidayWeb.Models.EventType", "EventType")
+                        .WithMany()
+                        .HasForeignKey("EventTypeId");
+
+                    b.HasOne("HolidayWeb.Models.State", "State")
+                        .WithMany()
+                        .HasForeignKey("StateId");
+
+                    b.HasOne("Microsoft.AspNetCore.Identity.IdentityUser", "User")
+                        .WithMany()
+                        .HasForeignKey("UserId");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>

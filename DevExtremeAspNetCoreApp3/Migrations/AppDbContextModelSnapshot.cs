@@ -39,8 +39,6 @@ namespace HolidayWeb.Migrations
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd();
 
-                    b.Property<float>("Duration");
-
                     b.Property<DateTime>("EndTime");
 
                     b.Property<int?>("EventTypeId");
@@ -49,11 +47,17 @@ namespace HolidayWeb.Migrations
 
                     b.Property<int?>("StateId");
 
+                    b.Property<string>("Subject");
+
+                    b.Property<string>("UserId");
+
                     b.HasKey("Id");
 
                     b.HasIndex("EventTypeId");
 
                     b.HasIndex("StateId");
+
+                    b.HasIndex("UserId");
 
                     b.ToTable("Event");
                 });
@@ -268,6 +272,10 @@ namespace HolidayWeb.Migrations
                     b.HasOne("HolidayWeb.Models.State", "State")
                         .WithMany()
                         .HasForeignKey("StateId");
+
+                    b.HasOne("Microsoft.AspNetCore.Identity.IdentityUser", "User")
+                        .WithMany()
+                        .HasForeignKey("UserId");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>

@@ -10,5 +10,7 @@ namespace HolidayWeb.Models.Interface
         IEnumerable<Event> GetAllEvent();
 
         Event GetEventById(int eventId);
+
+
     }
 }
