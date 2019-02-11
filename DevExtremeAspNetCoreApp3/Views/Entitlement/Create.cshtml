@@ -1,0 +1,45 @@
+﻿@model HolidayWeb.ViewModels.HolidayEntitlementCreateView
+
+@{
+    ViewData["Title"] = "Create";
+}
+
+<h2>Create</h2>
+
+<h4>HolidayEntitlement</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Create">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="HolidayEntitlement.Year" class="control-label"></label>
+                <input asp-for="HolidayEntitlement.Year" class="form-control" />
+                <span asp-validation-for="HolidayEntitlement.Year" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="HolidayEntitlement.YearsEntitlement">Entitlement<></label>
+                <input asp-for="HolidayEntitlement.YearsEntitlement" class="form-control" />
+                <span asp-validation-for="HolidayEntitlement.YearsEntitlement" class="text-danger"></span>
+            </div>
+
+
+            <div class="form-group">
+                <label asp-for="HolidayEntitlement.User" class="col-md-2 control-label"></label>
+                <div class="col-md-10">
+                    <select asp-for="HolidayEntitlement.User" asp-items="@HolidayEntitlement.User.Name"></select>
+                </div>
+            </div>
+
+
+            <div class="form-group">
+                <input type="submit" value="Create" class="btn btn-default" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+

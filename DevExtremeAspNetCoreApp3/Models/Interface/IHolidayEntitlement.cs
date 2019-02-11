@@ -1,4 +1,5 @@
-﻿using System;
+﻿using HolidayWeb.ViewModels;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -10,5 +11,15 @@ namespace HolidayWeb.Models.Interface
         IEnumerable<HolidayEntitlement> GetAllHolidayEntitlement();
 
         HolidayEntitlement GetHolidayEntitlementById(int HolidayEntitlementId);
+
+
+        void EditHolidayEntitlement(HolidayEntitlement holidayEntitlement);
+        void DeleteHolidayEntitlement(HolidayEntitlement holidayEntitlement);
+        void AddHolidayEntitlement(HolidayEntitlement holidayEntitlement);
+
+        void AddHolidayEntitlement(HolidayEntitlementCreateView holidayEntitlementCreateView);
+        
+
+
     }
 }

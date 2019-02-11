@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.AspNetCore.Identity;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
@@ -20,7 +21,8 @@ namespace HolidayWeb.Models
 
         [Key]
         public int Id { get; set; }
-//        public virtual User user { get; set; }
+        [Required]
+        public virtual IdentityUser User { get; set; }
         public int Year { get; set; }
         [Required]
         public int YearsEntitlement { get; set; }

@@ -1,4 +1,5 @@
 ﻿using HolidayWeb.Models.Interface;
+using HolidayWeb.ViewModels;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -22,6 +23,28 @@ namespace HolidayWeb.Models.Repositories
         public HolidayEntitlement GetHolidayEntitlementById(int HolidayEntitlementId)
         {
             return _appDbContext.HolidayEntitlements.FirstOrDefault(p => p.Id == HolidayEntitlementId);
+        }
+
+        public void EditHolidayEntitlement(HolidayEntitlement holidayEntitlement)
+        {
+            _appDbContext.HolidayEntitlements.Update(holidayEntitlement);
+            _appDbContext.SaveChanges();
+        }
+        public void DeleteHolidayEntitlement(HolidayEntitlement holidayEntitlement)
+        {
+            _appDbContext.HolidayEntitlements.Remove(holidayEntitlement);
+            _appDbContext.SaveChanges();
+        }
+
+        public void AddHolidayEntitlement(HolidayEntitlement holidayEntitlement)
+        {
+            _appDbContext.HolidayEntitlements.Add(holidayEntitlement);
+            _appDbContext.SaveChanges();
+        }
+
+        public void AddHolidayEntitlement(HolidayEntitlementCreateView holidayEntitlementCreateView)
+        {
+//            _appDbContext.HolidayEntitlements.
         }
 
     }
