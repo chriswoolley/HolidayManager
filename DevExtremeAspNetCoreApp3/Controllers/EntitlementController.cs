@@ -72,7 +72,7 @@ namespace HolidayWeb.Controllers
             return View(viewModel);
         }
 
-
+        HttpPostAttribute back not working
         [HttpPost]
         public IActionResult Create(HolidayEntitlementCreateView HolidayEntitlementCreateView)
         {

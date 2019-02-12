@@ -20,17 +20,17 @@ SchedulerViewType.TimelineMonth
         .Groups(new string[] { "Period" })
         .Resources(res =>
         {
-            //    res.Add()
-            //        .FieldExpr("OwnerId")
-            //        .AllowMultiple(true)
-            //        .Label("Owner")
-            //        .UseColorAsDefault(true)
-            //        .DataSource(new object[] {
-            //new { id = 1, text = "Samantha Bright", color = "#cb6bb2" },
-            //new { id = 2, text = "John Heart", color = "#56ca85" },
-            //new { id = 3, text = "Todd Hoffman", color = "#1e90ff" },
-            //new { id = 4, text = "Sandra Johnson", color = "#ff9747" }
-            //        });
+            res.Add()
+                .FieldExpr("OwnerId")
+                .AllowMultiple(true)
+                .Label("Owner")
+                .UseColorAsDefault(true)
+                .DataSource(new object[] {
+            new { id = 1, text = "Samantha Bright", color = "#cb6bb2" },
+            new { id = 2, text = "John Heart", color = "#56ca85" },
+            new { id = 3, text = "Todd Hoffman", color = "#1e90ff" },
+            new { id = 4, text = "Sandra Johnson", color = "#ff9747" }
+                });
 
             res.Add()
                 .FieldExpr("Period")
