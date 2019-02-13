@@ -19,12 +19,10 @@ namespace HolidayWeb.Models
         {
         }
 
-        [Key]
+
         public int Id { get; set; }
-        [Required]
-        public virtual IdentityUser User { get; set; }
+        //        public virtual IdentityUser User { get; set; }
         public int Year { get; set; }
-        [Required]
         public int YearsEntitlement { get; set; }
     }
 }

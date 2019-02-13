@@ -7,6 +7,7 @@ using HolidayWeb.Models.Interface;
 using HolidayWeb.ViewModels;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
 
 namespace HolidayWeb.Controllers
 {
@@ -64,21 +65,31 @@ namespace HolidayWeb.Controllers
 
         public IActionResult Create()
         {
-            HolidayEntitlementCreateView viewModel = new HolidayEntitlementCreateView
-            {
-                Users = _userManager.Users.ToList()
-            };
+            //HolidayEntitlementCreateView viewModel = new HolidayEntitlementCreateView();
+            //Department viewModel = new Department();
+            //            {
+            //                Users = _userManager.Users.ToList()
+            //            };
 
-            return View(viewModel);
+            //return View(viewModel);
+
+
+            var users = _userManager.Users;
+
+                // ViewBag.Users = new SelectList(users, "Id", "UserName");
+            ViewBag.Users = users.Select(x => new SelectListItem { Text = x.UserName, Value = x.Id }).ToList();
+
+
+
+            return View();
         }
 
-        HttpPostAttribute back not working
         [HttpPost]
-        public IActionResult Create(HolidayEntitlementCreateView HolidayEntitlementCreateView)
+        public IActionResult Create(HolidayEntitlementView HolidayEntitlementCreateView)
         {
             if (ModelState.IsValid)
             {
-                _holidayEntitlement.AddHolidayEntitlement(HolidayEntitlementCreateView);
+                //_holidayEntitlement.AddHolidayEntitlement(HolidayEntitlementCreateView);
 
                 var holidayEntitlement = _holidayEntitlement.GetAllHolidayEntitlement().OrderBy(p => p.Id);
                 return View("Details", holidayEntitlement);
