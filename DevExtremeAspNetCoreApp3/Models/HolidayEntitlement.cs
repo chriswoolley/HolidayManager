@@ -21,7 +21,7 @@ namespace HolidayWeb.Models
 
 
         public int Id { get; set; }
-        //        public virtual IdentityUser User { get; set; }
+        public string  UserID { get; set; }
         public int Year { get; set; }
         public int YearsEntitlement { get; set; }
     }

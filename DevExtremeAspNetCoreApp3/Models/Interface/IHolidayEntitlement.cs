@@ -17,9 +17,7 @@ namespace HolidayWeb.Models.Interface
         void DeleteHolidayEntitlement(HolidayEntitlement holidayEntitlement);
         void AddHolidayEntitlement(HolidayEntitlement holidayEntitlement);
 
-        void AddHolidayEntitlement(HolidayEntitlementCreateView holidayEntitlementCreateView);
-        
-
-
+//        void AddHolidayEntitlement(HolidayEntitlementView holidayEntitlementView);
+     
     }
 }

@@ -65,31 +65,17 @@ namespace HolidayWeb.Controllers
 
         public IActionResult Create()
         {
-            //HolidayEntitlementCreateView viewModel = new HolidayEntitlementCreateView();
-            //Department viewModel = new Department();
-            //            {
-            //                Users = _userManager.Users.ToList()
-            //            };
-
-            //return View(viewModel);
-
-
             var users = _userManager.Users;
-
-                // ViewBag.Users = new SelectList(users, "Id", "UserName");
             ViewBag.Users = users.Select(x => new SelectListItem { Text = x.UserName, Value = x.Id }).ToList();
-
-
-
             return View();
         }
 
         [HttpPost]
-        public IActionResult Create(HolidayEntitlementView HolidayEntitlementCreateView)
+        public IActionResult Create(HolidayEntitlement holidayentitlement)
         {
             if (ModelState.IsValid)
             {
-                //_holidayEntitlement.AddHolidayEntitlement(HolidayEntitlementCreateView);
+                _holidayEntitlement.AddHolidayEntitlement(holidayentitlement);
 
                 var holidayEntitlement = _holidayEntitlement.GetAllHolidayEntitlement().OrderBy(p => p.Id);
                 return View("Details", holidayEntitlement);
