@@ -11,6 +11,8 @@ namespace HolidayWeb.Models.Interface
 
         Event GetEventById(int eventId);
 
-
+        void EditEvent(Event _event);
+        void DeleteEvent(Event _event);
+        void AddEvent(Event _event);
     }
 }

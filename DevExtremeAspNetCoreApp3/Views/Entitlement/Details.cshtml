@@ -11,6 +11,7 @@ else
     <table class="table table-condensed table-bordered">
         <tr>
             <th>ID</th>
+            <th>UserID</th>
             <th>Year</th>
             <th>Years Entitlement</th>
             <th>Options</th>
@@ -18,19 +19,20 @@ else
 
         @foreach (HolidayEntitlement holidayEntitlement in Model)
         {
-            <tr>
-                <td>@holidayEntitlement.Id</td>
-                <td>@holidayEntitlement.Year</td>
-                <td>@holidayEntitlement.YearsEntitlement</td>
-                <td>
-                    <form asp-action="Delete" asp-route-id="@holidayEntitlement.Id" method="post">
-                        <a class="btn btn-sm btn-primary" asp-action="Edit" asp-route-id="@holidayEntitlement.Id">Edit</a>
-                        <button type="submit" onclick="return confirm('Do you really want to archive this Entitlement?');" class="btn btn-sm btn-danger">
-                            Archive
-                        </button>
-                    </form>
-                </td>
-            </tr>
+        <tr>
+            <td>@holidayEntitlement.Id</td>
+            <td>@holidayEntitlement.UserID</td>
+            <td>@holidayEntitlement.Year</td>
+            <td>@holidayEntitlement.YearsEntitlement</td>
+            <td>
+                <form asp-action="Delete" asp-route-id="@holidayEntitlement.Id" method="post">
+                    <a class="btn btn-sm btn-primary" asp-action="Edit" asp-route-id="@holidayEntitlement.Id">Edit</a>
+                    <button type="submit" onclick="return confirm('Do you really want to archive this Entitlement?');" class="btn btn-sm btn-danger">
+                        Archive
+                    </button>
+                </form>
+            </td>
+        </tr>
         }
     </table>
 }

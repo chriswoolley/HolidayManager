@@ -29,5 +29,23 @@ namespace HolidayWeb.Models.Repositories
             return _AppDbContext.Event.FirstOrDefault(p => p.Id == eventId);
         }
 
+        public void EditEvent(Event _event)
+        {
+            _AppDbContext.Event.Update(_event);
+            _AppDbContext.SaveChanges();
+        }
+
+        public void DeleteEvent(Event _event)
+        {
+            _AppDbContext.Event.Remove(_event);
+            _AppDbContext.SaveChanges();
+        }
+
+        public void AddEvent(Event _event)
+        {
+            _AppDbContext.Event.Add(_event);
+            _AppDbContext.SaveChanges();
+        }
+
     }
 }
