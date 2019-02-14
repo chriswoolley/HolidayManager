@@ -24,6 +24,14 @@ namespace HolidayWeb.Controllers
             _holidayEntitlement = _HolidayEntitlement;
         }
 
+
+        public ActionResult WebAPIService()
+        {
+            return View();
+        }
+
+
+
         public IActionResult Index()
         {
             var Events = _events.GetAllEvent().OrderBy(p => p.StartTime);

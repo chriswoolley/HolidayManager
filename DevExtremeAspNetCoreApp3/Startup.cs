@@ -7,6 +7,7 @@ using HolidayWeb.Models.Interface;
 using HolidayWeb.Models.Repositories;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
@@ -37,6 +38,7 @@ namespace HolidayWeb
                 .AddMvc()
                 .AddJsonOptions(options => options.SerializerSettings.ContractResolver = new DefaultContractResolver());
 
+            services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
 
             services.AddDbContext<AppDbContext>(options =>
                 options.UseSqlServer(_configurationRoot.GetConnectionString("DefaultConnection")));
@@ -50,7 +52,6 @@ namespace HolidayWeb
             services.AddTransient<IHolidayEntitlement, HolidayEntitlementRepository>();
 
 
-
             services.AddIdentity<IdentityUser, IdentityRole>(options =>
             {
                 options.Password.RequiredLength = 8;
@@ -60,6 +61,12 @@ namespace HolidayWeb
 
             })
                 .AddEntityFrameworkStores<AppDbContext>();
+
+            services
+                .AddMemoryCache()
+                .AddSession(s => {
+                    s.Cookie.Name = "DevExtreme.NETCore.Demos";
+                });
 
 
         }
@@ -79,6 +86,8 @@ namespace HolidayWeb
 
 
             app.UseStaticFiles();
+
+            app.UseSession();
 
             app.UseAuthentication();
 
