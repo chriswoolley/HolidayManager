@@ -1,0 +1,41 @@
+﻿@model IDepartment
+
+<div style="margin-left:10px; margin-top:50px">
+
+    <br />
+    <br />
+    <br />  
+
+
+    <h4> Departments</h4>
+
+    <div class="dx-tabpanel">
+        
+
+        @foreach (Department department in Model.GetAllDepartment())
+        {
+            <tr>
+                @*<td>@user.Id</td>*@
+
+                <td>
+
+                    <li class="dx-button"><a style="float:left" class="nav-link" id="loginLink" asp-controller="Admin" asp-action="Login">@department.DepartmentName</a></li>
+                    <br />
+                    @*<form asp-action="Select" asp-route-id="@department.Id" method="post"></form>*@
+
+                    @*<form asp-action="Delete" asp-route-id="@department.Id" method="post">
+            <a class="btn btn-sm btn-primary" asp-action="Edit" asp-route-id="@department.Id">Edit</a>
+            <button type="submit" onclick="return confirm('Do you really want to archive this Department?');" class="btn btn-sm btn-danger">
+                Archive
+            </button>
+        </form>*@
+
+                </td>
+            </tr>
+        }
+
+    </div>
+
+</div>
+
+

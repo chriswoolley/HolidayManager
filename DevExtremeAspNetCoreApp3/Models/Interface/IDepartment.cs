@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace HolidayWeb.Models.Repositories
+namespace HolidayWeb.Models.Interface
 {
     public interface IDepartment
     {
@@ -13,8 +13,5 @@ namespace HolidayWeb.Models.Repositories
         void EditDepartment(Department department);
         void DeleteDepartment(Department department);
         void AddDepartment(Department department);
-
-//        IEnumerable<User> Managers(Department department);
-
     }
 }

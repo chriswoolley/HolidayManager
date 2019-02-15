@@ -44,10 +44,8 @@ namespace HolidayWeb
                 options.UseSqlServer(_configurationRoot.GetConnectionString("DefaultConnection")));
 
             services.AddTransient<IDepartment, DepartmentRepository>();
-            //services.AddTransient<IDepartmentManager, DepartmentManagerRepository>();
             services.AddTransient<IEvent, EventRepository>();
             services.AddTransient<IEventType, EventTypeRepository>();
-            //services.AddTransient<xIUser, xUserRepository>();
             services.AddTransient<IState, StateRepository>();
             services.AddTransient<IHolidayEntitlement, HolidayEntitlementRepository>();
             services.AddTransient<IAppointment, AppointmentRepository>();

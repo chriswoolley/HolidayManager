@@ -2,7 +2,7 @@
 
 @inject SignInManager<IdentityUser> SignInManager
 @*@inject IAuthorizationService AuthorizationService
-@inject UserManager<ApplicationUser> UserManager*@
+    @inject UserManager<ApplicationUser> UserManager*@
 
 <!DOCTYPE html>
 
@@ -70,45 +70,25 @@
         </div>
     </nav>
 
-    <div class="row">
-        <div class="column left align-content-center">
+    @RenderBody()
 
+    @*<div class="row">*@
+        @*<div class="column left align-content-center">
+                <partial name="_DepartmentList" model=""/>
+            </div>*@
 
-            @*<h1 style="background-color:#ff0000">...</h1>*@
-            @*<li class="dx-header-row"><a class="nav-link" id="Home" asp-controller="Home" asp-action="About">About</a></li>*@
-            <li class="dx-list-group"><a class="dx-list-group-header" id="Home" asp-controller="Department" asp-action="About">About1</a></li>
-            <h5>
-                <br />
-                <br />
-                <br />
+        @*<div class="column middle">
+                <h2>Main Content</h2>
 
-                <li class="dx-gallery-item-content"><a class="nav-link">Department</a></li>
-
+            </div>*@
 
 
 
-
-                <li class="dx-gallery-item"><a class="navbar-expand" id="Home" asp-controller="Home" asp-action="About">Ab5out</a></li>
-                <li class="dx-gallery-item"><a class="navbar-light" id="Home" asp-controller="Home" asp-action="About">Ab5out</a></li>
-
-                <li class="dx-buttongroup-item"><a class="nav-link" id="loginLink" asp-controller="Admin" asp-action="Login">Bang</a></li>
-                <li class="nav-item"><a class="navbar-expand-xl" id="loginLink" asp-controller="Admin" asp-action="Login">Log in</a></li>
-
-                <li class="dx-button"><a style="" class="nav-link" id="loginLink" asp-controller="Admin" asp-action="Login">Log ieeeen</a></li>
-
-            </h5>
-        </div>
-
-        <div class="column middle">
-            <h2>Main Content</h2>
-            @RenderBody()
-        </div>
-
-        <div class="column right">
-            <h2>Side</h2>
-            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit..</p>
-        </div>
-    </div>
+        @*<div class="column right">
+                <h2>Side</h2>
+                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit..</p>
+            </div>*@
+    @*</div>*@
 
 </body>
 
