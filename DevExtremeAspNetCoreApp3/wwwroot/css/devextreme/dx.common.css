@@ -1705,14 +1705,15 @@
   overflow: hidden;
 }
 .dx-list-item {
-  position: static;
-  cursor: pointer;
-  display: table;
-  width: 100%;
-  table-layout: fixed;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  white-space: nowrap;
+    position: static;
+    cursor: pointer;
+    display: table;
+    width: 100%;
+    table-layout: fixed;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+
 }
 .dx-list-item-content {
   overflow: hidden;

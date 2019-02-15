@@ -1,3 +1,27 @@
-﻿body {
-  padding-top: 5rem;
+﻿/* Left and right column */
+.column.left {
+    width: 10%;
+}
+
+/* Middle column */
+.column.middle {
+    width: 65%;
+}
+
+.column.right {
+    width: 25%;
+}
+
+
+/* Clear floats after the columns */
+.row:after {
+    content: "";
+    display: table;
+    clear: both;
+}
+
+
+body {
+  padding-top: 1rem;
+
 }

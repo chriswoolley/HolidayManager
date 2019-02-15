@@ -7,6 +7,7 @@ using HolidayWeb.Models.Interface;
 using HolidayWeb.ViewModels;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
 
 namespace HolidayWeb.Controllers
 {
@@ -34,15 +35,15 @@ namespace HolidayWeb.Controllers
 
         public IActionResult Index()
         {
-            var Events = _events.GetAllEvent().OrderBy(p => p.StartTime);
-
-
-//            var Test = new MainEventView();
-//            Test.UserList = _userManager.Users;
-//            Test.Entitlement = _holidayEntitlement.GetAllHolidayEntitlement();
-//            Test.Events = _events;
-
-            return View(Events);
+//            var Events = _events.GetAllEvent().OrderBy(p => p.StartTime);
+            var users = _userManager.Users;
+            ViewBag.Users = users.Select(x => new SelectListItem { Text = x.UserName, Value = x.Id }).ToList();
+            //            var Test = new MainEventView();
+            //            Test.UserList = _userManager.Users;
+            //            Test.Entitlement = _holidayEntitlement.GetAllHolidayEntitlement();
+            //            Test.Events = _events;
+            return View();
+//            return View(Events);
         }
 
     }
