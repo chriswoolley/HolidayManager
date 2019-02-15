@@ -17,9 +17,7 @@
 
   <ItemGroup>
     <Folder Include="Controllers\ApiController\" />
-    <Folder Include="Models\Interface\" />
     <Folder Include="Models\SampleData\" />
-    <Folder Include="Models\Repositories\" />
   </ItemGroup>
 
 </Project>

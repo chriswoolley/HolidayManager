@@ -42,27 +42,5 @@ namespace HolidayWeb.Models.Repositories
         {
             return _AppDbContext.Departments.FirstOrDefault(p => p.Id == departmentId);
         }
-
-        //public IEnumerable<DepartmentManager> Managers(Department department)
-        //{          
-        //    return _AppDbContext.Departments.FirstOrDefault(p => p.Id == department.Id).DepartmentManagers.ToList();
-        //}
-
-//        IEnumerable<User> IDepartment.Managers(Department department)
-//        {
-//            List<User> Managers = new List<User>();
-//            Department DM2 = _holidayContext.Departments.FirstOrDefault(p => p.Id == department.Id);
-//            foreach (DepartmentManager dm2 in DM2.DepartmentManagers)
-//            {
-//                Managers.Add(dm2.User);
-//            }
-
-////            List<User> Managers = new List<User>();
-////            foreach (DepartmentManager DM in _holidayContext.DepartmentManagers.Where(p => p.Department.Id == department.Id))
-////            {
-////                Managers.Add(DM.User);
-////            }
-//            return Managers;
-//        }
     }
 }

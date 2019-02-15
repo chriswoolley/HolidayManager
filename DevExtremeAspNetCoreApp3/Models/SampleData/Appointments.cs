@@ -8,7 +8,6 @@ namespace HolidayWeb.Models.SampleData
     {
         public static List<Appointment> Appointments
         {
-            could i put in the dbset in ere to replace the list
             get
             {
                 return new List<Appointment> {

@@ -1,11 +1,14 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using Newtonsoft.Json;
 
 namespace HolidayWeb.Models
 {
     public class Appointment {
+        [Key]
+        public int DBId { get; set; }//sorry AppointmentId populated by component
         [JsonProperty(PropertyName = "AppointmentId")]
         public int AppointmentId { get; set; }
         [JsonProperty(PropertyName = "Text")]

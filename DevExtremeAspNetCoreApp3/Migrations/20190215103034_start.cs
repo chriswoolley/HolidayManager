@@ -10,6 +10,25 @@ namespace HolidayWeb.Migrations
         protected override void Up(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.CreateTable(
+                name: "Appointment",
+                columns: table => new
+                {
+                    DBId = table.Column<int>(nullable: false)
+                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
+                    AllDay = table.Column<bool>(nullable: false),
+                    AppointmentId = table.Column<int>(nullable: false),
+                    Description = table.Column<string>(nullable: true),
+                    EndDate = table.Column<DateTime>(nullable: false),
+                    RecurrenceRule = table.Column<string>(nullable: true),
+                    StartDate = table.Column<DateTime>(nullable: false),
+                    Text = table.Column<string>(nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Appointment", x => x.DBId);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "AspNetRoles",
                 columns: table => new
                 {
@@ -80,6 +99,7 @@ namespace HolidayWeb.Migrations
                 {
                     Id = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
+                    UserID = table.Column<string>(nullable: true),
                     Year = table.Column<int>(nullable: false),
                     YearsEntitlement = table.Column<int>(nullable: false)
                 },
@@ -213,11 +233,11 @@ namespace HolidayWeb.Migrations
                 {
                     Id = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
-                    Duration = table.Column<float>(nullable: false),
-                    EndTime = table.Column<DateTime>(nullable: false),
                     EventTypeId = table.Column<int>(nullable: true),
                     StartTime = table.Column<DateTime>(nullable: false),
-                    StateId = table.Column<int>(nullable: true)
+                    StateId = table.Column<int>(nullable: true),
+                    Subject = table.Column<string>(nullable: true),
+                    UserId = table.Column<string>(nullable: true)
                 },
                 constraints: table =>
                 {
@@ -232,6 +252,12 @@ namespace HolidayWeb.Migrations
                         name: "FK_Event_States_StateId",
                         column: x => x.StateId,
                         principalTable: "States",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                    table.ForeignKey(
+                        name: "FK_Event_AspNetUsers_UserId",
+                        column: x => x.UserId,
+                        principalTable: "AspNetUsers",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Restrict);
                 });
@@ -284,10 +310,18 @@ namespace HolidayWeb.Migrations
                 name: "IX_Event_StateId",
                 table: "Event",
                 column: "StateId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Event_UserId",
+                table: "Event",
+                column: "UserId");
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
         {
+            migrationBuilder.DropTable(
+                name: "Appointment");
+
             migrationBuilder.DropTable(
                 name: "AspNetRoleClaims");
 
@@ -316,13 +350,13 @@ namespace HolidayWeb.Migrations
                 name: "AspNetRoles");
 
             migrationBuilder.DropTable(
-                name: "AspNetUsers");
-
-            migrationBuilder.DropTable(
                 name: "EventTypes");
 
             migrationBuilder.DropTable(
                 name: "States");
+
+            migrationBuilder.DropTable(
+                name: "AspNetUsers");
         }
     }
 }

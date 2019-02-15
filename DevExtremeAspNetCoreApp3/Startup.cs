@@ -50,6 +50,7 @@ namespace HolidayWeb
             //services.AddTransient<xIUser, xUserRepository>();
             services.AddTransient<IState, StateRepository>();
             services.AddTransient<IHolidayEntitlement, HolidayEntitlementRepository>();
+            services.AddTransient<IAppointment, AppointmentRepository>();
 
 
             services.AddIdentity<IdentityUser, IdentityRole>(options =>

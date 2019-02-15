@@ -29,15 +29,7 @@ namespace HolidayWeb.Models
                     new EventType { Name = "On-Site" },
                     new EventType { Name = "Traveling" },
                     new EventType { Name = "AWP" }
-
-
-
-
-
-
-
-
-                    
+                   
                 );
             }
             context.SaveChanges();

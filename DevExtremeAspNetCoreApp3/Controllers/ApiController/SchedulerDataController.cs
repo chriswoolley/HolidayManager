@@ -8,14 +8,17 @@ using DevExtreme.AspNet.Mvc;
 using DevExtreme.AspNet.Data;
 using Newtonsoft.Json;
 using HolidayWeb.Models;
+using HolidayWeb.Models.Interface;
 
 namespace HolidayWeb.Controllers.ApiControllers {
     [Route("api/[controller]")]
     public class SchedulerDataController : Controller {
         InMemoryAppointmentsDataContext _data;
+        IAppointment _appointment;
 
-        public SchedulerDataController(IHttpContextAccessor httpContextAccessor, IMemoryCache memoryCache) {
-            _data = new InMemoryAppointmentsDataContext(httpContextAccessor, memoryCache);
+        public SchedulerDataController(IHttpContextAccessor httpContextAccessor, IMemoryCache memoryCache, IAppointment appointment) {
+            _data = new InMemoryAppointmentsDataContext(httpContextAccessor, memoryCache, appointment);
+            _appointment = appointment;
         }
 
         [HttpGet]
@@ -31,6 +34,9 @@ namespace HolidayWeb.Controllers.ApiControllers {
             if(!TryValidateModel(newAppointment))
 //                return BadRequest(ModelState.GetFullErrorMessage());
                 return BadRequest();
+
+
+            _appointment.AddAppointment(newAppointment);
 
             _data.Appointments.Add(newAppointment);
             _data.SaveChanges();
@@ -48,7 +54,7 @@ namespace HolidayWeb.Controllers.ApiControllers {
                 return BadRequest();
 
             _data.SaveChanges();
-
+            _appointment.EditAppointment(appointment);
             return Ok();
         }
 
@@ -57,6 +63,7 @@ namespace HolidayWeb.Controllers.ApiControllers {
             var appointment = _data.Appointments.First(a => a.AppointmentId == key);
             _data.Appointments.Remove(appointment);
             _data.SaveChanges();
+            _appointment.DeleteAppointment(appointment);
         }
     }
 }

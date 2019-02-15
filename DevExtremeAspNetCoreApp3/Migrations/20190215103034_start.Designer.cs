@@ -11,8 +11,8 @@ using System;
 namespace HolidayWeb.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20190211150447_trest335")]
-    partial class trest335
+    [Migration("20190215103034_start")]
+    partial class start
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -20,6 +20,30 @@ namespace HolidayWeb.Migrations
             modelBuilder
                 .HasAnnotation("ProductVersion", "2.0.3-rtm-10026")
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+            modelBuilder.Entity("HolidayWeb.Models.Appointment", b =>
+                {
+                    b.Property<int>("DBId")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<bool>("AllDay");
+
+                    b.Property<int>("AppointmentId");
+
+                    b.Property<string>("Description");
+
+                    b.Property<DateTime>("EndDate");
+
+                    b.Property<string>("RecurrenceRule");
+
+                    b.Property<DateTime>("StartDate");
+
+                    b.Property<string>("Text");
+
+                    b.HasKey("DBId");
+
+                    b.ToTable("Appointment");
+                });
 
             modelBuilder.Entity("HolidayWeb.Models.Department", b =>
                 {
@@ -80,16 +104,13 @@ namespace HolidayWeb.Migrations
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd();
 
-                    b.Property<string>("UserId")
-                        .IsRequired();
+                    b.Property<string>("UserID");
 
                     b.Property<int>("Year");
 
                     b.Property<int>("YearsEntitlement");
 
                     b.HasKey("Id");
-
-                    b.HasIndex("UserId");
 
                     b.ToTable("HolidayEntitlements");
                 });
@@ -280,14 +301,6 @@ namespace HolidayWeb.Migrations
                     b.HasOne("Microsoft.AspNetCore.Identity.IdentityUser", "User")
                         .WithMany()
                         .HasForeignKey("UserId");
-                });
-
-            modelBuilder.Entity("HolidayWeb.Models.HolidayEntitlement", b =>
-                {
-                    b.HasOne("Microsoft.AspNetCore.Identity.IdentityUser", "User")
-                        .WithMany()
-                        .HasForeignKey("UserId")
-                        .OnDelete(DeleteBehavior.Cascade);
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
