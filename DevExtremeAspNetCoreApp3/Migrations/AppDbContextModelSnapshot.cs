@@ -29,6 +29,8 @@ namespace HolidayWeb.Migrations
 
                     b.Property<int>("AppointmentId");
 
+                    b.Property<int>("DepartmentID");
+
                     b.Property<string>("Description");
 
                     b.Property<DateTime>("EndDate");
@@ -36,6 +38,8 @@ namespace HolidayWeb.Migrations
                     b.Property<string>("RecurrenceRule");
 
                     b.Property<DateTime>("StartDate");
+
+                    b.Property<int>("StatusKey");
 
                     b.Property<string>("Text");
 

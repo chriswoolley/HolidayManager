@@ -23,5 +23,12 @@ namespace HolidayWeb.Models
         public bool AllDay { get; set; }
         [JsonProperty(PropertyName = "RecurrenceRule")]
         public string RecurrenceRule { get; set; }
+
+        [JsonProperty(PropertyName = "DepartmentID")]
+        public int DepartmentID { get; set; }
+
+        [JsonProperty(PropertyName = "StatusKey")]
+        public int StatusKey { get; set; }
+
     }
 }

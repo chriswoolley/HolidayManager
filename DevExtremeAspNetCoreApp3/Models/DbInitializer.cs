@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.AspNetCore.Identity;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -7,12 +8,16 @@ namespace HolidayWeb.Models
 {
     public static class DbInitializer
     {
+
+
+
         public static void Seed(AppDbContext context)
         {
             if (!context.Departments.Any())
             {
                 context.AddRange
                 (
+
                     new Department { DepartmentName = "Development"},
                     new Department { DepartmentName = "Sales" },
                     new Department { DepartmentName = "QA" },
@@ -29,7 +34,7 @@ namespace HolidayWeb.Models
                     new EventType { Name = "On-Site" },
                     new EventType { Name = "Traveling" },
                     new EventType { Name = "AWP" }
-                   
+
                 );
             }
             context.SaveChanges();

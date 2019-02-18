@@ -1,0 +1,28 @@
+﻿@model IEnumerable<IdentityUser>
+
+<div style="margin-left:10px; margin-top:50px; align-content:center">
+
+    <br />
+    <br />
+    <br />
+    <br />
+
+
+    <h4>
+        Entitlements
+    </h4>
+
+    <div class="dx-tabpanel" style="align-content:flex-start">
+        @foreach (IdentityUser user in Model)
+        {
+            {
+
+                <dir style="align-content:flex-start" Entitlements>
+                    @*<li class="border-info"><a class="col-form-label" style="color:aquamarine" asp-controller="Home" asp-action="Test">user.UserName</a></li>*@
+                    <li class="border-info"><a class="col-form-label" style="color:slategray">@user.UserName</a></li>
+                    <meter value="0.45">60%</meter>
+                </dir>
+            }
+        }
+    </div>
+</div>

@@ -18,6 +18,9 @@ namespace HolidayWeb.Controllers
         private readonly UserManager<IdentityUser> _userManager;
         private readonly IHolidayEntitlement _holidayEntitlement;
 
+        public RunTime runTime = new RunTime();
+
+
         public HomeController(IEvent events, UserManager<IdentityUser> userManager, IHolidayEntitlement _HolidayEntitlement)
         {
             _events = events;
@@ -38,13 +41,18 @@ namespace HolidayWeb.Controllers
 //            var Events = _events.GetAllEvent().OrderBy(p => p.StartTime);
             var users = _userManager.Users;
             ViewBag.Users = users.Select(x => new SelectListItem { Text = x.UserName, Value = x.Id }).ToList();
-            //            var Test = new MainEventView();
-            //            Test.UserList = _userManager.Users;
-            //            Test.Entitlement = _holidayEntitlement.GetAllHolidayEntitlement();
-            //            Test.Events = _events;
-            return View();
-//            return View(Events);
+
+//            if (runTime.CurrentDepartmentId != 0)
+            return View(users);
         }
+
+
+        public IActionResult Test(int DepartmentId)
+        {
+            runTime.CurrentDepartmentId = DepartmentId;
+            return View("Index");
+        }
+
 
     }
 }

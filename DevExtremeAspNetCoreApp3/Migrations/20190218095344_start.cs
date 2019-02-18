@@ -17,10 +17,12 @@ namespace HolidayWeb.Migrations
                         .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
                     AllDay = table.Column<bool>(nullable: false),
                     AppointmentId = table.Column<int>(nullable: false),
+                    DepartmentID = table.Column<int>(nullable: false),
                     Description = table.Column<string>(nullable: true),
                     EndDate = table.Column<DateTime>(nullable: false),
                     RecurrenceRule = table.Column<string>(nullable: true),
                     StartDate = table.Column<DateTime>(nullable: false),
+                    StatusKey = table.Column<int>(nullable: false),
                     Text = table.Column<string>(nullable: true)
                 },
                 constraints: table =>

@@ -1,72 +1,75 @@
 @using Microsoft.AspNetCore.Identity.EntityFrameworkCore
-@model IEnumerable<IdentityUser>
-@inject IDepartment ww
+@model IEnumerable<IdentityUser> 
+@inject IDepartment Departsments
 
 
 <div class="row">
     <div class="column left dx-datagrid-filter-panel">
 
-
-        @*<h1 style="background-color:#ff0000">...</h1>*@
-        @*<li class="dx-header-row"><a class="nav-link" id="Home" asp-controller="Home" asp-action="About">About</a></li>*@
-        @*<li class="dx-list-group"><a class="dx-list-group-header" id="Home" asp-controller="Department" asp-action="About">About1</a></li>
-        <h5>
-            <br />
-            <br />
-            <br />
-
-            <li class="dx-gallery-item-content"><a class="nav-link">Department</a></li>
-
-
-            <li class="dx-gallery-item"><a class="navbar-expand" id="Home" asp-controller="Home" asp-action="About">Ab5out</a></li>
-            <li class="dx-gallery-item"><a class="navbar-light" id="Home" asp-controller="Home" asp-action="About">Ab5out</a></li>
-
-            <li class="dx-buttongroup-item"><a class="nav-link" id="loginLink" asp-controller="Admin" asp-action="Login">Bang</a></li>
-            <li class="nav-item"><a class="navbar-expand-xl" id="loginLink" asp-controller="Admin" asp-action="Login">Log in</a></li>
-
-            <li class="dx-button"><a style="" class="nav-link" id="loginLink" asp-controller="Admin" asp-action="Login">Log ieeeen</a></li>
-
-        </h5>*@
-        @await Html.PartialAsync("~/Views/Home/_DepartmentList.cshtml", ww)
+        @await Html.PartialAsync("~/Views/Home/_DepartmentList.cshtml", Departsments)
 
     </div>
 
     <div class="column middle">
         <h2>Main Content</h2>
         @(Html.DevExtreme().Scheduler()
-                                                    .ID("scheduler")
-                                                    .DataSource(d => d.Mvc()
-                                                        .Controller("SchedulerData")
-                                                        .Key("AppointmentId")
-                                                        .LoadAction("Get")
-                                                        .UpdateAction("Put")
-                                                        .InsertAction("Post")
-                                                        .DeleteAction("Delete")
-                                                    )
-                                                    .RemoteFiltering(true)
-                                                    .Views(new SchedulerViewType[] {
-SchedulerViewType.Day,
-SchedulerViewType.WorkWeek,
-SchedulerViewType.Month
-                                                    })
-                                                    .CurrentView(SchedulerViewType.Day)
-                                                    .CurrentDate(new DateTime(2017, 5, 23))
-                                                    .StartDayHour(9)
-                                                    .EndDayHour(19)
-                                                    .CellDuration(60)
-                                                    .Height(600)
-                                                    .TextExpr("Text")
-                                                    .StartDateExpr("StartDate")
-                                                    .EndDateExpr("EndDate")
-                                                    .AllDayExpr("AllDay")
+            .ID("scheduler")
+            .DataSource(d => d.Mvc()
+                .Controller("SchedulerData")
+                .Key("AppointmentId")
+                .LoadAction("Get")
+                .UpdateAction("Put")
+                .InsertAction("Post")
+                .DeleteAction("Delete")
+            )
+            .RemoteFiltering(true)
+            .Views(new SchedulerViewType[] {
+                SchedulerViewType.Day,
+                SchedulerViewType.WorkWeek,
+                SchedulerViewType.Month
+            })
+            .CurrentView(SchedulerViewType.Month)
+            .CurrentDate(new DateTime(2017, 5, 23))
+            .StartDayHour(9)
+            .EndDayHour(19)
+            .CellDuration(60)
+            .Height(600)
+            .AllDayExpr("AllDay")
+            .TextExpr("Text")
+            .StartDateExpr("StartDate")
+            .EndDateExpr("EndDate")
+            .Resources(res =>
+            {
+                res.Add()
+                    .FieldExpr("OwnerId")
+                    .AllowMultiple(true)
+                    .Label("Owner")
+                    .UseColorAsDefault(true)
+                    .DataSource(new object[] {
+                        new { id = 1, text = "Samantha Bright", color = "#cb6bb2" },
+                        new { id = 2, text = "John Heart", color = "#56ca85" },
+                        new { id = 3, text = "Todd Hoffman", color = "#1e90ff" },
+                        new { id = 4, text = "Sandra Johnson", color = "#ff9747" }
 
-
+                    });
+                res.Add()
+                    .FieldExpr("Period")
+                    .AllowMultiple(true)
+                    .Label("Period")
+                    .DataSource(new object[] {
+                        new { id = "Morning", text = "Morning", color = "#1e90ff" },
+                        new { id = "Afternoon", text = "Afternoon", color = "#ff9747" }
+                    });
+            })
         )
     </div>
 
     <div class="column right">
-        <h2>Side</h2>
-        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit..</p>
+
+        
+        @await Html.PartialAsync("~/Views/User/_UserStatView.cshtml", Model)
+        @*<h2>Side</h2>
+        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit..</p>*@
     </div>
 </div>
 

@@ -16,6 +16,8 @@ namespace HolidayWeb
         {
             var host = BuildWebHost(args);
 
+
+
             using (var scope = host.Services.CreateScope())
             {
                 var services = scope.ServiceProvider;

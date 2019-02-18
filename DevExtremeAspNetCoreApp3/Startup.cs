@@ -67,8 +67,7 @@ namespace HolidayWeb
                     s.Cookie.Name = "DevExtreme.NETCore.Demos";
                 });
 
-
-        }
+    }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IHostingEnvironment env)
@@ -96,6 +95,9 @@ namespace HolidayWeb
                     name: "default",
                     template: "{controller=Home}/{action=Index}/{id?}");
             });
+
+
+
         }
     }
 }

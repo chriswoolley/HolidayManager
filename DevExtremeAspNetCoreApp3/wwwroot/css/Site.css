@@ -19,7 +19,23 @@
     display: table;
     clear: both;
 }
+.llbutton {
+    background-color:#212529;
+    border: none;
+    color: black;
+    padding: 10px 124px 10px 10px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    margin: 14px 2px;
+    cursor: pointer;
+}
 
+
+.button80per {
+    width: 60%;
+}
 
 body {
   padding-top: 1rem;
