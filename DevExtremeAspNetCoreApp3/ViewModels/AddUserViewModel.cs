@@ -33,7 +33,10 @@ namespace HolidayWeb.ViewModels
 
         //[Required]
         public virtual Department DepartmentId { get; set; }
-        public int xDepartmentId { get; set; }
+        public virtual Department DepartmentManagerId { get; set; }
+
+        public int ReturnedDepartmentId { get; set; }
+        public int ReturnedDepartmentManagerId { get; set; }
         //public virtual Department DepartmentManagerId { get; set; }
 
 
