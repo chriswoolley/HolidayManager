@@ -14,18 +14,35 @@ namespace HolidayWeb.Controllers
     public class HomeController : Controller
     {
 
-        private readonly IEvent _events;
-        private readonly UserManager<IdentityUser> _userManager;
+//        private readonly IEvent _events;
+        private readonly UserManager<HolidayUser> _userManager;
         private readonly IHolidayEntitlement _holidayEntitlement;
+        private readonly IDepartment _DepartmentList;
+        private readonly IState _StateList;
+
+        private readonly MainViewModel _MainViewModel;
+
 
         public RunTime runTime = new RunTime();
 
 
-        public HomeController(IEvent events, UserManager<IdentityUser> userManager, IHolidayEntitlement _HolidayEntitlement)
+//        public HomeController(IEvent events, UserManager<IdentityUser> userManager, IHolidayEntitlement _HolidayEntitlement)
+        public HomeController(IDepartment department, UserManager<HolidayUser> userManager, IHolidayEntitlement _HolidayEntitlement, IState state)
         {
-            _events = events;
+//            _events = events;
             _userManager = userManager;
             _holidayEntitlement = _HolidayEntitlement;
+            _DepartmentList = department;
+            _StateList = state;
+
+            _MainViewModel = new MainViewModel();
+
+            _MainViewModel.DepartmentList = _DepartmentList.GetAllDepartment();
+            _MainViewModel.StateList = _StateList.GetAllState();
+            _MainViewModel.UserList = _userManager.Users.ToList();
+
+
+
         }
 
 
@@ -43,7 +60,10 @@ namespace HolidayWeb.Controllers
             ViewBag.Users = users.Select(x => new SelectListItem { Text = x.UserName, Value = x.Id }).ToList();
 
 //            if (runTime.CurrentDepartmentId != 0)
-            return View(users);
+//            return View(users);
+            return View(_MainViewModel);
+           
+
         }
 
 

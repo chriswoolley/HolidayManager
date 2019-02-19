@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using HolidayWeb.Models;
+using HolidayWeb.Models.Interface;
 using HolidayWeb.ViewModels;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
@@ -11,13 +13,15 @@ namespace HolidayWeb.Controllers
     public class UserController : Controller
     {
 
-        private readonly UserManager<IdentityUser> _userManager;
-        private readonly RoleManager<IdentityRole> _roleManager;
+        private readonly IDepartment _department;
+        private readonly SignInManager<HolidayUser> _signInManager;
+        private readonly UserManager<HolidayUser> _userManager;
 
-        public UserController(UserManager<IdentityUser> userManager, RoleManager<IdentityRole> roleManager)
+        public UserController(SignInManager<HolidayUser> signInManager, UserManager<HolidayUser> userManager, IDepartment departmentRepository)
         {
+            _signInManager = signInManager;
             _userManager = userManager;
-            _roleManager = roleManager;
+            _department = departmentRepository;
         }
 
         public IActionResult List()
@@ -29,18 +33,25 @@ namespace HolidayWeb.Controllers
 
         public IActionResult AddUser()
         {
+            ViewBag.Departments = _department.GetAllDepartment();
             return View();
         }
 
         [HttpPost]
         public async Task<IActionResult> AddUser(AddUserViewModel addUserViewModel)
         {
+            if (addUserViewModel.xDepartmentId != 0)
+            {
+                addUserViewModel.DepartmentId = _department.GetDepartmentById(addUserViewModel.xDepartmentId);
+            } 
+
             if (!ModelState.IsValid) return View(addUserViewModel);
 
-            var user = new IdentityUser()
+            var user = new HolidayUser()
             {
                 UserName = addUserViewModel.UserName,
                 Email = addUserViewModel.Email,
+               
             };
 
             IdentityResult result = await _userManager.CreateAsync(user, addUserViewModel.Password);
@@ -54,8 +65,8 @@ namespace HolidayWeb.Controllers
             {
                 ModelState.AddModelError("", error.Description);
             }
-            return View(addUserViewModel);
-
+//            return View(addUserViewModel);
+            return View();
         }
 
         public async Task<IActionResult> EditUser(string id)

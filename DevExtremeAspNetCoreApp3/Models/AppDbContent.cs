@@ -5,10 +5,11 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using HolidayWeb.ViewModels;
 
 namespace HolidayWeb.Models
 {
-    public class AppDbContext : IdentityDbContext<IdentityUser>
+    public class AppDbContext : IdentityDbContext<HolidayUser>
     {
         public DbSet<Models.Department> Departments { get; set; }
         //public DbSet<Models.DepartmentManager> DepartmentManagers { get; set; }
@@ -32,6 +33,8 @@ namespace HolidayWeb.Models
 
             return base.SaveChanges();
         }
+
+//        public DbSet<HolidayWeb.ViewModels.AddUserViewModel> AddUserViewModel { get; set; }
 
 
     }

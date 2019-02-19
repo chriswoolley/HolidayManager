@@ -1,4 +1,5 @@
 ﻿using HolidayWeb.Models.Interface;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -39,9 +40,17 @@ namespace HolidayWeb.Models.Repositories
             return _AppDbContext.Departments;
         }
 
+
         public Department GetDepartmentById(int departmentId)
         {
             return _AppDbContext.Departments.FirstOrDefault(p => p.Id == departmentId);
         }
+
+        public SelectList DepartmentSelectList()
+        {
+            return new SelectList(GetAllDepartment(), "Id", "DepartmentName");
+        }
+
+
     }
 }

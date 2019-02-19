@@ -7,13 +7,11 @@ using System.Threading.Tasks;
 
 namespace HolidayWeb.ViewModels
 {
-    public class MainEventView
+    public class MainViewModel
     {
-
-        public HolidayWeb.Models.Event Events;
-        public HolidayWeb.Models.Interface.IHolidayEntitlement Entitlement;
         public IEnumerable<HolidayUser> UserList;
-
-
+        public IEnumerable<Appointment> AppointmentList;
+        public IEnumerable<State> StateList;
+        public IEnumerable<Department> DepartmentList;
     }
 }

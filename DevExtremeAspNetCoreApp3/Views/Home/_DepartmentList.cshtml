@@ -1,41 +1,32 @@
-﻿@model IDepartment
+﻿@model IEnumerable<Department>
 
 <div style="margin-left:10px; margin-top:50px">
 
     <br />
     <br />
-    <br />  
+    <br />
 
 
     <h4> Departments</h4>
 
     <div class="dx-tabpanel">
-        
 
-        @foreach (Department department in Model.GetAllDepartment())
+
+        @foreach (Department department in Model)
         {
-            <tr>
                 @*<td>@user.Id</td>*@
-
-                <td>
-
-                    <li class="llbutton  button80per"><a class="nav-link" style="color:darkgray"  id="loginLink" asp-controller="Home" asp-action="Test" asp-route-DepartmentId="@department.Id" >@department.DepartmentName</a></li>
+                    <li class="llbutton  button80per"><a class="nav-link" style="color:darkgray" id="loginLink" asp-controller="Home" asp-action="Test" asp-route-DepartmentId="@department.Id">@department.DepartmentName</a></li>
                     <br />
                     @*<form asp-action="Select" asp-route-id="@department.Id" method="post"></form>*@
 
                     @*<form asp-action="Delete" asp-route-id="@department.Id" method="post">
-            <a class="btn btn-sm btn-primary" asp-action="Edit" asp-route-id="@department.Id">Edit</a>
-            <button type="submit" onclick="return confirm('Do you really want to archive this Department?');" class="btn btn-sm btn-danger">
-                Archive
-            </button>
-        </form>*@
-
-                </td>
-            </tr>
+                            <a class="btn btn-sm btn-primary" asp-action="Edit" asp-route-id="@department.Id">Edit</a>
+                            <button type="submit" onclick="return confirm('Do you really want to archive this Department?');" class="btn btn-sm btn-danger">
+                                Archive
+                            </button>
+                        </form>*@
         }
-
     </div>
-
 </div>
 
 

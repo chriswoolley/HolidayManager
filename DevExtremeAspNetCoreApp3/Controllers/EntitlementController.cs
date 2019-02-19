@@ -15,10 +15,10 @@ namespace HolidayWeb.Controllers
     {
 
         private readonly IHolidayEntitlement _holidayEntitlement;
-        private readonly UserManager<IdentityUser> _userManager;
+        private readonly UserManager<HolidayUser> _userManager;
 
 //        IHolidayEntitlement holidayEntitlement;
-        public EntitlementController(IHolidayEntitlement _HolidayEntitlement, UserManager<IdentityUser> userManager)
+        public EntitlementController(IHolidayEntitlement _HolidayEntitlement, UserManager<HolidayUser> userManager)
         {
             _holidayEntitlement = _HolidayEntitlement;
             _userManager = userManager;

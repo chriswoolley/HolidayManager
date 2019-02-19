@@ -30,5 +30,8 @@ namespace HolidayWeb.Models
         [JsonProperty(PropertyName = "StatusKey")]
         public int StatusKey { get; set; }
 
+        [JsonProperty(PropertyName = "UserID")]
+        public int UserID { get; set; }
+
     }
 }

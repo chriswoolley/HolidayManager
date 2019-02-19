@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using HolidayWeb.Models;
+using HolidayWeb.Models.Interface;
 using HolidayWeb.ViewModels;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
@@ -10,13 +12,15 @@ namespace HolidayWeb.Controllers
 {
     public class AdminController : Controller
     {
-        private readonly SignInManager<IdentityUser> _signInManager;
-        private readonly UserManager<IdentityUser> _userManager;
+        private readonly IDepartment _department;
+        private readonly SignInManager<HolidayUser> _signInManager;
+        private readonly UserManager<HolidayUser> _userManager;
 
-        public AdminController(SignInManager<IdentityUser> signInManager, UserManager<IdentityUser> userManager)
+        public AdminController(SignInManager<HolidayUser> signInManager, UserManager<HolidayUser> userManager, IDepartment departmentRepository)
         {
             _signInManager = signInManager;
             _userManager = userManager;
+            _department = departmentRepository;
         }
 
         public IActionResult Index()
@@ -57,7 +61,7 @@ namespace HolidayWeb.Controllers
         {
             if (ModelState.IsValid)
             {
-                var user = new IdentityUser() { UserName = loginViewModel.UserName };
+                var user = new HolidayUser() { UserName = loginViewModel.UserName };
                 var result = await _userManager.CreateAsync(user, loginViewModel.Password);
 
                 if (result.Succeeded)
@@ -79,35 +83,35 @@ namespace HolidayWeb.Controllers
 
 
 
-        public IActionResult AddUser()
-        {
-            return View();
-        }
+        //public IActionResult AddUser()
+        //{
+        //    return View();
+        //}
 
-        [HttpPost]
-        public async Task<IActionResult> AddUser(AddUserViewModel addUserViewModel)
-        {
-            if (!ModelState.IsValid) return View(addUserViewModel);
+        //[HttpPost]
+        //public async Task<IActionResult> AddUser(AddUserViewModel addUserViewModel)
+        //{
+        //    if (!ModelState.IsValid) return View(addUserViewModel);
 
-            var user = new IdentityUser()
-            {
-                UserName = addUserViewModel.UserName,
-                Email = addUserViewModel.Email,
-            };
+        //    var user = new HolidayUser()
+        //    {
+        //        UserName = addUserViewModel.UserName,
+        //        Email = addUserViewModel.Email,
+        //    };
 
-            IdentityResult result = await _userManager.CreateAsync(user, addUserViewModel.Password);
+        //    IdentityResult result = await _userManager.CreateAsync(user, addUserViewModel.Password);
 
-            if (result.Succeeded)
-            {
-                return RedirectToAction("UserManagement", _userManager.Users);
-            }
+        //    if (result.Succeeded)
+        //    {
+        //        return RedirectToAction("UserManagement", _userManager.Users);
+        //    }
 
-            foreach (IdentityError error in result.Errors)
-            {
-                ModelState.AddModelError("", error.Description);
-            }
-            return View(addUserViewModel);
-        }
+        //    foreach (IdentityError error in result.Errors)
+        //    {
+        //        ModelState.AddModelError("", error.Description);
+        //    }
+        //    return View(addUserViewModel);
+        //}
 
 
 

@@ -43,6 +43,9 @@ namespace HolidayWeb
             services.AddDbContext<AppDbContext>(options =>
                 options.UseSqlServer(_configurationRoot.GetConnectionString("DefaultConnection")));
 
+
+            
+
             services.AddTransient<IDepartment, DepartmentRepository>();
             services.AddTransient<IEvent, EventRepository>();
             services.AddTransient<IEventType, EventTypeRepository>();
@@ -51,7 +54,7 @@ namespace HolidayWeb
             services.AddTransient<IAppointment, AppointmentRepository>();
 
 
-            services.AddIdentity<IdentityUser, IdentityRole>(options =>
+            services.AddIdentity<HolidayUser, IdentityRole>(options =>
             {
                 options.Password.RequiredLength = 8;
                 options.Password.RequireNonAlphanumeric = true;

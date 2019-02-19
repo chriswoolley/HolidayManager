@@ -27,7 +27,7 @@ namespace HolidayWeb.Models
         public virtual EventType EventType { get; set; }
         public virtual State State { get; set; }
         public string Subject { set; get; }
-        public virtual IdentityUser User { set; get; }
+        public virtual HolidayUser User { set; get; }
 
     }
 }

@@ -1,10 +1,20 @@
-﻿using System;
+﻿using HolidayWeb.Models;
+using HolidayWeb.Models.Interface;
+using Microsoft.AspNetCore.Mvc.Rendering;
+using System;
+using System.Collections;
+using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.ComponentModel.DataAnnotations;
+using System.Drawing;
 
 namespace HolidayWeb.ViewModels
 {
     public class AddUserViewModel
     {
+        [Key]
+        public int Id;
+
         [Required]
         [Display(Name = "User name")]
         public string UserName { get; set; }
@@ -18,6 +28,14 @@ namespace HolidayWeb.ViewModels
         [Required]
         [DataType(DataType.Password)]
         public string Password { get; set; }
+
+        //public string color;
+
+        //[Required]
+        public virtual Department DepartmentId { get; set; }
+        public int xDepartmentId { get; set; }
+        //public virtual Department DepartmentManagerId { get; set; }
+
 
     }
 }
