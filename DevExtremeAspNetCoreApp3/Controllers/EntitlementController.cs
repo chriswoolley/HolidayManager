@@ -26,8 +26,12 @@ namespace HolidayWeb.Controllers
 
         public IActionResult Details()
         {
-            var holidayEntitlement = _holidayEntitlement.GetAllHolidayEntitlement().OrderBy(p => p.Id);
-            return View(holidayEntitlement);
+            dont work ere
+            var holidayentitlement = _holidayEntitlement.GetAllHolidayEntitlement().OrderBy(p => p.Id);
+            return View("Details", holidayentitlement);
+
+            //var holidayEntitlement = _holidayEntitlement.GetAllHolidayEntitlement().OrderBy(p => p.Id);
+            //return View(holidayEntitlement);
         }
 
         public IActionResult Edit(int id)
@@ -71,14 +75,25 @@ namespace HolidayWeb.Controllers
         }
 
         [HttpPost]
-        public IActionResult Create(HolidayEntitlement holidayentitlement)
+        public IActionResult Create(HolidayEntitlementView HolidayEntitlementView)
         {
             if (ModelState.IsValid)
             {
-                _holidayEntitlement.AddHolidayEntitlement(holidayentitlement);
 
-                var holidayEntitlement = _holidayEntitlement.GetAllHolidayEntitlement().OrderBy(p => p.Id);
-                return View("Details", holidayEntitlement);
+
+                HolidayEntitlement holidayEntitlement = new HolidayEntitlement();
+                holidayEntitlement.Users = _userManager.Users.FirstOrDefault(p => p.Id == HolidayEntitlementView.UserId);
+                holidayEntitlement.Year = HolidayEntitlementView.Year;
+                holidayEntitlement.YearsEntitlement = HolidayEntitlementView.YearsEntitlement;
+
+
+
+
+                _holidayEntitlement.AddHolidayEntitlement(holidayEntitlement);
+
+                but does ere
+                var bob = _holidayEntitlement.GetAllHolidayEntitlement().OrderBy(p => p.Id);
+                return View("Details", bob);
             }
             else
             {

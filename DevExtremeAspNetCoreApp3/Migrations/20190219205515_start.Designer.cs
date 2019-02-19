@@ -11,8 +11,8 @@ using System;
 namespace HolidayWeb.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20190219085144_third")]
-    partial class third
+    [Migration("20190219205515_start")]
+    partial class start
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -110,13 +110,15 @@ namespace HolidayWeb.Migrations
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd();
 
-                    b.Property<string>("UserID");
+                    b.Property<string>("UsersId");
 
                     b.Property<int>("Year");
 
                     b.Property<int>("YearsEntitlement");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("UsersId");
 
                     b.ToTable("HolidayEntitlements");
                 });
@@ -315,6 +317,13 @@ namespace HolidayWeb.Migrations
                     b.HasOne("HolidayWeb.Models.HolidayUser", "User")
                         .WithMany()
                         .HasForeignKey("UserId");
+                });
+
+            modelBuilder.Entity("HolidayWeb.Models.HolidayEntitlement", b =>
+                {
+                    b.HasOne("HolidayWeb.Models.HolidayUser", "Users")
+                        .WithMany()
+                        .HasForeignKey("UsersId");
                 });
 
             modelBuilder.Entity("HolidayWeb.Models.HolidayUser", b =>

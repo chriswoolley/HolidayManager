@@ -18,7 +18,7 @@ namespace HolidayWeb.ViewModels
         }
 
 
-        public string Id { get; set; }
+        public string UserId { get; set; }
         //        public virtual IdentityUser User { get; set; }
         public int Year { get; set; }
         public int YearsEntitlement { get; set; }

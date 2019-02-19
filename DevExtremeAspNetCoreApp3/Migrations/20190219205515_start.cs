@@ -23,7 +23,8 @@ namespace HolidayWeb.Migrations
                     RecurrenceRule = table.Column<string>(nullable: true),
                     StartDate = table.Column<DateTime>(nullable: false),
                     StatusKey = table.Column<int>(nullable: false),
-                    Text = table.Column<string>(nullable: true)
+                    Text = table.Column<string>(nullable: true),
+                    UserID = table.Column<int>(nullable: false)
                 },
                 constraints: table =>
                 {
@@ -42,31 +43,6 @@ namespace HolidayWeb.Migrations
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_AspNetRoles", x => x.Id);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "AspNetUsers",
-                columns: table => new
-                {
-                    Id = table.Column<string>(nullable: false),
-                    AccessFailedCount = table.Column<int>(nullable: false),
-                    ConcurrencyStamp = table.Column<string>(nullable: true),
-                    Email = table.Column<string>(maxLength: 256, nullable: true),
-                    EmailConfirmed = table.Column<bool>(nullable: false),
-                    LockoutEnabled = table.Column<bool>(nullable: false),
-                    LockoutEnd = table.Column<DateTimeOffset>(nullable: true),
-                    NormalizedEmail = table.Column<string>(maxLength: 256, nullable: true),
-                    NormalizedUserName = table.Column<string>(maxLength: 256, nullable: true),
-                    PasswordHash = table.Column<string>(nullable: true),
-                    PhoneNumber = table.Column<string>(nullable: true),
-                    PhoneNumberConfirmed = table.Column<bool>(nullable: false),
-                    SecurityStamp = table.Column<string>(nullable: true),
-                    TwoFactorEnabled = table.Column<bool>(nullable: false),
-                    UserName = table.Column<string>(maxLength: 256, nullable: true)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_AspNetUsers", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
@@ -93,21 +69,6 @@ namespace HolidayWeb.Migrations
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_EventTypes", x => x.Id);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "HolidayEntitlements",
-                columns: table => new
-                {
-                    Id = table.Column<int>(nullable: false)
-                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
-                    UserID = table.Column<string>(nullable: true),
-                    Year = table.Column<int>(nullable: false),
-                    YearsEntitlement = table.Column<int>(nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_HolidayEntitlements", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
@@ -142,6 +103,45 @@ namespace HolidayWeb.Migrations
                         principalTable: "AspNetRoles",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "AspNetUsers",
+                columns: table => new
+                {
+                    Id = table.Column<string>(nullable: false),
+                    AccessFailedCount = table.Column<int>(nullable: false),
+                    ConcurrencyStamp = table.Column<string>(nullable: true),
+                    DepartmentId = table.Column<int>(nullable: true),
+                    DepartmentManagerId = table.Column<int>(nullable: true),
+                    Email = table.Column<string>(maxLength: 256, nullable: true),
+                    EmailConfirmed = table.Column<bool>(nullable: false),
+                    LockoutEnabled = table.Column<bool>(nullable: false),
+                    LockoutEnd = table.Column<DateTimeOffset>(nullable: true),
+                    NormalizedEmail = table.Column<string>(maxLength: 256, nullable: true),
+                    NormalizedUserName = table.Column<string>(maxLength: 256, nullable: true),
+                    PasswordHash = table.Column<string>(nullable: true),
+                    PhoneNumber = table.Column<string>(nullable: true),
+                    PhoneNumberConfirmed = table.Column<bool>(nullable: false),
+                    SecurityStamp = table.Column<string>(nullable: true),
+                    TwoFactorEnabled = table.Column<bool>(nullable: false),
+                    UserName = table.Column<string>(maxLength: 256, nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_AspNetUsers", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_AspNetUsers_Departments_DepartmentId",
+                        column: x => x.DepartmentId,
+                        principalTable: "Departments",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                    table.ForeignKey(
+                        name: "FK_AspNetUsers_Departments_DepartmentManagerId",
+                        column: x => x.DepartmentManagerId,
+                        principalTable: "Departments",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
                 });
 
             migrationBuilder.CreateTable(
@@ -264,6 +264,27 @@ namespace HolidayWeb.Migrations
                         onDelete: ReferentialAction.Restrict);
                 });
 
+            migrationBuilder.CreateTable(
+                name: "HolidayEntitlements",
+                columns: table => new
+                {
+                    Id = table.Column<int>(nullable: false)
+                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
+                    UsersId = table.Column<string>(nullable: true),
+                    Year = table.Column<int>(nullable: false),
+                    YearsEntitlement = table.Column<int>(nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_HolidayEntitlements", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_HolidayEntitlements_AspNetUsers_UsersId",
+                        column: x => x.UsersId,
+                        principalTable: "AspNetUsers",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                });
+
             migrationBuilder.CreateIndex(
                 name: "IX_AspNetRoleClaims_RoleId",
                 table: "AspNetRoleClaims",
@@ -292,6 +313,16 @@ namespace HolidayWeb.Migrations
                 column: "RoleId");
 
             migrationBuilder.CreateIndex(
+                name: "IX_AspNetUsers_DepartmentId",
+                table: "AspNetUsers",
+                column: "DepartmentId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_AspNetUsers_DepartmentManagerId",
+                table: "AspNetUsers",
+                column: "DepartmentManagerId");
+
+            migrationBuilder.CreateIndex(
                 name: "EmailIndex",
                 table: "AspNetUsers",
                 column: "NormalizedEmail");
@@ -317,6 +348,11 @@ namespace HolidayWeb.Migrations
                 name: "IX_Event_UserId",
                 table: "Event",
                 column: "UserId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_HolidayEntitlements_UsersId",
+                table: "HolidayEntitlements",
+                column: "UsersId");
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
@@ -340,9 +376,6 @@ namespace HolidayWeb.Migrations
                 name: "AspNetUserTokens");
 
             migrationBuilder.DropTable(
-                name: "Departments");
-
-            migrationBuilder.DropTable(
                 name: "Event");
 
             migrationBuilder.DropTable(
@@ -359,6 +392,9 @@ namespace HolidayWeb.Migrations
 
             migrationBuilder.DropTable(
                 name: "AspNetUsers");
+
+            migrationBuilder.DropTable(
+                name: "Departments");
         }
     }
 }

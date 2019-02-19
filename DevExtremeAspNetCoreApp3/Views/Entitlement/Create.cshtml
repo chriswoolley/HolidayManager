@@ -1,4 +1,4 @@
-﻿@model HolidayEntitlement
+﻿@model HolidayEntitlementView
 @inject UserManager<HolidayUser> UserManager
 @{
     ViewData["Title"] = "Create";
@@ -36,9 +36,9 @@
             <div class="form-group">
                 @*<input type="hidden" name="Id" value="55" />*@
                 @*<input type="hidden" name="User" value=@User />*@
-                <label asp-for="UserID" name="UserID" class="control-label"></label>
-                <select asp-for="UserID" name="UserID" asp-items="ViewBag.Users" class="form-control">
-                        <option value="UserID"></option>
+                <label asp-for="UserId" name="UserId" class="control-label">User</label>
+                <select asp-for="UserId" name="UserId" asp-items="ViewBag.Users" class="form-control">
+                        <option value="User"></option>
                     </select>
                     @*<input class="btn btn-primary" value="Add claim for user" type="submit" />*@
             </div>
