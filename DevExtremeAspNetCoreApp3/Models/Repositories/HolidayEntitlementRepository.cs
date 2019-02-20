@@ -4,6 +4,8 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.EntityFrameworkCore;
+
 
 namespace HolidayWeb.Models.Repositories
 {
@@ -17,12 +19,12 @@ namespace HolidayWeb.Models.Repositories
 
         public IEnumerable<HolidayEntitlement> GetAllHolidayEntitlement()
         {
-            return _appDbContext.HolidayEntitlements;
+            return _appDbContext.HolidayEntitlements.Include(x => x.Users);
         }
         
         public HolidayEntitlement GetHolidayEntitlementById(int HolidayEntitlementId)
         {
-            return _appDbContext.HolidayEntitlements.FirstOrDefault(p => p.Id == HolidayEntitlementId);
+            return _appDbContext.HolidayEntitlements.Include(x => x.Users).FirstOrDefault(p => p.Id == HolidayEntitlementId);
         }
 
         public void EditHolidayEntitlement(HolidayEntitlement holidayEntitlement)

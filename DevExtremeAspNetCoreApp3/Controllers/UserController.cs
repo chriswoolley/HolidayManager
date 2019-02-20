@@ -77,13 +77,18 @@ namespace HolidayWeb.Controllers
 
         public async Task<IActionResult> EditUser(string id)
         {
+            //var user = await _userManager.FindByIdAsync(id);
+
+//            var user = await _userManager.FindByIdAsync(id);
             var user = await _userManager.FindByIdAsync(id);
 
             if (user == null)
                 return RedirectToAction("List", _userManager.Users);
 
             var claims = await _userManager.GetClaimsAsync(user);
-            var vm = new EditUserViewModel() { Id = user.Id, Email = user.Email, UserName = user.UserName, UserClaims = claims.Select(c => c.Value).ToList() };
+            var vm = new EditUserViewModel() { Id = user.Id, Email = user.Email, UserName = user.UserName,
+                ReturnedDepartmentId = user.Department.Id, ReturnedDepartmentManagerId = user.DepartmentManager.Id,
+                UserClaims = claims.Select(c => c.Value).ToList() };
 
             return View(vm);
         }
@@ -97,8 +102,6 @@ namespace HolidayWeb.Controllers
                 _user.UserName = editUserViewModel.UserName;
                 _user.Email = editUserViewModel.Email;
 
-//                _user.Department = editUserViewModel.ReturnedDepartmentId;
-//                _user.DepartmentManager = editUserViewModel.ReturnedDepartmentManagerId;
 
                 if (editUserViewModel.ReturnedDepartmentId != 0)
                 {

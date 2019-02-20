@@ -20,7 +20,8 @@ namespace HolidayWeb.Models
         public int Year { get; set; }
         public int YearsEntitlement { get; set; }
         //        public virtual HolidayUser UserId { get; set; }
-        public virtual HolidayUser Users { get; set; }
+//        public virtual HolidayUser Users { get; set; }
+        public HolidayUser Users { get; set; }
 
     }
 }

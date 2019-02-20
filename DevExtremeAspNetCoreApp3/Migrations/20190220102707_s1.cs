@@ -5,7 +5,7 @@ using System.Collections.Generic;
 
 namespace HolidayWeb.Migrations
 {
-    public partial class start : Migration
+    public partial class s1 : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {

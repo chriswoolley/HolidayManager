@@ -9,9 +9,12 @@ namespace HolidayWeb.Models
 {
     public class HolidayUser : IdentityUser
     {
-        public Color coulor;
+        public Color color;
         public virtual Department Department { get; set; }
         public virtual Department DepartmentManager { get; set; }
+
+//        public Department Department { get; set; }
+//        public Department DepartmentManager { get; set; }
 
     }
 }

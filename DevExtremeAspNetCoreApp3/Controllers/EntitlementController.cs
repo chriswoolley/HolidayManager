@@ -26,7 +26,7 @@ namespace HolidayWeb.Controllers
 
         public IActionResult Details()
         {
-            dont work ere
+
             var holidayentitlement = _holidayEntitlement.GetAllHolidayEntitlement().OrderBy(p => p.Id);
             return View("Details", holidayentitlement);
 
@@ -37,15 +37,29 @@ namespace HolidayWeb.Controllers
         public IActionResult Edit(int id)
         {
             var holidayEntitlement = _holidayEntitlement.GetHolidayEntitlementById(id);
-            return View(holidayEntitlement);
+            var users = _userManager.Users;
+            ViewBag.Users = users.Select(x => new SelectListItem { Text = x.UserName, Value = x.Id }).ToList();
+            HolidayEntitlementView holidayEntitlementView = new HolidayEntitlementView();
+            holidayEntitlementView.Year = holidayEntitlement.Year;
+            holidayEntitlementView.YearsEntitlement = holidayEntitlement.YearsEntitlement;
+            holidayEntitlementView.UserId = holidayEntitlement.Users.Id;
+            holidayEntitlementView.Id = holidayEntitlement.Id;
+
+            return View(holidayEntitlementView);
         }
 
         [HttpPost]
-        public IActionResult Edit(HolidayEntitlement holidayentitlement)
+        public IActionResult Edit(HolidayEntitlementView HolidayEntitlementView)
         {
             if (ModelState.IsValid)
             {
-                _holidayEntitlement.EditHolidayEntitlement(holidayentitlement);
+                HolidayEntitlement PostedholidayEntitlement = new HolidayEntitlement();
+                PostedholidayEntitlement.Users = _userManager.Users.FirstOrDefault(p => p.Id == HolidayEntitlementView.UserId);
+                PostedholidayEntitlement.Year = HolidayEntitlementView.Year;
+                PostedholidayEntitlement.YearsEntitlement = HolidayEntitlementView.YearsEntitlement;
+                PostedholidayEntitlement.Id = HolidayEntitlementView.Id;
+
+                _holidayEntitlement.EditHolidayEntitlement(PostedholidayEntitlement);
             }
             var holidayEntitlement = _holidayEntitlement.GetAllHolidayEntitlement().OrderBy(p => p.Id);
             return View("Details", holidayEntitlement);
@@ -79,19 +93,12 @@ namespace HolidayWeb.Controllers
         {
             if (ModelState.IsValid)
             {
-
-
                 HolidayEntitlement holidayEntitlement = new HolidayEntitlement();
                 holidayEntitlement.Users = _userManager.Users.FirstOrDefault(p => p.Id == HolidayEntitlementView.UserId);
                 holidayEntitlement.Year = HolidayEntitlementView.Year;
                 holidayEntitlement.YearsEntitlement = HolidayEntitlementView.YearsEntitlement;
-
-
-
-
                 _holidayEntitlement.AddHolidayEntitlement(holidayEntitlement);
 
-                but does ere
                 var bob = _holidayEntitlement.GetAllHolidayEntitlement().OrderBy(p => p.Id);
                 return View("Details", bob);
             }

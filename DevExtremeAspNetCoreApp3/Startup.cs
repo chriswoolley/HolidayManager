@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using HolidayWeb.Core;
 using HolidayWeb.Models;
 using HolidayWeb.Models.Interface;
 using HolidayWeb.Models.Repositories;
@@ -62,7 +63,10 @@ namespace HolidayWeb
                 options.User.RequireUniqueEmail = false;
 
             })
+                .AddUserManager<ApplicationUserManager>() //new line
                 .AddEntityFrameworkStores<AppDbContext>();
+
+
 
             services
                 .AddMemoryCache()
