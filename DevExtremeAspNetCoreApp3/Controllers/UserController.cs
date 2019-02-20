@@ -77,9 +77,7 @@ namespace HolidayWeb.Controllers
 
         public async Task<IActionResult> EditUser(string id)
         {
-            //var user = await _userManager.FindByIdAsync(id);
 
-//            var user = await _userManager.FindByIdAsync(id);
             var user = await _userManager.FindByIdAsync(id);
 
             if (user == null)
@@ -114,7 +112,7 @@ namespace HolidayWeb.Controllers
                 }
 
                 _userManager.UpdateAsync(_user);
-
+               
             }
             var users = _userManager.Users;
             return View("List", users);
