@@ -44,14 +44,5 @@ namespace HolidayWeb.Models.Repositories
             _appDbContext.SaveChanges();
         }
 
-//        public void AddHolidayEntitlement(HolidayEntitlementView holidayEntitlementView)
-//        {
-//            var _holidayEntitlement = new HolidayEntitlement();
-////            _appDbContext.HolidayEntitlements.
-//        }
-
-
-
-
     }
 }

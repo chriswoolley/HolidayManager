@@ -12,16 +12,17 @@ namespace HolidayWeb.Controllers
 {
     public class UserController : Controller
     {
-
+        private readonly AppDbContext _AppDbContext;
         private readonly IDepartment _department;
         private readonly SignInManager<HolidayUser> _signInManager;
         private readonly UserManager<HolidayUser> _userManager;
 
-        public UserController(SignInManager<HolidayUser> signInManager, UserManager<HolidayUser> userManager, IDepartment departmentRepository)
+        public UserController(SignInManager<HolidayUser> signInManager, UserManager<HolidayUser> userManager, IDepartment departmentRepository, AppDbContext AppDbContext)
         {
             _signInManager = signInManager;
             _userManager = userManager;
             _department = departmentRepository;
+            _AppDbContext = AppDbContext;
         }
 
         public IActionResult List()
@@ -112,6 +113,7 @@ namespace HolidayWeb.Controllers
                 }
 
                 _userManager.UpdateAsync(_user);
+                _AppDbContext.SaveChanges();
                
             }
             var users = _userManager.Users;
