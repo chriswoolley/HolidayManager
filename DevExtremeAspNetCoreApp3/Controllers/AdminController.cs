@@ -51,27 +51,6 @@ namespace HolidayWeb.Controllers
             return View(loginViewModel);
         }
 
-        public IActionResult Register()
-        {
-            return View(new LoginViewModel());
-        }
-
-        [HttpPost]
-        public async Task<IActionResult> Register(LoginViewModel loginViewModel)
-        {
-            if (ModelState.IsValid)
-            {
-                var user = new HolidayUser() { UserName = loginViewModel.UserName };
-                var result = await _userManager.CreateAsync(user, loginViewModel.Password);
-
-                if (result.Succeeded)
-                {
-                    return RedirectToAction("Index", "Home");
-                }
-            }
-            return View(loginViewModel);
-        }
-
 
         [HttpPost]
         public async Task<IActionResult> Logout()

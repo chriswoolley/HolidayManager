@@ -31,9 +31,13 @@ namespace HolidayWeb.Migrations
 
                     b.Property<int>("DepartmentID");
 
-                    b.Property<string>("Description");
+                    b.Property<string>("Descriptionz");
+
+                    b.Property<int>("Duration");
 
                     b.Property<DateTime>("EndDate");
+
+                    b.Property<int>("HolidaysTaken");
 
                     b.Property<string>("RecurrenceRule");
 

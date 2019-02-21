@@ -57,9 +57,9 @@ namespace HolidayWeb
 
             services.AddIdentity<HolidayUser, IdentityRole>(options =>
             {
-                options.Password.RequiredLength = 8;
-                options.Password.RequireNonAlphanumeric = true;
-                options.Password.RequireUppercase = true;
+                options.Password.RequiredLength = 6;
+                options.Password.RequireNonAlphanumeric = false;
+                options.Password.RequireUppercase = false;
                 options.User.RequireUniqueEmail = false;
 
             })

@@ -5,7 +5,7 @@ using System.Collections.Generic;
 
 namespace HolidayWeb.Migrations
 {
-    public partial class s1 : Migration
+    public partial class start : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -18,8 +18,10 @@ namespace HolidayWeb.Migrations
                     AllDay = table.Column<bool>(nullable: false),
                     AppointmentId = table.Column<int>(nullable: false),
                     DepartmentID = table.Column<int>(nullable: false),
-                    Description = table.Column<string>(nullable: true),
+                    Descriptionz = table.Column<string>(nullable: true),
+                    Duration = table.Column<int>(nullable: false),
                     EndDate = table.Column<DateTime>(nullable: false),
+                    HolidaysTaken = table.Column<int>(nullable: false),
                     RecurrenceRule = table.Column<string>(nullable: true),
                     StartDate = table.Column<DateTime>(nullable: false),
                     StatusKey = table.Column<int>(nullable: false),

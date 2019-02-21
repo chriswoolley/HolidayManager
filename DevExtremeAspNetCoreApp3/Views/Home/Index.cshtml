@@ -2,19 +2,14 @@
 @model MainViewModel 
 @*@inject IDepartment Departsments*@
 
-
 @{ 
     Layout = "~/Views/Shared/_FrontPageLayout.cshtml";
 }
 
-
 <div class="row">
     <div class="column left dx-datagrid-filter-panel">
-
         @await Html.PartialAsync("~/Views/Home/_DepartmentList.cshtml", Model.DepartmentList)
-
     </div>
-
     <div class="column middle">
         <h2>Main Content</h2>
 
@@ -69,85 +64,60 @@
         )*@
 
 
-
-
-
-
-
         @(Html.DevExtreme().Scheduler()
-//                                    .DataSource(Model)
-
                 .DataSource(d => d.Mvc()
                     .Controller("SchedulerData")
                     .Key("AppointmentId")
                     .LoadAction("Get")
                     .UpdateAction("Put")
                     .InsertAction("Post")
-                    .DeleteAction("Delete")
-                )
+                    .DeleteAction("Delete"))
 
-                                    .StartDateExpr("StartDate")
-                                    .TextExpr("Subject")
-                                    .EndDateExpr("DueDate")
-                                    .Views(new SchedulerViewType[] {
-//    SchedulerViewType.TimelineDay,
-//    SchedulerViewType.TimelineWeek,
-//    SchedulerViewType.TimelineWorkWeek,
-    SchedulerViewType.TimelineMonth
-                                    })
-                                    .CurrentView(SchedulerViewType.TimelineMonth)
-                                    .CurrentDate(new DateTime(2017, 5, 1))
-                                    .FirstDayOfWeek(FirstDayOfWeek.Sunday)
-                                    .StartDayHour(8)
-                                    .EndDayHour(18)
-                                    .CellDuration(60)
-                                    .Groups(new string[] { "Period" })
-                                    .Resources(res =>
-                                    {
-                                        res.Add()
-                                            .FieldExpr("OwnerId")
-                                            .AllowMultiple(true)
-                                            .Label("Owner")
-                                            .UseColorAsDefault(true)
-                                            .DataSource(new object[] {
-    new { id = 1, text = "Samantha Bright", color = "#cb6bb2" },
-    new { id = 2, text = "John Heart", color = "#56ca85" },
-    new { id = 3, text = "Todd Hoffman", color = "#1e90ff" },
-    new { id = 4, text = "Sandra Johnson", color = "#ff9747" }
-                                            });
+                .StartDateExpr("StartDate")
+                .TextExpr("Subject")
+                .EndDateExpr("DueDate")
+                .Views(new SchedulerViewType[] {
+                SchedulerViewType.TimelineMonth })
+                .CurrentView(SchedulerViewType.TimelineMonth)
+                .CurrentDate(new DateTime(2017, 5, 1))
+                .FirstDayOfWeek(FirstDayOfWeek.Sunday)
+                .StartDayHour(8)
+                .EndDayHour(18)
+                .CellDuration(60)
+                .Groups(new string[] { "Period" })
 
-                                        res.Add()
-                                            .FieldExpr("Period")
-                                            .AllowMultiple(true)
-                                            .Label("Period")
-                                            .DataSource(new object[] {
-        new { id = "Morning", text = "Morning", color = "#1e90ff" },
-        new { id = "Afternoon", text = "Afternoon", color = "#ff9747" }
-                                            });
-                                    })
-                                    .Height(580)
+                .Resources(res =>
+                {
+                    res.Add()
+                        .FieldExpr("Period")
+                        .AllowMultiple(true)
+                        .Label("Period")
+                        .DataSource(new object[] {
+                            new { id = "1", text = "Morning", color = "#1e90ff" },
+                            new { id = "2", text = "Afternoon", color = "#ff9747" }
+                        });
+                    res.Add()
+                        .FieldExpr("OwnerId")
+                        .AllowMultiple(false)
+                        .Label("Employee")
+                        .UseColorAsDefault(true)
+                        .DataSource(Model.UserList.ToList()).DisplayExpr("UserName").ValueExpr("Id");
+                    res.Add()
+                        .FieldExpr("StatusKey")
+                        .AllowMultiple(false)
+                        .Label("State")
+                        .DataSource(Model.StateList.ToList()).DisplayExpr("Name").ValueExpr("Id");
+                    res.Add()
+                        .FieldExpr("UserID")
+                        .AllowMultiple(false)
+                        .Label("Employee")
+                        .DataSource(Model.DepartmentList.ToList()).DisplayExpr("DepartmentName").ValueExpr("Id");
+                })
+                .Height(580)
         )
-
-
-
-
-
-
-
-
-
-
-
-
-
     </div>
-
-    <div class="column right">
-
-        
+    <div class="column right">      
         @await Html.PartialAsync("~/Views/User/_UserStatView.cshtml", Model.UserList)
-        @*<h2>Side</h2>
-        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit..</p>*@
     </div>
 </div>
 
