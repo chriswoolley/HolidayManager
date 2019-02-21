@@ -22,6 +22,7 @@ namespace HolidayWeb.Migrations
                     Duration = table.Column<int>(nullable: false),
                     EndDate = table.Column<DateTime>(nullable: false),
                     HolidaysTaken = table.Column<int>(nullable: false),
+                    Period = table.Column<int>(nullable: false),
                     RecurrenceRule = table.Column<string>(nullable: true),
                     StartDate = table.Column<DateTime>(nullable: false),
                     StatusKey = table.Column<int>(nullable: false),

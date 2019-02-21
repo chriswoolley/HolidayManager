@@ -39,6 +39,8 @@ namespace HolidayWeb.Migrations
 
                     b.Property<int>("HolidaysTaken");
 
+                    b.Property<int>("Period");
+
                     b.Property<string>("RecurrenceRule");
 
                     b.Property<DateTime>("StartDate");

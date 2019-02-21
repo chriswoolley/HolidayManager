@@ -11,7 +11,7 @@ using System;
 namespace HolidayWeb.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20190221114923_start")]
+    [Migration("20190221140210_start")]
     partial class start
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -39,6 +39,8 @@ namespace HolidayWeb.Migrations
                     b.Property<DateTime>("EndDate");
 
                     b.Property<int>("HolidaysTaken");
+
+                    b.Property<int>("Period");
 
                     b.Property<string>("RecurrenceRule");
 
