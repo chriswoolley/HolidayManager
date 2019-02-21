@@ -7,24 +7,24 @@
     <br />
 
 
-    <h4> Departments</h4>
+    <h6> Departments</h6>
 
     <div class="dx-tabpanel">
 
 
         @foreach (Department department in Model)
         {
-                @*<td>@user.Id</td>*@
-                    <li class="llbutton  button80per"><a class="nav-link" style="color:darkgray" id="loginLink" asp-controller="Home" asp-action="Test" asp-route-DepartmentId="@department.Id">@department.DepartmentName</a></li>
-                    <br />
-                    @*<form asp-action="Select" asp-route-id="@department.Id" method="post"></form>*@
 
-                    @*<form asp-action="Delete" asp-route-id="@department.Id" method="post">
-                            <a class="btn btn-sm btn-primary" asp-action="Edit" asp-route-id="@department.Id">Edit</a>
-                            <button type="submit" onclick="return confirm('Do you really want to archive this Department?');" class="btn btn-sm btn-danger">
-                                Archive
-                            </button>
-                        </form>*@
+            @*<li class="llbutton  button80per"><a class="nav-link" style="color:darkgray" id="loginLink" asp-controller="Home" asp-action="Test" asp-route-DepartmentId="@department.Id">@department.DepartmentName</a></li>
+            <br />*@
+
+        <form asp-action="Home" asp-route-id="Test" method="post" style="color:darkgray" style="width:auto">
+            <a class="btn llbtn-info" asp-action="EditUser" asp-route-DepartmentId="@department.Id">@department.DepartmentName</a>
+
+            @*<a class="btn btn-sm btn-primary" asp-action="EditUser" asp-route-DepartmentId="@department.Id">@department.DepartmentName</a>*@
+
+        </form>
+            <br />
         }
     </div>
 </div>

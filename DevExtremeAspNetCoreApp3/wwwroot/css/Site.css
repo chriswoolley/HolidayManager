@@ -32,6 +32,17 @@
     cursor: pointer;
 }
 
+.llbtn-info {
+    padding: 1em 0.5em 1em 0.5em;
+    font-size: 12px;
+    color: darkgray;
+    background-color: #212529;
+    border-color: darkgray;
+    /*background-color: #17a2b8;*/
+    /*border-color: #17a2b8;*/
+    display: inline-block;
+    width: 95%;
+}
 
 .button80per {
     width: 60%;

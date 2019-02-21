@@ -50,7 +50,6 @@ namespace HolidayWeb.Controllers
                 addUserViewModel.DepartmentManagerId = _department.GetDepartmentById(addUserViewModel.ReturnedDepartmentManagerId);
             }
 
-
             if (!ModelState.IsValid) return View(addUserViewModel);
 
             var user = new HolidayUser()
@@ -62,12 +61,11 @@ namespace HolidayWeb.Controllers
             };
 
             IdentityResult result = await _userManager.CreateAsync(user, addUserViewModel.Password);
-
+            _AppDbContext.SaveChanges();
             if (result.Succeeded)
             {
                 return RedirectToAction("List", _userManager.Users);
             }
-
             foreach (IdentityError error in result.Errors)
             {
                 ModelState.AddModelError("", error.Description);
@@ -76,10 +74,10 @@ namespace HolidayWeb.Controllers
         }
 
 
-        public async Task<IActionResult> EditUser(string id)
+        public async Task<IActionResult> EditUser(string Id)
         {
 
-            var user = await _userManager.FindByIdAsync(id);
+            var user = await _userManager.FindByIdAsync(Id);
 
             if (user == null)
                 return RedirectToAction("List", _userManager.Users);
@@ -101,7 +99,6 @@ namespace HolidayWeb.Controllers
                 _user.UserName = editUserViewModel.UserName;
                 _user.Email = editUserViewModel.Email;
 
-
                 if (editUserViewModel.ReturnedDepartmentId != 0)
                 {
                     _user.Department = _department.GetDepartmentById(editUserViewModel.ReturnedDepartmentId);
@@ -113,9 +110,23 @@ namespace HolidayWeb.Controllers
                 }
 
                 _userManager.UpdateAsync(_user);
-                _AppDbContext.SaveChanges();
-               
+                _AppDbContext.SaveChanges();              
+
             }
+            var users = _userManager.Users;
+            return View("List", users);
+        }
+
+
+
+        [HttpPost]
+        public IActionResult DeleteUser(string Id)
+        {
+
+             var _user = _userManager.Users.FirstOrDefault(p => p.Id == Id);
+             _userManager.DeleteAsync(_user);
+             _AppDbContext.SaveChanges();
+
             var users = _userManager.Users;
             return View("List", users);
         }
