@@ -49,7 +49,12 @@ namespace HolidayWeb.Controllers
             {
                 addUserViewModel.DepartmentManagerId = _department.GetDepartmentById(addUserViewModel.ReturnedDepartmentManagerId);
             }
-
+            else
+            {
+                addUserViewModel.DepartmentManagerId = null;
+            }
+            //Could be blank, so we  ignore this one
+            ModelState.Remove("ReturnedDepartmentManagerId");
             if (!ModelState.IsValid) return View(addUserViewModel);
 
             var user = new HolidayUser()
@@ -84,7 +89,7 @@ namespace HolidayWeb.Controllers
 
             var claims = await _userManager.GetClaimsAsync(user);
             var vm = new EditUserViewModel() { Id = user.Id, Email = user.Email, UserName = user.UserName,
-                ReturnedDepartmentId = user.Department.Id, ReturnedDepartmentManagerId = user.DepartmentManager.Id,
+                ReturnedDepartmentId = user.Department.Id, ReturnedDepartmentManagerId = user.DepartmentManager?.Id,
                 UserClaims = claims.Select(c => c.Value).ToList() };
 
             return View(vm);
@@ -104,9 +109,13 @@ namespace HolidayWeb.Controllers
                     _user.Department = _department.GetDepartmentById(editUserViewModel.ReturnedDepartmentId);
                 }
 
-                if (editUserViewModel.ReturnedDepartmentManagerId != 0)
+                if (editUserViewModel.ReturnedDepartmentManagerId != null)
                 {
-                    _user.DepartmentManager = _department.GetDepartmentById(editUserViewModel.ReturnedDepartmentManagerId);
+                    _user.DepartmentManager = _department.GetDepartmentById(editUserViewModel?.ReturnedDepartmentManagerId ??0);
+                }
+                else
+                {
+                    _user.DepartmentManager = null;
                 }
 
                 _userManager.UpdateAsync(_user);

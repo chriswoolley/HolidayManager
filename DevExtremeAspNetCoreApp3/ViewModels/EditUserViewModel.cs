@@ -28,6 +28,7 @@ namespace HolidayWeb.ViewModels
         public string Country { get; set; }
 
         public int ReturnedDepartmentId { get; set; }
-        public int ReturnedDepartmentManagerId { get; set; }
+        
+        public int? ReturnedDepartmentManagerId { get; set; }
     }
 }
