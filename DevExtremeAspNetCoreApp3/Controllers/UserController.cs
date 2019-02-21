@@ -66,7 +66,7 @@ namespace HolidayWeb.Controllers
             };
 
             IdentityResult result = await _userManager.CreateAsync(user, addUserViewModel.Password);
-            _AppDbContext.SaveChanges();
+            //_AppDbContext.SaveChanges();
             if (result.Succeeded)
             {
                 return RedirectToAction("List", _userManager.Users);
@@ -96,11 +96,12 @@ namespace HolidayWeb.Controllers
         }
 
         [HttpPost]
-        public IActionResult EditUser(EditUserViewModel editUserViewModel)
+        public async Task<IActionResult> EditUser(EditUserViewModel editUserViewModel)
         {
             if (ModelState.IsValid)
             {
-                var _user = _userManager.Users.FirstOrDefault(p => p.Id == editUserViewModel.Id);
+                var _user = await _userManager.FindByIdAsync(editUserViewModel.Id);
+
                 _user.UserName = editUserViewModel.UserName;
                 _user.Email = editUserViewModel.Email;
 
@@ -118,8 +119,8 @@ namespace HolidayWeb.Controllers
                     _user.DepartmentManager = null;
                 }
 
-                _userManager.UpdateAsync(_user);
-                _AppDbContext.SaveChanges();              
+                var x = await _userManager.UpdateAsync(_user);
+                int affected = _AppDbContext.SaveChanges();              
 
             }
             var users = _userManager.Users;

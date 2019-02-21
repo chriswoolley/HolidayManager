@@ -33,9 +33,14 @@ namespace HolidayWeb.Models
         public int HolidaysTaken { get; set; }
         [JsonProperty(PropertyName = "Duration")]
         public int Duration { get; set; }
-
         [JsonProperty(PropertyName = "Period")]//
-        public int Period { get; set; }
-
+        public Period Period { get; set; }
     }
+
+    public enum Period
+    {
+        Morning,
+        Afternoon
+    }
+
 }
