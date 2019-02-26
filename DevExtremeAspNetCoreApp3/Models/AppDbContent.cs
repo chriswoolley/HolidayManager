@@ -19,8 +19,8 @@ namespace HolidayWeb.Models
         public DbSet<Models.State> States { get; set; }
         public DbSet<Models.EventType> EventTypes { get; set; }
         public DbSet<Models.Appointment> Appointment { get; set; }
-       
-
+        public DbSet<Models.SystemHoliday> SystemHolidays { get; set; }
+        public DbSet<Models.SystemSetting> SystemSetting { get; set; }
 
         public AppDbContext(DbContextOptions<AppDbContext> options) : base(options)
         {
