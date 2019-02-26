@@ -30,11 +30,11 @@ namespace HolidayWeb.ViewModels
 
         //public string color;
 
-            public string City { get; set; }
-        public string Country { get; set; }
+        //public string City { get; set; }
+        //public string Country { get; set; }
 
-        public DateTime Birthdate { get; set; }
-
+        //public DateTime Birthdate { get; set; }
+        
         //[Required]
         public virtual Department DepartmentId { get; set; }
         public virtual Department DepartmentManagerId { get; set; }

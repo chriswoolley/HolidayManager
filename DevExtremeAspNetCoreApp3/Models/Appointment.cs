@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
+using HolidayWeb.Core;
 using Newtonsoft.Json;
 
 namespace HolidayWeb.Models
@@ -37,10 +38,6 @@ namespace HolidayWeb.Models
         public Period Period { get; set; }
     }
 
-    public enum Period
-    {
-        Morning,
-        Afternoon
-    }
+
 
 }
