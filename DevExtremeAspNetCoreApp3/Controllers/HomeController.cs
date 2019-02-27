@@ -19,21 +19,22 @@ namespace HolidayWeb.Controllers
         private readonly IHolidayEntitlement _holidayEntitlement;
         private readonly IDepartment _DepartmentList;
         private readonly IState _StateList;
+        private readonly IRuntime _runtime;
 
         private readonly MainViewModel _MainViewModel;
 
 
-        public RunTime runTime = new RunTime();
 
 
 //        public HomeController(IEvent events, UserManager<IdentityUser> userManager, IHolidayEntitlement _HolidayEntitlement)
-        public HomeController(IDepartment department, UserManager<HolidayUser> userManager, IHolidayEntitlement _HolidayEntitlement, IState state)
+        public HomeController(IDepartment department, UserManager<HolidayUser> userManager, IHolidayEntitlement _HolidayEntitlement, IState state, IRuntime _Runtime)
         {
 //            _events = events;
             _userManager = userManager;
             _holidayEntitlement = _HolidayEntitlement;
             _DepartmentList = department;
             _StateList = state;
+            _runtime = _Runtime;
 
             _MainViewModel = new MainViewModel();
 
@@ -67,10 +68,15 @@ namespace HolidayWeb.Controllers
         }
 
 
+//        public IActionResult Test(int DepartmentId)
         public IActionResult Test(int DepartmentId)
         {
-            runTime.CurrentDepartmentId = DepartmentId;
-            return View("Index");
+            _runtime.CurrentDepartmentId = DepartmentId;
+
+            var users = _userManager.Users;
+            ViewBag.Users = users.Select(x => new SelectListItem { Text = x.UserName, Value = x.Id }).ToList();
+
+            return View("Index", _MainViewModel);
         }
 
 

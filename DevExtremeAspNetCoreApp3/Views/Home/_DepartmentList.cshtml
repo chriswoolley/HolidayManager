@@ -3,13 +3,11 @@
 <div style="margin-left:10px; margin-top:50px">
 
     <br />
-    <br />
-    <br />
 
 
     <h6> Departments</h6>
 
-    <div class="dx-tabpanel">
+    <div class="dx-tabpanel" style="font-family:Arial; font-weight:bolder">
 
 
         @foreach (Department department in Model)
@@ -18,8 +16,8 @@
             @*<li class="llbutton  button80per"><a class="nav-link" style="color:darkgray" id="loginLink" asp-controller="Home" asp-action="Test" asp-route-DepartmentId="@department.Id">@department.DepartmentName</a></li>
             <br />*@
 
-        <form asp-action="Home" asp-route-id="Test" method="post" style="color:darkgray" style="width:auto">
-            <a class="btn llbtn-info" asp-action="EditUser" asp-route-DepartmentId="@department.Id">@department.DepartmentName</a>
+        <form asp-action="Home"  method="put" style="color:darkgray ; width:auto">
+            <a class="btn llbtn-info" asp-action="Test" asp-route-DepartmentId="@department.Id">@department.DepartmentName</a>
 
             @*<a class="btn btn-sm btn-primary" asp-action="EditUser" asp-route-DepartmentId="@department.Id">@department.DepartmentName</a>*@
 
