@@ -59,40 +59,5 @@ namespace HolidayWeb.Controllers
             return RedirectToAction("Index", "Home");
         }
 
-
-
-
-        //public IActionResult AddUser()
-        //{
-        //    return View();
-        //}
-
-        //[HttpPost]
-        //public async Task<IActionResult> AddUser(AddUserViewModel addUserViewModel)
-        //{
-        //    if (!ModelState.IsValid) return View(addUserViewModel);
-
-        //    var user = new HolidayUser()
-        //    {
-        //        UserName = addUserViewModel.UserName,
-        //        Email = addUserViewModel.Email,
-        //    };
-
-        //    IdentityResult result = await _userManager.CreateAsync(user, addUserViewModel.Password);
-
-        //    if (result.Succeeded)
-        //    {
-        //        return RedirectToAction("UserManagement", _userManager.Users);
-        //    }
-
-        //    foreach (IdentityError error in result.Errors)
-        //    {
-        //        ModelState.AddModelError("", error.Description);
-        //    }
-        //    return View(addUserViewModel);
-        //}
-
-
-
     }
 }

@@ -24,7 +24,7 @@ namespace HolidayWeb.Core
         }
 
 
-        private Boolean NonWorkinyDay(DateTime Checkdate)
+        private bool NonWorkinyDay(DateTime Checkdate)
         {
             return true;
         }
@@ -46,8 +46,7 @@ namespace HolidayWeb.Core
             }
             return TotalPeriods;
         }
-
-
+        
         private int NonWorkingPeriod(DateTime Startdate, Period StartPeriod, DateTime Enddate, Period EndPeriod)
         {
             int NonePeriods = 0;
