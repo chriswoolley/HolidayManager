@@ -23,7 +23,7 @@ namespace HolidayWeb.Migrations
                     RecurrenceRule = table.Column<string>(nullable: true),
                     DepartmentID = table.Column<int>(nullable: false),
                     StatusKey = table.Column<int>(nullable: false),
-                    UserID = table.Column<int>(nullable: false),
+                    UserID = table.Column<string>(nullable: true),
                     HolidaysTaken = table.Column<int>(nullable: false),
                     Duration = table.Column<int>(nullable: false),
                     Period = table.Column<int>(nullable: false)

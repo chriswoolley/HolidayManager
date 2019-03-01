@@ -47,8 +47,18 @@ namespace HolidayWeb.Models.Repositories
         public ICollection<Appointment> GetAppointmentCollection()
         {
 
+            if (_runtime.CurrentDepartmentId != 0)
+            {
+                return _AppDbContext.Appointment.Where(p => p.DepartmentID == _runtime.CurrentDepartmentId).ToList();
+            }
+            else
+            {
+                return _AppDbContext.Appointment.OrderBy(p => p.DBId ).ToList();
+            }
+
+
 //            return _AppDbContext.Appointment.ToList();
-            return _AppDbContext.Appointment.Where(p => p.DepartmentID == _runtime.CurrentDepartmentId).ToList();
+
         }
 
 //        ICollection<string> collection = (ICollection<string>)monthsofYear;

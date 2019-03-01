@@ -67,7 +67,7 @@
         @(Html.DevExtreme().Scheduler()
                                                                 .DataSource(d => d.Mvc()
                                                                     .Controller("SchedulerData")
-//                                                                    .Key("AppointmentId")
+                                                                    //                                                                    .Key("AppointmentId")
                                                                     .Key("DBId")
                                                                     .LoadAction("Get")
                                                                     .UpdateAction("Put")
@@ -97,12 +97,19 @@
                                                                     new { id = 2, text = "Afternoon", color = "#ff9747" }
                                                                         });
 
-                                                                    //                                                    res.Add()
-                                                                    //                                                    .FieldExpr("UserID")
-                                                                    //                                                    .AllowMultiple(false)
-                                                                    //                                                    .Label("Employee")
-                                                                    //                                                    .DataSource(Model.DepartmentList.ToList()).DisplayExpr("DepartmentName").ValueExpr("Id");
-                                                                    // }
+                                                                    res.Add()
+                                                                    .FieldExpr("DepartmentID")
+                                                                    .AllowMultiple(false)
+                                                                    .Label("Department")
+                                                                    .DataSource(Model.DepartmentList.ToList()).DisplayExpr("DepartmentName").ValueExpr("Id");
+
+
+
+                                                                    res.Add()
+                                                                    .FieldExpr("UserID")
+                                                                    .AllowMultiple(false)
+                                                                    .Label("User")
+                                                                    .DataSource(Model.UserList.ToList()).DisplayExpr("UserName").ValueExpr("Id");
 
 
 

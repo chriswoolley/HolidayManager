@@ -49,7 +49,7 @@ namespace HolidayWeb.Migrations
 
                     b.Property<string>("Text");
 
-                    b.Property<int>("UserID");
+                    b.Property<string>("UserID");
 
                     b.HasKey("DBId");
 
