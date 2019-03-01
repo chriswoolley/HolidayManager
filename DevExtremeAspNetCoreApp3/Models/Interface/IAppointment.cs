@@ -12,5 +12,7 @@ namespace HolidayWeb.Models.Interface
         void EditAppointment(Appointment appointment);
         IEnumerable<Appointment> GetAllAppointment();
         ICollection<Appointment> GetAppointmentCollection();
+        Appointment GetAppointmentById(int AppointmentId);
+
     }
 }

@@ -17,7 +17,8 @@ namespace HolidayWeb.Controllers.ApiControllers {
         IAppointment _appointment;
 
         public SchedulerDataController(IHttpContextAccessor httpContextAccessor, IMemoryCache memoryCache, IAppointment appointment) {
-            _data = new InMemoryAppointmentsDataContext(httpContextAccessor, memoryCache, appointment);
+//            _data = new InMemoryAppointmentsDataContext(httpContextAccessor, memoryCache, appointment);
+            _data = new InMemoryAppointmentsDataContext(httpContextAccessor,appointment);
             _appointment = appointment;
         }
 

@@ -53,10 +53,10 @@ namespace HolidayWeb.Models.Repositories
 
 //        ICollection<string> collection = (ICollection<string>)monthsofYear;
 
-        //        public GetAppointmentById(int AppointmentId)
-        //        {
-        //            return _AppDbContext.Appointment.FirstOrDefault(p => p.AppointmentId == AppointmentId);
-        //        }
+        public Appointment GetAppointmentById(int AppointmentId)
+        {
+            return _AppDbContext.Appointment.FirstOrDefault(p => p.AppointmentId == AppointmentId);
+        }
     }
 }
 

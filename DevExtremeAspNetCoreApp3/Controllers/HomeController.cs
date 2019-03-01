@@ -8,6 +8,7 @@ using HolidayWeb.ViewModels;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
+using Newtonsoft.Json;
 
 namespace HolidayWeb.Controllers
 {
@@ -20,6 +21,7 @@ namespace HolidayWeb.Controllers
         private readonly IDepartment _DepartmentList;
         private readonly IState _StateList;
         private readonly IRuntime _runtime;
+        private readonly IAppointment _appointmentRepository;
 
         private readonly MainViewModel _MainViewModel;
 
@@ -27,7 +29,7 @@ namespace HolidayWeb.Controllers
 
 
 //        public HomeController(IEvent events, UserManager<IdentityUser> userManager, IHolidayEntitlement _HolidayEntitlement)
-        public HomeController(IDepartment department, UserManager<HolidayUser> userManager, IHolidayEntitlement _HolidayEntitlement, IState state, IRuntime _Runtime)
+        public HomeController(IDepartment department, UserManager<HolidayUser> userManager, IHolidayEntitlement _HolidayEntitlement, IState state, IRuntime _Runtime, IAppointment AppointmentRepository)
         {
 //            _events = events;
             _userManager = userManager;
@@ -35,13 +37,14 @@ namespace HolidayWeb.Controllers
             _DepartmentList = department;
             _StateList = state;
             _runtime = _Runtime;
+            _appointmentRepository = AppointmentRepository;
 
             _MainViewModel = new MainViewModel();
 
             _MainViewModel.DepartmentList = _DepartmentList.GetAllDepartment();
             _MainViewModel.StateList = _StateList.GetAllState();
             _MainViewModel.UserList = _userManager.Users.ToList();
-
+            _MainViewModel.AppointmentList = _appointmentRepository.GetAllAppointment();
 
 
         }
@@ -77,6 +80,48 @@ namespace HolidayWeb.Controllers
             ViewBag.Users = users.Select(x => new SelectListItem { Text = x.UserName, Value = x.Id }).ToList();
 
             return View("Index", _MainViewModel);
+        }
+
+
+
+        [HttpPost]
+        public IActionResult Post(string values)
+        {
+            var newAppointment = new Appointment();
+            JsonConvert.PopulateObject(values, newAppointment);
+
+            if (!TryValidateModel(newAppointment))
+                //                return BadRequest(ModelState.GetFullErrorMessage());
+                return BadRequest();
+
+
+
+            _appointmentRepository.AddAppointment(newAppointment);
+//            appDbContext.SaveChanges();
+
+            return Ok();
+        }
+
+        [HttpPut]
+        public IActionResult Put(int key, string values)
+        {
+            var appointment = _appointmentRepository.GetAppointmentById(key);
+            JsonConvert.PopulateObject(values, appointment);
+
+            if (!TryValidateModel(appointment))
+                //    return BadRequest(ModelState.GetFullErrorMessage());
+                return BadRequest();
+
+            _appointmentRepository.EditAppointment(appointment);
+            return Ok();
+        }
+
+        [HttpDelete]
+        public void Delete(int key)
+        {
+            var appointment = _appointmentRepository.GetAppointmentById(key);
+            _appointmentRepository.DeleteAppointment(appointment);
+
         }
 
 
