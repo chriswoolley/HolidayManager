@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Drawing;
 using System.Linq;
 using System.Threading.Tasks;
@@ -15,8 +16,11 @@ namespace HolidayWeb.Models
 
         public virtual Department DepartmentManager { get; set; }
 
-//        public Department Department { get; set; }
-//        public Department DepartmentManager { get; set; }
+        [NotMapped]
+        public float HolidaysRemaining { get; set; }
+
+        [NotMapped]
+        public float HolidaysAssigned { get; set; }
 
     }
 }

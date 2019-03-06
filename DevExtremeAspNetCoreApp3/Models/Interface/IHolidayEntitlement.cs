@@ -11,13 +11,17 @@ namespace HolidayWeb.Models.Interface
         IEnumerable<HolidayEntitlement> GetAllHolidayEntitlement();
 
         HolidayEntitlement GetHolidayEntitlementById(int HolidayEntitlementId);
+        float GetUserHolidayEntitlement(string userId, int year);
 
 
         void EditHolidayEntitlement(HolidayEntitlement holidayEntitlement);
         void DeleteHolidayEntitlement(HolidayEntitlement holidayEntitlement);
         void AddHolidayEntitlement(HolidayEntitlement holidayEntitlement);
 
+
+
+
 //        void AddHolidayEntitlement(HolidayEntitlementView holidayEntitlementView);
-     
+
     }
 }

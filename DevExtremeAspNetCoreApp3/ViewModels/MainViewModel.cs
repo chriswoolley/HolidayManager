@@ -13,5 +13,11 @@ namespace HolidayWeb.ViewModels
         public IEnumerable<Appointment> AppointmentList;
         public IEnumerable<State> StateList;
         public IEnumerable<Department> DepartmentList;
+
+        public void UpdateStats()
+        {
+
+        }
+
     }
 }

@@ -29,7 +29,8 @@ namespace HolidayWeb.Controllers
 
 
 //        public HomeController(IEvent events, UserManager<IdentityUser> userManager, IHolidayEntitlement _HolidayEntitlement)
-        public HomeController(IDepartment department, UserManager<HolidayUser> userManager, IHolidayEntitlement _HolidayEntitlement, IState state, IRuntime _Runtime, IAppointment AppointmentRepository)
+        public HomeController(IDepartment department, UserManager<HolidayUser> userManager, IHolidayEntitlement _HolidayEntitlement, IState state, 
+            IRuntime _Runtime, IAppointment AppointmentRepository, IHolidayCalc holidayCalc)
         {
 //            _events = events;
             _userManager = userManager;
@@ -46,6 +47,7 @@ namespace HolidayWeb.Controllers
             _MainViewModel.UserList = _userManager.Users.ToList();
             _MainViewModel.AppointmentList = _appointmentRepository.GetAllAppointment();
 
+            holidayCalc.HolidayRemaining(_MainViewModel.UserList, System.DateTime.Now);
 
         }
 
@@ -65,6 +67,8 @@ namespace HolidayWeb.Controllers
 
 //            if (runTime.CurrentDepartmentId != 0)
 //            return View(users);
+
+
             return View(_MainViewModel);
            
 

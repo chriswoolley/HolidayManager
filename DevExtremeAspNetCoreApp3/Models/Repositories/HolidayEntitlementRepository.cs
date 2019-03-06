@@ -44,5 +44,21 @@ namespace HolidayWeb.Models.Repositories
             _appDbContext.SaveChanges();
         }
 
+
+        public float GetUserHolidayEntitlement(string userId, int year)
+        {
+            HolidayEntitlement holidayEntitlement = _appDbContext.HolidayEntitlements.FirstOrDefault(p => p.Users.Id == userId & p.Year== year);
+
+            if (holidayEntitlement != null)
+            {
+                return holidayEntitlement.YearsEntitlement;
+            }
+            else
+            {
+                return 0;
+            }
+
+        }
+
     }
 }

@@ -9,67 +9,61 @@
 <div class="row">
     <div class="column left dx-datagrid-filter-panel">
         @await Html.PartialAsync("~/Views/Home/_DepartmentList.cshtml", Model.DepartmentList)
-    </div>
-    <div class="column middle">
-        <h2>Main Content</h2>
+     </div>
+<div class="column middle">
+    <h2>Main Content</h2>
 
 
         @(Html.DevExtreme().Scheduler()
-                                                                                                                .DataSource(d => d.Mvc()
-                                                                                                                    .Controller("SchedulerData")
-                                                                                                                    //                                                                    .Key("AppointmentId")
-                                                                                                                    .Key("DBId")
-                                                                                                                    .LoadAction("Get")
-                                                                                                                    .UpdateAction("Put")
-                                                                                                                    .InsertAction("Post")
-                                                                                                                    .DeleteAction("Delete"))
-                                                                                                                .TextExpr("Subject")
-                                                                                                                .StartDateExpr("StartDate")
+            .DataSource(d => d.Mvc()
+                .Controller("SchedulerData")
+                //                                                                    .Key("AppointmentId")
+                .Key("DBId")
+                .LoadAction("Get")
+                .UpdateAction("Put")
+                .InsertAction("Post")
+                .DeleteAction("Delete"))
+            .TextExpr("Subject")
+            .StartDateExpr("StartDate")
 
-                                                                                                                .EndDateExpr("EndDate")
-                                                                                                                .Views(new SchedulerViewType[] { SchedulerViewType.TimelineMonth })
-                                                                                                                .CurrentView(SchedulerViewType.TimelineMonth)
-                                                                                                                .CurrentDate(new DateTime(2017, 5, 2))
-                                                                                                                .FirstDayOfWeek(FirstDayOfWeek.Sunday)
-                                                                                                                .StartDayHour(8)
-                                                                                                                .EndDayHour(18)
-                                                                                                                .CellDuration(60)
-                                                                                                                
-
+            .EndDateExpr("EndDate")
+            .Views(new SchedulerViewType[] { SchedulerViewType.TimelineMonth })
+            .CurrentView(SchedulerViewType.TimelineMonth)
+            .CurrentDate(new DateTime(2017, 5, 2))
+            .FirstDayOfWeek(FirstDayOfWeek.Sunday)
+            .StartDayHour(8)
+            .EndDayHour(18)
+            .CellDuration(60)
 
 
-                                                                                                                 .Groups(new string[] { "Period" })
-                                                                                                                .Resources(res =>
-                                                                                                                {
+            .Groups(new string[] { "Period" })
+            .Resources(res =>
+                {
 
-                                                                                                                    res.Add()
-                                                                                                                        .FieldExpr("Period")
-                                                                                                                        .AllowMultiple(false)
-                                                                                                                        .Label("Period")
-                                                                                                                        .DataSource
-                                                                                                                        (new object[] {
-                                                                    new { id = 1, text = "Morning", color = "#1e90ff" },
-                                                                    new { id = 2, text = "Afternoon", color = "#ff9747" }
-                                                                                                                        });
+                res.Add()
+                    .FieldExpr("Period")
+                    .AllowMultiple(false)
+                    .Label("Period")
+                    .DataSource
+                    (new object[] {
+                    new { id = 1, text = "Morning", color = "#1e90ff" },
+                    new { id = 2, text = "Afternoon", color = "#ff9747" }});
 
-                                                                                                                    res.Add()
-                                                                                                                    .FieldExpr("DepartmentID")
-                                                                                                                    .AllowMultiple(false)
-                                                                                                                    .Label("Department")
-                                                                                                                    .DataSource(Model.DepartmentList.ToList()).DisplayExpr("DepartmentName").ValueExpr("Id");
+                res.Add()
+                    .FieldExpr("DepartmentID")
+                    .AllowMultiple(false)
+                    .Label("Department")
+                    .DataSource(Model.DepartmentList.ToList()).DisplayExpr("DepartmentName").ValueExpr("Id");
 
+                res.Add()
+                    .FieldExpr("UserID")
+                    .AllowMultiple(false)
+                    .Label("User")
+                    .DataSource(Model.UserList.ToList()).DisplayExpr("UserName").ValueExpr("Id");
 
-
-                                                                                                                    res.Add()
-                                                                                                                    .FieldExpr("UserID")
-                                                                                                                    .AllowMultiple(false)
-                                                                                                                    .Label("User")
-                                                                                                                    .DataSource(Model.UserList.ToList()).DisplayExpr("UserName").ValueExpr("Id");
-
-
-
-                                                                                                                })
-                                                                                                                .Height(580)
+                }
+            )
+            .Height(580)
 
 
 
