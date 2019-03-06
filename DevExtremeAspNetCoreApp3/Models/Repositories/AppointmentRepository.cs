@@ -67,6 +67,15 @@ namespace HolidayWeb.Models.Repositories
         {
             return _AppDbContext.Appointment.FirstOrDefault(p => p.AppointmentId == AppointmentId);
         }
+
+
+        public IEnumerable<Appointment> GetAllAppointmentPerUserYear(string UserId, int year)
+        {
+            return _AppDbContext.Appointment.Where(p => p.UserID==UserId & p.StartDate) 
+erert        }
+
+
+
     }
 }
 

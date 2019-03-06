@@ -95,6 +95,17 @@ namespace HolidayWeb.Core
 
 
 
+        private float HolidaysBookthisYear(int year)
+        {
+
+
+
+            return 0;
+
+        }
+
+
+
         public void HolidayRemaining(IEnumerable<HolidayUser> users, DateTime whichYear)
             { 
             Random random = new Random();
