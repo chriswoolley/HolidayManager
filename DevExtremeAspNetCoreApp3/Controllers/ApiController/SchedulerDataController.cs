@@ -34,7 +34,7 @@ namespace HolidayWeb.Controllers.ApiControllers {
             JsonConvert.PopulateObject(values, newAppointment);
 
             if(!TryValidateModel(newAppointment))
-//                return BadRequest(ModelState.GetFullErrorMessage());
+  //                return BadRequest(ModelState.GetFullErrorMessage());
                 return BadRequest();
 
 
