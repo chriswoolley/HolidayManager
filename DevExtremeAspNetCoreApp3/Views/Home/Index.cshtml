@@ -1,10 +1,51 @@
 @using Microsoft.AspNetCore.Identity.EntityFrameworkCore
 @model MainViewModel
 @*@inject IDepartment Departsments*@
-
 @{
     Layout = "~/Views/Shared/_FrontPageLayout.cshtml";
 }
+
+<script>
+    $(document).ready(function () {
+
+
+        $("#Save").click(function () {
+
+            $.ajax({
+            // edit to add steve's suggestion.
+            //url: "/ControllerName/ActionName",
+            url: '@Url.Action("GetJSONJQuery", "SchedulerData")',
+            success: function (data) {
+                // your data could be a View or Json or what ever you returned in your action method
+                // parse your data here
+                alert(data);
+            }
+        });
+            });
+
+
+
+
+        @*$.ajax({
+            // edit to add steve's suggestion.
+            //url: "/ControllerName/ActionName",
+            url: '@Url.Action("GetJSONJQuery", "SchedulerDataController")',
+            success: function (data) {
+                // your data could be a View or Json or what ever you returned in your action method
+                // parse your data here
+                alert(data);
+            }
+        });*@
+
+        //$("#Save").click(function () {
+        //    $.getJSON('<%= Url.Action("ActionName", "ControllerName") %>', function (data) {
+        //        console.log(data);
+        //    });
+        //});
+    });
+</script>
+
+
 
 <div class="row">
     <div class="column left dx-datagrid-filter-panel">
@@ -13,75 +54,67 @@
     <div class="column middle">
         <h2>Main Content</h2>
 
-
         @(Html.DevExtreme().Scheduler()
-                                    .DataSource(d => d.Mvc()
-                                        .Controller("SchedulerData")
-                                        .Key("AppointmentId")
-                                        //                .Key("DBId")
-                                        .LoadAction("Get")
-                                        .UpdateAction("Put")
-                                        .InsertAction("Post")
-                                        .DeleteAction("Delete"))
-                                    .TextExpr("Subject")
-                                    .StartDateExpr("StartDate")
-                                    .EndDateExpr("EndDate")
+                                                            .DataSource(d => d.Mvc()
+                                                                .Controller("SchedulerData")
+                                                                .Key("AppointmentId")
+                                                                .LoadAction("Get")
+                                                                .UpdateAction("Put")
+                                                                .InsertAction("Post")
+                                                                .DeleteAction("Delete"))
+                                                            .TextExpr("Subject")
+                                                            .StartDateExpr("StartDate")
+                                                            .EndDateExpr("EndDate")
+                                                            .Views(new SchedulerViewType[] { SchedulerViewType.Day, SchedulerViewType.TimelineMonth, SchedulerViewType.WorkWeek, SchedulerViewType.Week, SchedulerViewType.Agenda })
+                                                            .CurrentView(SchedulerViewType.TimelineMonth)
+                                                            .CurrentDate(new DateTime(2019, 3, 7))
+                                                            .FirstDayOfWeek(FirstDayOfWeek.Sunday)
+                                                            //                                    .ShowAllDayPanel(false)
+                                                            .StartDayHour(9)
+                                                            .EndDayHour(18)
+                                                            .CellDuration(10)
+                                                            .MaxAppointmentsPerCell(5)
+                                                            .Resources(res =>
+                                                            {
 
-                                    .Views(new SchedulerViewType[] { SchedulerViewType.TimelineMonth, SchedulerViewType.WorkWeek, SchedulerViewType.Week, SchedulerViewType.Agenda })
-                                    .CurrentView(SchedulerViewType.TimelineMonth)
-
-                                    .CurrentDate(new DateTime(2019, 3, 7))
-                                    .FirstDayOfWeek(FirstDayOfWeek.Sunday)
-                                    .ShowAllDayPanel(false)
-                                    .StartDayHour(9)
-                                    .EndDayHour(18)
-                                    .CellDuration(60)
-
-
-                                    //.Groups(new string[] { "StartPeriod" })
-                                    .Resources(res =>
-                                    {
-
-                                        res.Add()
-                                .FieldExpr("StartPeriod")
-                                .AllowMultiple(false)
-                                .Label("Start Period")
-                                .DataSource
-                                (new object[] {
+                                                                res.Add()
+                                                        .FieldExpr("StartPeriod")
+                                                        .AllowMultiple(false)
+                                                        .Label("Start Period")
+                                                        .DataSource
+                                                        (new object[] {
             new { id = 0, text = "Morning", color = "#1e90ff" },
             new { id = 1, text = "Afternoon", color = "#ff9747" }});
 
 
 
-                                        res.Add()
-                                            .FieldExpr("EndPeriod")
-                                            .AllowMultiple(false)
-                                            .Label("End Period")
-                                            .DataSource
-                                            (new object[] {
+                                                                res.Add()
+                                                                    .FieldExpr("EndPeriod")
+                                                                    .AllowMultiple(false)
+                                                                    .Label("End Period")
+                                                                    .DataSource
+                                                                    (new object[] {
             new { id = 0, text = "Morning", color = "#1e90ff" },
             new { id = 1, text = "Afternoon", color = "#ff9747" }});
 
 
-                                        res.Add()
-                                    .FieldExpr("DepartmentID")
-                                    .AllowMultiple(false)
-                                    .Label("Department")
-                                    .DataSource(Model.DepartmentList.ToList()).DisplayExpr("DepartmentName").ValueExpr("Id");
+                                                                res.Add()
+                                                            .FieldExpr("DepartmentID")
+                                                            .AllowMultiple(false)
+                                                            .Label("Department")
+                                                            .DataSource(Model.DepartmentList.ToList()).DisplayExpr("DepartmentName").ValueExpr("Id");
 
-                                        res.Add()
-                                    .FieldExpr("UserID")
-                                    .AllowMultiple(false)
-                                    .Label("User")
-                                    .DataSource(Model.UserList.ToList()).DisplayExpr("UserName").ValueExpr("Id");
+                                                                res.Add()
+                                                            .FieldExpr("UserID")
+                                                            .AllowMultiple(false)
+                                                            .Label("User")
+                                                            .DataSource(Model.UserList.ToList()).DisplayExpr("UserName").ValueExpr("Id");
 
-                                    }
-                                                )
-                                                .Height(580)
-        //.OnAppointmentFormOpening("appointmentForm_created")
+                                                            }
+                                                                        )
+                                                                        .Height(580)
+                //.OnAppointmentFormOpening("appointmentForm_created")
         )
-
-
 
     </div>
     <div class="column right">
@@ -89,129 +122,117 @@
     </div>
 </div>
 
-
-
+<button id="Save">Test</button>
 
 
 @*<script>
 
-    var AppointmentData = @Html.Raw(Controller("SchedulerData"));
+        var AppointmentData = @Html.Raw(Controller("SchedulerData"));
 
-        function getSchedulerInstance() {
-            return $("#scheduler").dxScheduler("instance");
-        }
-
-        function getAppointmentById(id) {
-            return DevExpress.data.query(AppointmentData)
-                .filter("AppointmentId", id)
-                .toArray()[0]
-        }
-
-        function appointmentForm_created(data) {
-            var form = data.form
-                ,
-                Appointment = getAppointmentById(data.appointmentData.Id) || {}
-            //,
-            //                      startDate = data.appointmentData.StartDate,
-            //                      endDate = data.appointmentData.EndDate,
-            //            price = 100;
-
-            form.option("items", [
-            //    {
-            //    label: {
-            //        text: "Movie"
-            //    },
-            //    editorType: "dxSelectBox",
-            //    dataField: "MovieId",
-            //    editorOptions: {
-            //        dataSource: moviesData,
-            //        displayExpr: "Text",
-            //        valueExpr: "ID",
-            //        value: movie.ID,
-            //        onValueChanged: function (args) {
-            //            var movieInfo = getMovieById(args.value);
-
-            //            form.getEditor("Director")
-            //                .option("value", movieInfo.Director);
-
-            //            form.getEditor("EndDate")
-            //                .option("value", new Date(startDate.getTime() +
-            //                    60 * 1000 * movieInfo.Duration));
-            //        }
-            //    },
-            //}
-            //    ,
-
-            {
-            label: {
-                text: "test"
-                }
-                //                ,
-                //            name: "Director",
-                //            editorType: "dxTextBox",
-                //            editorOptions: {
-                //value: Appointment.Subject,
-                //                value: 100,
-                //                readOnly: true
-                //            }
+            function getSchedulerInstance() {
+                return $("#scheduler").dxScheduler("instance");
             }
-            //,
-            //{
-            //dataField: "StartDate",
-            //editorType: "dxDateBox",
-            //editorOptions: {
-                //value: null,
-                //value: "StartDate",
-                //width: "100%",
-                //type: "datetime"
+
+            function getAppointmentById(id) {
+                return DevExpress.data.query(AppointmentData)
+                    .filter("AppointmentId", id)
+                    .toArray()[0]
+            }
+
+            function appointmentForm_created(data) {
+                var form = data.form
+                    ,
+                    Appointment = getAppointmentById(data.appointmentData.Id) || {}
                 //,
-                //onValueChanged: function (args) {
-                //    startDate = args.value;
-                //    form.getEditor("EndDate")
-                //        .option("value", new Date(startDate.getTime() +
-                //            60 * 1000 * movie.Duration));
-             //   }
-            //}
-            //}
-            //,
-            //{
-            //name: "EndDate",
-            //dataField: "EndDate",
-            //editorType: "dxDateBox",
-            //editorOptions: {
-            //    value: endDate,
-            //    width: "100%",
-            //    type: "datetime",
-            //    readOnly: true
-            //}
-            //},
-            //{
-            //dataField: "Price",
-            //editorType: "dxRadioGroup",
-            //editorOptions: {
-            //    dataSource: [5, 10, 15, 20],
-            //    itemTemplate: function (itemData) {
-            //        return "$" + itemData;
-            //    },
-            //    value: price
-            //}
-            //}
-        ]);
-    }
+                //                      startDate = data.appointmentData.StartDate,
+                //                      endDate = data.appointmentData.EndDate,
+                //            price = 100;
+
+                form.option("items", [
+                //    {
+                //    label: {
+                //        text: "Movie"
+                //    },
+                //    editorType: "dxSelectBox",
+                //    dataField: "MovieId",
+                //    editorOptions: {
+                //        dataSource: moviesData,
+                //        displayExpr: "Text",
+                //        valueExpr: "ID",
+                //        value: movie.ID,
+                //        onValueChanged: function (args) {
+                //            var movieInfo = getMovieById(args.value);
+
+                //            form.getEditor("Director")
+                //                .option("value", movieInfo.Director);
+
+                //            form.getEditor("EndDate")
+                //                .option("value", new Date(startDate.getTime() +
+                //                    60 * 1000 * movieInfo.Duration));
+                //        }
+                //    },
+                //}
+                //    ,
+
+                {
+                label: {
+                    text: "test"
+                    }
+                    //                ,
+                    //            name: "Director",
+                    //            editorType: "dxTextBox",
+                    //            editorOptions: {
+                    //value: Appointment.Subject,
+                    //                value: 100,
+                    //                readOnly: true
+                    //            }
+                }
+                //,
+                //{
+                //dataField: "StartDate",
+                //editorType: "dxDateBox",
+                //editorOptions: {
+                    //value: null,
+                    //value: "StartDate",
+                    //width: "100%",
+                    //type: "datetime"
+                    //,
+                    //onValueChanged: function (args) {
+                    //    startDate = args.value;
+                    //    form.getEditor("EndDate")
+                    //        .option("value", new Date(startDate.getTime() +
+                    //            60 * 1000 * movie.Duration));
+                 //   }
+                //}
+                //}
+                //,
+                //{
+                //name: "EndDate",
+                //dataField: "EndDate",
+                //editorType: "dxDateBox",
+                //editorOptions: {
+                //    value: endDate,
+                //    width: "100%",
+                //    type: "datetime",
+                //    readOnly: true
+                //}
+                //},
+                //{
+                //dataField: "Price",
+                //editorType: "dxRadioGroup",
+                //editorOptions: {
+                //    dataSource: [5, 10, 15, 20],
+                //    itemTemplate: function (itemData) {
+                //        return "$" + itemData;
+                //    },
+                //    value: price
+                //}
+                //}
+            ]);
+        }
 
 
-</script>*@
-
-
-
-
-
-
-
-
-
-
-
+    </script>*@
 
 
 

@@ -7,6 +7,7 @@ namespace HolidayWeb.Models.Interface
 {
     public interface IHolidayCalc
     {
+
         void HolidayRemaining(IEnumerable<HolidayUser> users, DateTime whichYear);
 
 

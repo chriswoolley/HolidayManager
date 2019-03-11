@@ -24,10 +24,11 @@ namespace HolidayWeb.Core
 
 
 //        public HolidayCalc(ISystemHoliday systemHolidays, UserManager<HolidayUser> userManager, IHolidayEntitlement _HolidayEntitlement, ISystemSetting systemSetting)
-        public HolidayCalc()
+        public HolidayCalc(ISystemHoliday systemHolidays, UserManager<HolidayUser> userManager, IHolidayEntitlement _HolidayEntitlement)
+        //        public HolidayCalc()
         {
-//            this.systemHolidays = systemHolidays;
-//            _holidayEntitlement = _HolidayEntitlement;
+            this.systemHolidays = systemHolidays;
+            _holidayEntitlement = _HolidayEntitlement;
 //            this.systemSetting = systemSetting;
         }
 
@@ -125,10 +126,10 @@ namespace HolidayWeb.Core
             {
                 test.HolidaysAssigned = _holidayEntitlement.GetUserHolidayEntitlement(test.Id, 19);
 
-                test.HolidaysRemaining = test.HolidaysAssigned - HolidaysBookthisYear(19);
+            //    test.HolidaysRemaining = test.HolidaysAssigned - HolidaysBookthisYear(19);
 
-                int randomNumber = random.Next(0, 25);
-                test.HolidaysRemaining = randomNumber;
+            //    int randomNumber = random.Next(0, 25);
+            //    test.HolidaysRemaining = randomNumber;
             }
 
             }

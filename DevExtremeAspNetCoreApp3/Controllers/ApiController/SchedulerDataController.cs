@@ -68,6 +68,19 @@ namespace HolidayWeb.Controllers.ApiControllers {
             return Ok();
         }
 
+
+        public IActionResult Index()
+        {
+            return View();
+        }
+
+        public IActionResult GetJSONJQuery()
+        {
+
+
+            return Json("Test Stuff here ");
+        }
+
         [HttpPut]
         public IActionResult Put(int key, string values) {
             var appointment = _data.Appointments.First(a => a.AppointmentId == key);

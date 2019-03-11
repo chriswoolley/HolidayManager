@@ -37,6 +37,12 @@ namespace HolidayWeb.Controllers
             return View();
         }
 
+        public IActionResult GetJSON()
+        {
+            return Json("This is a  test herw......");
+        }
+
+
         [HttpPost]
         public async Task<IActionResult> AddUser(AddUserViewModel addUserViewModel)
         {
