@@ -71,7 +71,8 @@ namespace HolidayWeb.Models.Repositories
 
         public IEnumerable<Appointment> GetAllAppointmentPerUserYear(string UserId, DateTime startDate, DateTime endTime)
         {
-            return _AppDbContext.Appointment.Where(p => p.UserID == UserId & p.StartDate > startDate & p.StartDate < endTime);
+            IEnumerable<Appointment> debugAppointments = _AppDbContext.Appointment.Where(p => p.UserID == UserId & p.StartDate > startDate & p.StartDate < endTime);
+            return debugAppointments;
         }
 
 

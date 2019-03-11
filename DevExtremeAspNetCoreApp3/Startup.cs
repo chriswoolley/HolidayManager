@@ -57,8 +57,7 @@ namespace HolidayWeb
             services.AddSingleton<IRuntime, RunTime>();
             services.AddTransient<IHolidayCalc, HolidayCalc>();
             services.AddTransient<ISystemHoliday, SystemHolidayRepository> ();
-
-            
+            services.AddTransient<ISystemSetting, SystemSettingRepository>();
 
 
             services.AddIdentity<HolidayUser, IdentityRole>(options =>

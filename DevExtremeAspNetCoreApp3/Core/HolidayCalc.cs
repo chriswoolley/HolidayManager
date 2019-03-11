@@ -21,40 +21,44 @@ namespace HolidayWeb.Core
         private readonly ISystemHoliday systemHolidays;
         private readonly IHolidayEntitlement _holidayEntitlement;
         private readonly ISystemSetting systemSetting;
+        private readonly IAppointment _appointmentRepository;
 
 
-//        public HolidayCalc(ISystemHoliday systemHolidays, UserManager<HolidayUser> userManager, IHolidayEntitlement _HolidayEntitlement, ISystemSetting systemSetting)
-        public HolidayCalc(ISystemHoliday systemHolidays, UserManager<HolidayUser> userManager, IHolidayEntitlement _HolidayEntitlement)
+        public HolidayCalc(ISystemHoliday systemHolidays, UserManager<HolidayUser> userManager, IHolidayEntitlement _HolidayEntitlement, ISystemSetting systemSetting
+            , IAppointment AppointmentRepository)
+        //        public HolidayCalc(ISystemHoliday systemHolidays, UserManager<HolidayUser> userManager, IHolidayEntitlement _HolidayEntitlement)
         //        public HolidayCalc()
         {
             this.systemHolidays = systemHolidays;
             _holidayEntitlement = _HolidayEntitlement;
-//            this.systemSetting = systemSetting;
+            this.systemSetting = systemSetting;
+            _appointmentRepository = AppointmentRepository;
         }
 
         private void GetHolidayStartPeriod(int year, out DateTime start, out DateTime endDate)
         {
             DateTime systemDate = systemSetting.GetSystemSettingById(1).YearStartDate;
-             start = new DateTime(year, systemDate.Month, systemDate.Day, 0, 1, 0);
-             endDate = start.AddYears(1).AddDays(-1);
+            start = new DateTime(2000 + year, systemDate.Month, systemDate.Day, 0, 1, 0);
+            endDate = start.AddYears(1).AddDays(-1);
         }
 
 
         private bool NonWorkinyDay(DateTime Checkdate)
         {
-            return true;
+            //need to add in  public hoiday and manually added dates
+            return ((Checkdate.DayOfWeek == DayOfWeek.Saturday) || (Checkdate.DayOfWeek == DayOfWeek.Sunday));
+
         }
 
 
         private int RawHolidaysRequired(DateTime Startdate, Period StartPeriod, DateTime Enddate, Period EndPeriod)
         {
-            int TotalPeriods = (int)StartPeriod + 1;
+            int TotalPeriods = (StartPeriod < EndPeriod) ? 2 : 1;
             if (Enddate.Date > Startdate.Date)
             {
                 TimeSpan Days;
                 Days = (Enddate.Date - Startdate.Date);
                 TotalPeriods = TotalPeriods + (((int)Days.TotalDays) * 2);
-
                 if (EndPeriod == Period.Morning)
                 {
                     TotalPeriods = TotalPeriods - 1;
@@ -63,16 +67,27 @@ namespace HolidayWeb.Core
             return TotalPeriods;
         }
 
+        public IEnumerable<DateTime> EachDay(DateTime from, DateTime thru)
+        {
+            for (var day = from.Date; day.Date <= thru.Date; day = day.AddDays(1))
+                yield return day;
+        }
+
+
         private int NonWorkingPeriod(DateTime Startdate, Period StartPeriod, DateTime Enddate, Period EndPeriod)
         {
             int NonePeriods = 0;
             if (Enddate.Date > Startdate.Date)
             {
-                var Enumerabledays = Enumerable.Range(Convert.ToInt32(Startdate.Date), Convert.ToInt32(Enddate.Date));
-                foreach (int day in Enumerabledays)
+
+                //                var Enumerabledays = Enumerable.Range(Convert.ToInt32(Startdate.Date), Convert.ToInt32(Enddate.Date));
+                //                foreach (int day in Enumerabledays)
+
+                foreach (DateTime day in EachDay(Startdate, Enddate))
                 {
-                    if (NonWorkinyDay(Convert.ToDateTime(day)))
-                    {
+//                    if (NonWorkinyDay(Convert.ToDateTime(day)))
+                        if (NonWorkinyDay(day))
+                        {
                         // two edge case's
                         if (((Convert.ToDateTime(day) == Startdate.Date) && (StartPeriod == Period.Afternoon)) || ((Convert.ToDateTime(day) == Enddate.Date) && (StartPeriod == Period.Morning)))
                         {
@@ -93,46 +108,45 @@ namespace HolidayWeb.Core
                 { return 1; }
 
             }
-
             return NonePeriods;
         }
 
 
-        private int HolidayRequired(DateTime Startdate, Period StartPeriod, DateTime Enddate, Period EndPeriod)
-        {
-            return RawHolidaysRequired(Startdate, StartPeriod, Enddate, EndPeriod) - NonWorkingPeriod(Startdate, StartPeriod, Enddate, EndPeriod);
 
-        }
-
-
-
-        private float HolidaysBookthisYear(int year)
+        private float HolidaysBookthisYear(string UserID, int year)
         {
             DateTime startdate;
             DateTime endDate;
             GetHolidayStartPeriod(year, out startdate, out endDate);
-//////////////////////////////////////////////////////////////////////////            goto dates loop appointments and calc
+            IEnumerable<Appointment> BookedHolidays;
+            BookedHolidays = _appointmentRepository.GetAllAppointmentPerUserYear(UserID, startdate, endDate);
+            int DebugCounter = 0;
+            foreach (Appointment holiday in BookedHolidays)
+            {
+                DebugCounter = DebugCounter + RawHolidaysRequired(holiday.StartDate, holiday.StartPeriod, holiday.EndDate, holiday.EndPeriod);
+                DebugCounter = DebugCounter - NonWorkingPeriod(holiday.StartDate, holiday.StartPeriod, holiday.EndDate, holiday.EndPeriod);
 
-            return 0;
+                System.Diagnostics.Debug.WriteLine(string.Format("************************** User " + UserID + " Holiday from {0:G} to {0:G}", holiday.StartDate, holiday.EndDate));
+                System.Diagnostics.Debug.WriteLine(string.Format("************************** {0}", DebugCounter));
+                DebugCounter++;
+            }
+            return DebugCounter;
         }
 
 
 
         public void HolidayRemaining(IEnumerable<HolidayUser> users, DateTime whichYear)
-            { 
+        {
             Random random = new Random();
 
             foreach (HolidayUser test in users)
             {
                 test.HolidaysAssigned = _holidayEntitlement.GetUserHolidayEntitlement(test.Id, 19);
 
-            //    test.HolidaysRemaining = test.HolidaysAssigned - HolidaysBookthisYear(19);
-
-            //    int randomNumber = random.Next(0, 25);
-            //    test.HolidaysRemaining = randomNumber;
+                test.HolidaysRemaining = test.HolidaysAssigned - HolidaysBookthisYear(test.Id, 19);
             }
 
-            }
+        }
 
 
     }
