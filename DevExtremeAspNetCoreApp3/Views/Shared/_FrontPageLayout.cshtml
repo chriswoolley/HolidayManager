@@ -1,0 +1,93 @@
+﻿@using Microsoft.AspNetCore.Identity
+
+@inject SignInManager<HolidayUser> SignInManager
+@*@inject IAuthorizationService AuthorizationService
+    @inject UserManager<ApplicationUser> UserManager*@
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <title>Holiday Request</title>
+    <link href="~/favicon.ico" rel="shortcut icon" type="image/x-icon" />
+    <link href="~/css/devextreme/bootstrap.css" rel="stylesheet" />
+    <link rel="stylesheet" href="~/css/site.css" />
+    <link href="~/css/devextreme/dx.common.css" rel="stylesheet" />
+    <link href="~/css/devextreme/dx.light.css" rel="stylesheet" />
+    <script src="~/js/devextreme/jquery.js"></script>
+    <script src="~/js/devextreme/bootstrap.js"></script>
+    <script src="~/js/devextreme/cldr.js"></script>
+    <script src="~/js/devextreme/cldr/event.js"></script>
+    <script src="~/js/devextreme/cldr/supplemental.js"></script>
+    <script src="~/js/devextreme/cldr/unresolved.js"></script>
+    <script src="~/js/devextreme/globalize.js"></script>
+    <script src="~/js/devextreme/globalize/message.js"></script>
+    <script src="~/js/devextreme/globalize/number.js"></script>
+    <script src="~/js/devextreme/globalize/currency.js"></script>
+    <script src="~/js/devextreme/globalize/date.js"></script>
+    @* JSZip for client side export *@
+    @*<script src="~/js/devextreme/jszip.js"></script>*@
+    <script src="~/js/devextreme/dx.all.js"></script>
+    <script src="~/js/devextreme/vectormap-data/world.js"></script>
+    <script src="~/js/devextreme/aspnet/dx.aspnet.data.js"></script>
+    <script src="~/js/devextreme/aspnet/dx.aspnet.mvc.js"></script>
+</head>
+
+<body>
+    <nav class="navbar navbar-dark bg-dark fixed-top navbar-expand-md">
+        <a class="navbar-brand" href="/">Holiday Calendar</a>
+        <button type="button" class="navbar-toggler" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div id="navbar" class="collapse navbar-collapse">
+            <ul class="navbar-nav mr-auto">
+                <li class="nav-item"><a class="nav-link" id="Home" asp-controller="Home" asp-action="Index">Home</a></li>
+                @if (SignInManager.IsSignedIn(User))
+                {
+                <li>
+                <li class="nav-item"><a class="nav-link" id="Admin" asp-controller="Admin" asp-action="Index">Administration</a></li>
+                <form asp-area="" asp-controller="Admin" asp-action="Logout" id="logoutForm"
+                      method="post" class="nav-item">
+                    <ul class="nav-item">
+                        <li><a class="nav-link" href="javascript:document.getElementById('logoutForm').submit()">Log off</a></li>
+                    </ul>
+                </form>
+
+                </li>
+                }
+                else
+                {
+                <li class="nav-item"><a class="nav-link" id="loginLink" asp-controller="Admin" asp-action="Login">Log in</a></li>
+                }
+            </ul>
+        </div>
+    </nav>
+
+    @RenderBody()
+
+    @*<div class="row">*@
+    @*<div class="column left align-content-center">
+            <partial name="_DepartmentList" model=""/>
+        </div>*@
+
+    @*<div class="column middle">
+            <h2>Main Content</h2>
+
+        </div>*@
+
+
+
+    @*<div class="column right">
+            <h2>Side</h2>
+            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit..</p>
+        </div>*@
+    @*</div>*@
+
+</body>
+
+</html>

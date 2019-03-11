@@ -1,0 +1,75 @@
+﻿@model EditUserViewModel
+@inject IDepartment test
+
+<h2>Edit user</h2>
+
+<form asp-controller="User" asp-action="EditUser" method="post" class="form-horizontal" role="form">
+    <h4>You can change the user details below</h4>
+    <hr />
+    <div asp-validation-summary="All" class="text-danger"></div>
+
+    @*<div class="form-group">
+            <label asp-for="Id" class="col-md-2 control-label"></label>
+            <div class="col-md-10">
+                <input asp-for="Id" class="form-control" readonly="readonly" />
+                <span asp-validation-for="Id" class="text-danger"></span>
+            </div>
+        </div>*@
+
+    <div class="form-group">
+        <label asp-for="UserName" class="col-md-2 control-label"></label>
+        <div class="col-md-10">
+            <input asp-for="UserName" class="form-control" />
+            <span asp-validation-for="UserName" class="text-danger"></span>
+        </div>
+    </div>
+
+    <div class="form-group">
+        <label asp-for="Email" class="col-md-2 control-label"></label>
+        <div class="col-md-10">
+            <input asp-for="Email" class="form-control" />
+            <span asp-validation-for="Email" class="text-danger"></span>
+        </div>
+    </div>
+
+    <div class="form-group">
+        <input type="hidden" name="Department" value="" />
+        <label asp-for="ReturnedDepartmentId" class="control-label">Department</label>
+        <select asp-for="ReturnedDepartmentId"
+                asp-items="@test.DepartmentSelectList()" class="form-control">
+            <option value="">Select Department</option>
+        </select>
+        @*                <input class="btn btn-primary" value="Add claim for user" type="submit" />*@
+    </div>
+
+    <div class="form-group">
+        <input type="hidden" name="Department to manage" value="" />
+        <label asp-for="ReturnedDepartmentManagerId" class="control-label">Manage Department</label>
+        <select asp-for="ReturnedDepartmentManagerId"
+                asp-items="@test.DepartmentSelectList()" class="form-control">
+            <option value="">None</option>
+        </select>
+        @*                <input class="btn btn-primary" value="Add claim for user" type="submit" />*@
+    </div>
+
+
+    <div class="form-group">
+        <div class="col-md-offset-2 col-md-10">
+            <input type="submit" class="btn btn-primary" value="Save user" />
+            <a asp-action="List" class="btn btn-primary">Cancel</a>
+        </div>
+    </div>
+</form>
+
+<h3>Claims for this user</h3>
+<ul>
+    @foreach (var claim in Model.UserClaims)
+    {
+        <li>
+            @claim
+        </li>
+    }
+</ul>
+
+
+<a asp-action="ManageClaimsForUser" asp-route-userId="@Model.Id" class="btn btn-primary">Manage claims for this user</a>

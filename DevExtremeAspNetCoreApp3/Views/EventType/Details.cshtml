@@ -1,0 +1,38 @@
+﻿@model IEnumerable<HolidayWeb.Models.EventType>
+
+<h2>Event Types</h2>
+
+@if (!Model.Any())
+{
+    <tr><td colspan="3" class="text-center">No User Accounts</td></tr>
+}
+else
+{
+    <table class="table table-condensed table-bordered">
+        <tr>
+            <th>Name</th>
+            <th>Action</th>
+            @*<th>Actions</th>*@
+        </tr>
+
+        @foreach (HolidayWeb.Models.EventType EventType in Model)
+        {
+            <tr>
+                @*<td>@user.Id</td>*@
+                <td>@EventType.Name</td>
+                <td>
+                    <form asp-action="Delete" asp-route-id="@EventType.Id" method="post">
+                        <a class="btn btn-sm btn-primary" asp-action="Edit" asp-route-id="@EventType.Id">Edit</a>
+                        <button type="submit" onclick="return confirm('Do you really want to archive this Event Type?');" class="btn btn-sm btn-danger">
+                            Archive
+                        </button>
+                    </form>
+                </td>
+            </tr>
+        }
+    </table>
+}
+
+<p>
+    <a class="btn btn-primary" asp-action="Create">Add Event Type</a>
+</p>

@@ -1,0 +1,127 @@
+﻿@model HolidayEntitlementView
+@inject UserManager<HolidayUser> UserManager
+@{
+    ViewData["Title"] = "Create";
+}
+
+<h2>Create Holiday Entitlement</h2>
+
+<hr />
+<div class="row">
+    <div class="col-md-4">
+
+        <form asp-action="Create">
+
+            @*<div class="form-group">
+            <input type="hidden" name="userId" value="@Model.Users" />
+            <select asp-for="HolidayEntitlement.User"
+                    asp-items="@(new SelectList(Model.Users, "Id", "UserName"))">
+                <option value="">None1</option>
+
+            </select>
+            <input class="btn btn-primary" value="Add claim for user" type="submit" />
+        </div>*@
+
+            @*<div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+        <div class="form-group">
+
+            <label asp-for="Users" class="col-md-2 control-label"></label>
+            <Select asp-for="HolidayEntitlement.User.UserName" class="form-control" asp-items="@(new SelectList(Model.Users, "Id", "UserName"))" />
+            <span asp-validation-for="HolidayEntitlement.User.UserName" class="text-danger"></span>
+        </div>*@
+
+            @*@Html.DropDownList("Users", ViewBag.Users as SelectList);*@
+
+            <div class="form-group">
+                @*<input type="hidden" name="Id" value="55" />*@
+                @*<input type="hidden" name="User" value=@User />*@
+                <label asp-for="UserId" name="UserId" class="control-label">User</label>
+                <select asp-for="UserId" name="UserId" asp-items="ViewBag.Users" class="form-control">
+                        <option value="User"></option>
+                    </select>
+                    @*<input class="btn btn-primary" value="Add claim for user" type="submit" />*@
+            </div>
+
+
+            <div class="form-group">
+                <label asp-for="Year" class="control-label"></label>
+                <select asp-for="Year" class="form-control">
+                    <option value="19">2019</option>
+                    <option value="20">2020</option>
+                    <option value="21">2021</option>
+                    <option value="22">2022</option>
+                    <option value="23">2023</option>
+                    <option value="24">2024</option>
+                    <option value="25">2025</option>
+                </select>
+                <span asp-validation-for="Year" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+                <label asp-for="YearsEntitlement" class="control-label"></label>
+                <input asp-for="YearsEntitlement" class="form-control" />
+                <span asp-validation-for="YearsEntitlement" class="text-danger"></span>
+            </div>
+
+
+            @*<div class="form-group">
+        <input type="hidden" name="Model.CurrentYear" value="@Model.CurrentYear" />
+        <label asp-for="@Model.CurrentYear" class="control-label"> Selected Year</label>
+        <select asp-for="@Model.CurrentYear"
+                asp-items="(new SelectList(Model.YearOptions))" class="form-control">
+            <option value=""></option>
+        </select>*@
+            @*                <input class="btn btn-primary" value="Add claim for user" type="submit" />*@
+            @*</div>*@
+
+
+            @*<div class="form-group">
+        <input type="hidden" name="Year" value="@Model.YearOptions" />
+        <label asp-for="YearOptions" name="Year" class="control-label"></label>
+        <select asp-for="YearOptions"
+                asp-items="@(new SelectList(Model.YearOptions))" class="form-control">
+            <option value="">None12222</option>
+        </select>*@
+            @*                <input class="btn btn-primary" value="Add claim for user" type="submit" />*@
+            @*</div>*@
+
+
+
+            @*<div class="form-group">
+            <label asp-for="HolidayEntitlement.Year" class="control-label"></label>
+            <input asp-for="HolidayEntitlement.Year" class="form-control" />
+            <span asp-validation-for="HolidayEntitlement.Year" class="text-danger"></span>
+        </div>*@
+
+            @*<div class="form-group">
+            <label asp-for="CurrentYear" class="control-label"></label>
+            <input asp-for="CurrentYear" class="form-control" />
+            <span asp-validation-for="CurrentYear" class="text-danger"></span>
+        </div>*@
+
+
+
+
+
+
+
+
+            @*<div class="form-group">
+            <label asp-for="id" class="control-label"></label>
+            <input asp-for="id" class="form-control" />
+            <span asp-validation-for="id" class="text-danger"></span>
+        </div>*@
+
+
+            <div class="form-group">
+                <input class="btn btn-primary" value="Assign user to year" type="submit" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+

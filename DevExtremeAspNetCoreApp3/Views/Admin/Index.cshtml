@@ -1,0 +1,30 @@
+﻿<h1>Administration</h1>
+
+<div class="col-xl-auto">
+    <ul class="nav navbar-nav">
+        <li><a asp-controller="User" asp-action="List" class="navbar-brand">Users</a></li>
+    </ul>
+    <ul class="nav navbar-nav">
+        <li><a asp-controller="State" asp-action="Details" class="navbar-brand">State</a></li>
+    </ul>
+
+    <ul class="nav navbar-nav">
+        <li><a asp-controller="EventType" asp-action="Details" class="navbar-brand">Event Types</a></li>
+    </ul>
+    <ul class="nav navbar-nav">
+        <li><a asp-controller="Department" asp-action="Details" class="navbar-brand">Department</a></li>
+    </ul>
+
+    @*<ul class="nav navbar-nav">
+            <li><a asp-controller="DepartmentManager" asp-action="Index" class="navbar-brand">Department Managers</a></li>
+        </ul>*@
+
+    <ul class="nav navbar-nav">
+        <li><a asp-controller="Entitlement" asp-action="Details" class="navbar-brand">Holiday entitlements</a></li>
+    </ul>
+
+    <ul class="nav navbar-nav">
+        <li><a asp-controller="SystemSetting" asp-action="Details" class="navbar-brand">System Setting</a></li>
+    </ul>
+
+</div>
