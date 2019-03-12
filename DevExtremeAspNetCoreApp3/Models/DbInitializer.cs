@@ -14,13 +14,13 @@ namespace HolidayWeb.Models
             {
                 context.AddRange
                 (
-                    new Department { DepartmentName = "Development"},
+                    new Department { DepartmentName = "Development" },
                     new Department { DepartmentName = "Sales" },
                     new Department { DepartmentName = "QA" },
                     new Department { DepartmentName = "Marketing" },
                     new Department { DepartmentName = "R&D" },
 
-                    new State { Name = "Requested"},
+                    new State { Name = "Requested" },
                     new State { Name = "Granted" },
                     new State { Name = "Denied" },
                     new State { Name = "Delayed" },
@@ -29,7 +29,9 @@ namespace HolidayWeb.Models
                     new EventType { Name = "Sick" },
                     new EventType { Name = "On-Site" },
                     new EventType { Name = "Traveling" },
-                    new EventType { Name = "AWP" }                   
+                    new EventType { Name = "AWP" },
+
+                    new SystemSetting { YearStartDate = DateTime.Parse("01/05/2019")}
                 );
 
 

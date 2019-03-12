@@ -49,7 +49,7 @@ namespace HolidayWeb.Controllers
             _MainViewModel.UserList = _userManager.Users.ToList();
             _MainViewModel.AppointmentList = _appointmentRepository.GetAllAppointment();
 
-            //holidayCalc.HolidayRemaining(_MainViewModel.UserList, System.DateTime.Now);
+            holidayCalc.HolidayRemaining(_MainViewModel.UserList, System.DateTime.Now);
 
         }
 

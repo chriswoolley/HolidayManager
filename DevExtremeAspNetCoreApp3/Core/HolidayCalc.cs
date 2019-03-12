@@ -47,7 +47,6 @@ namespace HolidayWeb.Core
         {
             //need to add in  public hoiday and manually added dates
             return ((Checkdate.DayOfWeek == DayOfWeek.Saturday) || (Checkdate.DayOfWeek == DayOfWeek.Sunday));
-
         }
 
 
@@ -79,15 +78,10 @@ namespace HolidayWeb.Core
             int NonePeriods = 0;
             if (Enddate.Date > Startdate.Date)
             {
-
-                //                var Enumerabledays = Enumerable.Range(Convert.ToInt32(Startdate.Date), Convert.ToInt32(Enddate.Date));
-                //                foreach (int day in Enumerabledays)
-
                 foreach (DateTime day in EachDay(Startdate, Enddate))
                 {
-//                    if (NonWorkinyDay(Convert.ToDateTime(day)))
-                        if (NonWorkinyDay(day))
-                        {
+                    if (NonWorkinyDay(day))
+                    {
                         // two edge case's
                         if (((Convert.ToDateTime(day) == Startdate.Date) && (StartPeriod == Period.Afternoon)) || ((Convert.ToDateTime(day) == Enddate.Date) && (StartPeriod == Period.Morning)))
                         {
@@ -102,12 +96,17 @@ namespace HolidayWeb.Core
             }
             else//only got the one day to check
             {
-                if (StartPeriod < EndPeriod)
-                { return 2; }
-                else
-                { return 1; }
-
+                // they are samer day so could use either
+                if (NonWorkinyDay(Startdate))
+                {
+                    if (StartPeriod < EndPeriod)
+                    { return 2; }
+                    else
+                    { return 1; }
+                }
             }
+
+            
             return NonePeriods;
         }
 
@@ -120,17 +119,13 @@ namespace HolidayWeb.Core
             GetHolidayStartPeriod(year, out startdate, out endDate);
             IEnumerable<Appointment> BookedHolidays;
             BookedHolidays = _appointmentRepository.GetAllAppointmentPerUserYear(UserID, startdate, endDate);
-            int DebugCounter = 0;
+            int HolidayCount = 0;
             foreach (Appointment holiday in BookedHolidays)
             {
-                DebugCounter = DebugCounter + RawHolidaysRequired(holiday.StartDate, holiday.StartPeriod, holiday.EndDate, holiday.EndPeriod);
-                DebugCounter = DebugCounter - NonWorkingPeriod(holiday.StartDate, holiday.StartPeriod, holiday.EndDate, holiday.EndPeriod);
-
-                System.Diagnostics.Debug.WriteLine(string.Format("************************** User " + UserID + " Holiday from {0:G} to {0:G}", holiday.StartDate, holiday.EndDate));
-                System.Diagnostics.Debug.WriteLine(string.Format("************************** {0}", DebugCounter));
-                DebugCounter++;
+                HolidayCount = HolidayCount + RawHolidaysRequired(holiday.StartDate, holiday.StartPeriod, holiday.EndDate, holiday.EndPeriod);
+                HolidayCount = HolidayCount - NonWorkingPeriod(holiday.StartDate, holiday.StartPeriod, holiday.EndDate, holiday.EndPeriod);
             }
-            return DebugCounter;
+            return (float)HolidayCount/2;
         }
 
 
