@@ -1,6 +1,7 @@
 ﻿using HolidayWeb.Models;
 using HolidayWeb.Models.Interface;
 using Microsoft.AspNetCore.Identity;
+using Nager.Date;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -46,7 +47,8 @@ namespace HolidayWeb.Core
         private bool NonWorkinyDay(DateTime Checkdate)
         {
             //need to add in  public hoiday and manually added dates
-            return ((Checkdate.DayOfWeek == DayOfWeek.Saturday) || (Checkdate.DayOfWeek == DayOfWeek.Sunday));
+            return ((Checkdate.DayOfWeek == DayOfWeek.Saturday) || (Checkdate.DayOfWeek == DayOfWeek.Sunday)
+                ||(DateSystem.IsPublicHoliday(Checkdate, CountryCode.DE))) ;
         }
 
 
@@ -83,7 +85,7 @@ namespace HolidayWeb.Core
                     if (NonWorkinyDay(day))
                     {
                         // two edge case's
-                        if (((Convert.ToDateTime(day) == Startdate.Date) && (StartPeriod == Period.Afternoon)) || ((Convert.ToDateTime(day) == Enddate.Date) && (StartPeriod == Period.Morning)))
+                        if (((Convert.ToDateTime(day) == Startdate.Date) && (StartPeriod == Period.Afternoon)) || ((Convert.ToDateTime(day) == Enddate.Date) && (EndPeriod == Period.Morning)))
                         {
                             NonePeriods = NonePeriods + 1;
                         }
@@ -100,9 +102,9 @@ namespace HolidayWeb.Core
                 if (NonWorkinyDay(Startdate))
                 {
                     if (StartPeriod < EndPeriod)
-                    { return 2; }
+                    { NonePeriods = 2; }
                     else
-                    { return 1; }
+                    { NonePeriods = 1; }
                 }
             }
 

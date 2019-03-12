@@ -10,7 +10,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace HolidayWeb.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20190312084629_start")]
+    [Migration("20190312114448_start")]
     partial class start
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
