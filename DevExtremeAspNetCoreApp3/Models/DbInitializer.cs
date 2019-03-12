@@ -34,7 +34,7 @@ namespace HolidayWeb.Models
                     new EventType { Name = "Traveling" },
                     new EventType { Name = "AWP" },
 
-                    new SystemSetting { YearStartDate = DateTime.Parse("01/05/2019") }
+                    new SystemSetting { YearStartDate = DateTime.Parse("01/02/2019") }
                 );
 
 

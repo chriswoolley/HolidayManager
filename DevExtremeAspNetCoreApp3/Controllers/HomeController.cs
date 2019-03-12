@@ -22,17 +22,11 @@ namespace HolidayWeb.Controllers
         private readonly IState _StateList;
         private readonly IRuntime _runtime;
         private readonly IAppointment _appointmentRepository;
-
         private readonly MainViewModel _MainViewModel;
-
-
-
 
 //        public HomeController(IEvent events, UserManager<IdentityUser> userManager, IHolidayEntitlement _HolidayEntitlement)
         public HomeController(IDepartment department, UserManager<HolidayUser> userManager, IHolidayEntitlement _HolidayEntitlement, IState state, 
             IRuntime _Runtime, IAppointment AppointmentRepository, IHolidayCalc holidayCalc)
-
-
         {
 //            _events = events;
             _userManager = userManager;
@@ -40,10 +34,10 @@ namespace HolidayWeb.Controllers
             _DepartmentList = department;
             _StateList = state;
             _runtime = _Runtime;
+            if (_runtime.CurrentDepartmentId == 0)
+                _runtime.CurrentDepartmentId = 1;
             _appointmentRepository = AppointmentRepository;
-
             _MainViewModel = new MainViewModel();
-
             _MainViewModel.DepartmentList = _DepartmentList.GetAllDepartment();
             _MainViewModel.StateList = _StateList.GetAllState();
             _MainViewModel.UserList = _userManager.Users.ToList();
@@ -53,26 +47,24 @@ namespace HolidayWeb.Controllers
 
         }
 
-
         public ActionResult WebAPIService()
         {
             return View();
         }
 
-
-
-        public IActionResult Index()
+                
+        public IActionResult Index(int DepartmentId)
         {
-//            var Events = _events.GetAllEvent().OrderBy(p => p.StartTime);
+           //First cal call only             
+            if (DepartmentId != 0)
+                _runtime.CurrentDepartmentId = DepartmentId;
+
             var users = _userManager.Users;
             ViewBag.Users = users.Select(x => new SelectListItem { Text = x.UserName, Value = x.Id }).ToList();
 
-//            if (runTime.CurrentDepartmentId != 0)
-//            return View(users);
-
-
-            return View(_MainViewModel);
-           
+            if (_runtime.CurrentDepartmentId != 0)
+                _MainViewModel.UserList = _userManager.Users.Where(p => p.Department.Id == _runtime.CurrentDepartmentId);
+            return View("Index", _MainViewModel);
 
         }
 
@@ -84,6 +76,9 @@ namespace HolidayWeb.Controllers
 
             var users = _userManager.Users;
             ViewBag.Users = users.Select(x => new SelectListItem { Text = x.UserName, Value = x.Id }).ToList();
+
+            if (_runtime.CurrentDepartmentId != 0)
+                _MainViewModel.UserList = _userManager.Users.Where(p => p.Department.Id == _runtime.CurrentDepartmentId);
 
             return View("Index", _MainViewModel);
         }

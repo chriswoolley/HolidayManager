@@ -48,72 +48,73 @@
 
 
 <div class="row">
-    <div class="column left dx-datagrid-filter-panel">
+    @*<div class="column left dx-datagrid-filter-panel">*@
+    <div class="column left dx-datagrid-filter-panel" style="width:auto">
         @await Html.PartialAsync("~/Views/Home/_DepartmentList.cshtml", Model.DepartmentList)
     </div>
     <div class="column middle">
         <h2>Main Content</h2>
 
         @(Html.DevExtreme().Scheduler()
-                                                                    .DataSource(d => d.Mvc()
-                                                                        .Controller("SchedulerData")
-                                                                        .Key("AppointmentId")
-                                                                        .LoadAction("Get")
-                                                                        .UpdateAction("Put")
-                                                                        .InsertAction("Post")
-                                                                        .DeleteAction("Delete"))
-                                                                    .TextExpr("Subject")
-                                                                    .StartDateExpr("StartDate")
-                                                                    .EndDateExpr("EndDate")
-//                                                                    .Views(new SchedulerViewType[] { SchedulerViewType.Day, SchedulerViewType.TimelineMonth, SchedulerViewType.WorkWeek, SchedulerViewType.Week, SchedulerViewType.Agenda })
-                                                                    .Views(new SchedulerViewType[] {SchedulerViewType.Week})
-                                                                    .CurrentView(SchedulerViewType.Week)
-                                                                    .CurrentDate(new DateTime(2019, 3, 7))
-                                                                    .FirstDayOfWeek(FirstDayOfWeek.Sunday)
-                                                                    //                                    .ShowAllDayPanel(false)
-                                                                    .StartDayHour(9)
-                                                                    .EndDayHour(18)
-                                                                    .CellDuration(120)
-                                                                    .MaxAppointmentsPerCell(5)
-                                                                    .Resources(res =>
-                                                                    {
+                                                                            .DataSource(d => d.Mvc()
+                                                                                .Controller("SchedulerData")
+                                                                                .Key("AppointmentId")
+                                                                                .LoadAction("Get")
+                                                                                .UpdateAction("Put")
+                                                                                .InsertAction("Post")
+                                                                                .DeleteAction("Delete"))
+                                                                            .TextExpr("Subject")
+                                                                            .StartDateExpr("StartDate")
+                                                                            .EndDateExpr("EndDate")
+                                                                            //                                                                    .Views(new SchedulerViewType[] { SchedulerViewType.Day, SchedulerViewType.TimelineMonth, SchedulerViewType.WorkWeek, SchedulerViewType.Week, SchedulerViewType.Agenda })
+                                                                            .Views(new SchedulerViewType[] { SchedulerViewType.Week })
+                                                                            .CurrentView(SchedulerViewType.Week)
+                                                                            .CurrentDate(new DateTime(2019, 3, 7))
+                                                                            .FirstDayOfWeek(FirstDayOfWeek.Sunday)
+                                                                            //                                    .ShowAllDayPanel(false)
+                                                                            .StartDayHour(9)
+                                                                            .EndDayHour(18)
+                                                                            .CellDuration(120)
+                                                                            .MaxAppointmentsPerCell(5)
+                                                                            .Resources(res =>
+                                                                            {
 
-                                                                        res.Add()
-                                                                .FieldExpr("StartPeriod")
-                                                                .AllowMultiple(false)
-                                                                .Label("Start Period")
-                                                                .DataSource
-                                                                (new object[] {
+                                                                                res.Add()
+                                                                        .FieldExpr("StartPeriod")
+                                                                        .AllowMultiple(false)
+                                                                        .Label("Start Period")
+                                                                        .DataSource
+                                                                        (new object[] {
             new { id = 0, text = "Morning", color = "#1e90ff" },
             new { id = 1, text = "Afternoon", color = "#ff9747" }});
 
 
 
-                                                                        res.Add()
-                                                                            .FieldExpr("EndPeriod")
+                                                                                res.Add()
+                                                                                    .FieldExpr("EndPeriod")
+                                                                                    .AllowMultiple(false)
+                                                                                    .Label("End Period")
+                                                                                    .DataSource
+                                                                                    (new object[] {
+            new { id = 0, text = "Morning", color = "#1e90ff" },
+            new { id = 1, text = "Afternoon", color = "#ff9747" }});
+
+
+                                                                                res.Add()
+                                                                            .FieldExpr("DepartmentID")
                                                                             .AllowMultiple(false)
-                                                                            .Label("End Period")
-                                                                            .DataSource
-                                                                            (new object[] {
-            new { id = 0, text = "Morning", color = "#1e90ff" },
-            new { id = 1, text = "Afternoon", color = "#ff9747" }});
+                                                                            .Label("Department")
+                                                                            .DataSource(Model.DepartmentList.ToList()).DisplayExpr("DepartmentName").ValueExpr("Id");
 
+                                                                                res.Add()
+                                                                            .FieldExpr("UserID")
+                                                                            .AllowMultiple(false)
+                                                                            .Label("User")
+                                                                            .DataSource(Model.UserList.ToList()).DisplayExpr("UserName").ValueExpr("Id");
 
-                                                                        res.Add()
-                                                                    .FieldExpr("DepartmentID")
-                                                                    .AllowMultiple(false)
-                                                                    .Label("Department")
-                                                                    .DataSource(Model.DepartmentList.ToList()).DisplayExpr("DepartmentName").ValueExpr("Id");
-
-                                                                        res.Add()
-                                                                    .FieldExpr("UserID")
-                                                                    .AllowMultiple(false)
-                                                                    .Label("User")
-                                                                    .DataSource(Model.UserList.ToList()).DisplayExpr("UserName").ValueExpr("Id");
-
-                                                                    }
-                                                                                )
-                                                                                .Height(580)
+                                                                            }
+                                                                                        )
+                                                                                        .Height(580)
                 //.OnAppointmentFormOpening("appointmentForm_created")
         )
 

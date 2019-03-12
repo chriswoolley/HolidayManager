@@ -48,7 +48,7 @@ namespace HolidayWeb.Core
         {
             //need to add in  public hoiday and manually added dates
             return ((Checkdate.DayOfWeek == DayOfWeek.Saturday) || (Checkdate.DayOfWeek == DayOfWeek.Sunday)
-                ||(DateSystem.IsPublicHoliday(Checkdate, CountryCode.DE))) ;
+                ||(DateSystem.IsPublicHoliday(Checkdate, CountryCode.GB))) ;
         }
 
 
