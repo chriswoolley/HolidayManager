@@ -34,14 +34,14 @@ namespace HolidayWeb.Models
                     new EventType { Name = "Traveling" },
                     new EventType { Name = "AWP" },
 
-                    new SystemSetting { YearStartDate = DateTime.Parse("01/05/2019")}
+                    new SystemSetting { YearStartDate = DateTime.Parse("01/05/2019") }
                 );
 
 
                 context.Roles.AddRange(
                      new IdentityRole
                      {
-                         Id = "b562e963-6e7e-4f41-8229-4390b1257hg6",                     
+                         Id = "b562e963-6e7e-4f41-8229-4390b1257hg6",
                          Name = "Admin",
                          NormalizedName = "ADMIN"
                      });
@@ -149,7 +149,7 @@ namespace HolidayWeb.Models
 
                 HolidayUser sale1 = new HolidayUser
                 {
-                    Department = SalesDepartment,                    
+                    Department = SalesDepartment,
                     UserName = "sale1",
                     NormalizedUserName = "SALE1",
                     Email = "ssssdsss@sssddss.com",
@@ -184,7 +184,7 @@ namespace HolidayWeb.Models
                     PasswordHash = "AQAAAAEAACcQAAAAEPGDvTafRidDp0iiCAwKH41JpBnDUpw/Dq0Ivh9YJvr44yUWo29AvevFXvpGpQuDgg==",//Qwerty1@
                     LockoutEnabled = true,
                     SecurityStamp = "ZYJMO4EU7N7B7FUO2VEI5JFAVIJXDDQ4"
-                    
+
                 };
 
                 context.Users.Add(sale2);
@@ -198,6 +198,51 @@ namespace HolidayWeb.Models
                 context.UserRoles.Add(sale2ur);
                 context.SaveChanges();
 
+                context.AddRange
+                (
+                    new HolidayEntitlement
+                    {
+                        Users = user,
+                        Year = 19,
+                        YearsEntitlement = 21
+                    },
+
+                    new HolidayEntitlement
+                    {
+                        Users = user1,
+                        Year = 19,
+                        YearsEntitlement = 31
+                    },
+
+                    new HolidayEntitlement
+                    {
+                        Users = Dev1,
+                        Year = 19,
+                        YearsEntitlement = 21
+                    },
+
+                    new HolidayEntitlement
+                    {
+                        Users = dev2,
+                        Year = 19,
+                        YearsEntitlement = 23
+                    },
+
+                    new HolidayEntitlement
+                    {
+                        Users = sale1,
+                        Year = 19,
+                        YearsEntitlement = 23
+                    },
+
+                    new HolidayEntitlement
+                    {
+                        Users = sale2,
+                        Year = 19,
+                        YearsEntitlement = 24
+                    }
+                );
+                context.SaveChanges();
 
             }
             context.SaveChanges();
