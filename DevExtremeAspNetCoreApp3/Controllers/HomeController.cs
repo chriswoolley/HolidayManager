@@ -24,7 +24,10 @@ namespace HolidayWeb.Controllers
         private readonly IAppointment _appointmentRepository;
         private readonly MainViewModel _MainViewModel;
 
-//        public HomeController(IEvent events, UserManager<IdentityUser> userManager, IHolidayEntitlement _HolidayEntitlement)
+
+        private Task<HolidayUser> GetCurrentUserAsync() => _userManager.GetUserAsync(HttpContext.User);
+
+        //        public HomeController(IEvent events, UserManager<IdentityUser> userManager, IHolidayEntitlement _HolidayEntitlement)
         public HomeController(IDepartment department, UserManager<HolidayUser> userManager, IHolidayEntitlement _HolidayEntitlement, IState state, 
             IRuntime _Runtime, IAppointment AppointmentRepository, IHolidayCalc holidayCalc)
         {
@@ -53,8 +56,12 @@ namespace HolidayWeb.Controllers
         }
 
                 
-        public IActionResult Index(int DepartmentId)
+        public async Task<IActionResult> Index(int DepartmentId)
         {
+
+            var user = await GetCurrentUserAsync();
+            
+
             if (DepartmentId != 0)
                 _runtime.CurrentDepartmentId = DepartmentId;
 
