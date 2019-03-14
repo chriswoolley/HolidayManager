@@ -91,6 +91,7 @@ namespace HolidayWeb.Models
                     PasswordHash = "AQAAAAEAACcQAAAAEH98EQZKwd33etXkRuXHHN2IiyPb96Juffu/xZs1GteG87RqRd+YEeJvpDyIb/UXWw==",//Qwerty1@
                     LockoutEnabled = true,
                     SecurityStamp = "DYGZ56SBLC36EWFN5MGSV32O4KXKYUZC",
+                    colorHighlight = "#41e4f0"
                 };
 
                 context.Users.Add(user1);
@@ -114,7 +115,8 @@ namespace HolidayWeb.Models
                     NormalizedEmail = "SSS@SSSS.COM",
                     PasswordHash = "AQAAAAEAACcQAAAAEMomRKDIeeCGXzeKnE4tnhpIdFTKet1gX0tArLorI58EmmkIMgz1FgGcRg5agtbEBw==",//Qwerty1@
                     LockoutEnabled = true,
-                    SecurityStamp = "7BIH7YGNKASJDWOQZRJHQE5PEUFKHYYL"
+                    SecurityStamp = "7BIH7YGNKASJDWOQZRJHQE5PEUFKHYYL",
+                    colorHighlight = "#41f072"
                 };
                 context.Users.Add(Dev1);
                 context.SaveChanges();
@@ -135,7 +137,8 @@ namespace HolidayWeb.Models
                     NormalizedEmail = "SSSSDSSS@SSSDDSS.COM",
                     PasswordHash = "AQAAAAEAACcQAAAAEDnwYkBH9Wj2gl/r1J+2US5pApOP7lbJd31ax51wwFrFO6bK8/eSnIcGMokorzWo1w==",//Qwerty1@
                     LockoutEnabled = true,
-                    SecurityStamp = "KZUWAU5JZMXK5XTH22ZZ5Y7DUYRO3VKK"
+                    SecurityStamp = "KZUWAU5JZMXK5XTH22ZZ5Y7DUYRO3VKK",
+                    colorHighlight = "#f05b41"
                 };
                 context.Users.Add(dev2);
                 context.SaveChanges();
@@ -156,7 +159,8 @@ namespace HolidayWeb.Models
                     NormalizedEmail = "SSSSDSSS@SSSDDSS.COM",
                     PasswordHash = "AQAAAAEAACcQAAAAEIJ645KmqwPVZXlLYMTOuDLlZs+B9/q+8juDU12jMggiiAt2fT7m8H425JBe/915xA==",//Qwerty1@
                     LockoutEnabled = true,
-                    SecurityStamp = "WUFR734JM74IGFHDAS5QVDKPDGWKW35D"
+                    SecurityStamp = "WUFR734JM74IGFHDAS5QVDKPDGWKW35D",
+                    colorHighlight = "#f0be41"
                 };
 
                 context.Users.Add(sale1);
@@ -183,8 +187,8 @@ namespace HolidayWeb.Models
                     NormalizedEmail = "SSSSDSSS@SSSDDSS.COM",
                     PasswordHash = "AQAAAAEAACcQAAAAEPGDvTafRidDp0iiCAwKH41JpBnDUpw/Dq0Ivh9YJvr44yUWo29AvevFXvpGpQuDgg==",//Qwerty1@
                     LockoutEnabled = true,
-                    SecurityStamp = "ZYJMO4EU7N7B7FUO2VEI5JFAVIJXDDQ4"
-
+                    SecurityStamp = "ZYJMO4EU7N7B7FUO2VEI5JFAVIJXDDQ4",
+                    colorHighlight = "#414cf0"
                 };
 
                 context.Users.Add(sale2);

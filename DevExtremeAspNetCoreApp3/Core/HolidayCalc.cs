@@ -15,7 +15,7 @@ namespace HolidayWeb.Core
         Morning,
         Afternoon
     }
-
+                
     public class HolidayCalc : IHolidayCalc
     {
 
@@ -27,8 +27,6 @@ namespace HolidayWeb.Core
 
         public HolidayCalc(ISystemHoliday systemHolidays, UserManager<HolidayUser> userManager, IHolidayEntitlement _HolidayEntitlement, ISystemSetting systemSetting
             , IAppointment AppointmentRepository)
-        //        public HolidayCalc(ISystemHoliday systemHolidays, UserManager<HolidayUser> userManager, IHolidayEntitlement _HolidayEntitlement)
-        //        public HolidayCalc()
         {
             this.systemHolidays = systemHolidays;
             _holidayEntitlement = _HolidayEntitlement;

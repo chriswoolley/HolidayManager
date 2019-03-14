@@ -37,7 +37,6 @@ namespace HolidayWeb.Controllers
 
         public IActionResult AddUser()
         {
-
             return View();
         }
 

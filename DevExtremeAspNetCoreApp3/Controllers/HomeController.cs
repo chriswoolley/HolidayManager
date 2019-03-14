@@ -55,7 +55,6 @@ namespace HolidayWeb.Controllers
                 
         public IActionResult Index(int DepartmentId)
         {
-           //First cal call only             
             if (DepartmentId != 0)
                 _runtime.CurrentDepartmentId = DepartmentId;
 
@@ -65,27 +64,21 @@ namespace HolidayWeb.Controllers
             if (_runtime.CurrentDepartmentId != 0)
                 _MainViewModel.UserList = _userManager.Users.Where(p => p.Department.Id == _runtime.CurrentDepartmentId);
             return View("Index", _MainViewModel);
-
         }
-
 
 //        public IActionResult Test(int DepartmentId)
-        public IActionResult Test(int DepartmentId)
-        {
-            _runtime.CurrentDepartmentId = DepartmentId;
+        //public IActionResult Test(int DepartmentId)
+        //{
+        //    _runtime.CurrentDepartmentId = DepartmentId;
 
-            var users = _userManager.Users;
-            ViewBag.Users = users.Select(x => new SelectListItem { Text = x.UserName, Value = x.Id }).ToList();
+        //    var users = _userManager.Users;
+        //    ViewBag.Users = users.Select(x => new SelectListItem { Text = x.UserName, Value = x.Id }).ToList();
 
-            if (_runtime.CurrentDepartmentId != 0)
-                _MainViewModel.UserList = _userManager.Users.Where(p => p.Department.Id == _runtime.CurrentDepartmentId);
+        //    if (_runtime.CurrentDepartmentId != 0)
+        //        _MainViewModel.UserList = _userManager.Users.Where(p => p.Department.Id == _runtime.CurrentDepartmentId);
 
-            return View("Index", _MainViewModel);
-        }
-
-
-
-
+        //    return View("Index", _MainViewModel);
+        //}
 
     }
 }

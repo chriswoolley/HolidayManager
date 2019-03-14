@@ -33,12 +33,6 @@ namespace HolidayWeb.Controllers
             return View();
         }
 
-        //[HttpPost]
-        //public void PostColour(object value)
-        //{
-
-        //}
-
         [HttpPost]
         public async Task<IActionResult> Login(LoginViewModel loginViewModel)
         {
