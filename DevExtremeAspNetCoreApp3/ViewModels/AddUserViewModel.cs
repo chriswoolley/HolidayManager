@@ -27,18 +27,11 @@ namespace HolidayWeb.ViewModels
         [Required]
         [DataType(DataType.Password)]
         public string Password { get; set; }
-
-        //public string color;
-
-        //public string City { get; set; }
-        //public string Country { get; set; }
-
-        //public DateTime Birthdate { get; set; }
-        
+        [Display(Name = "Color")]
+        public string colorHighlight { get; set; }
         //[Required]
         public virtual Department DepartmentId { get; set; }
         public virtual Department DepartmentManagerId { get; set; }
-
         public int ReturnedDepartmentId { get; set; }
         public int ReturnedDepartmentManagerId { get; set; }
         //public virtual Department DepartmentManagerId { get; set; }

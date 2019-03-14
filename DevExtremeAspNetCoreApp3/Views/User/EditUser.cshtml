@@ -7,7 +7,6 @@
     <h4>You can change the user details below</h4>
     <hr />
     <div asp-validation-summary="All" class="text-danger"></div>
-
     @*<div class="form-group">
             <label asp-for="Id" class="col-md-2 control-label"></label>
             <div class="col-md-10">
@@ -15,7 +14,6 @@
                 <span asp-validation-for="Id" class="text-danger"></span>
             </div>
         </div>*@
-
     <div class="form-group">
         <label asp-for="UserName" class="col-md-2 control-label"></label>
         <div class="col-md-10">
@@ -23,13 +21,17 @@
             <span asp-validation-for="UserName" class="text-danger"></span>
         </div>
     </div>
-
     <div class="form-group">
         <label asp-for="Email" class="col-md-2 control-label"></label>
         <div class="col-md-10">
             <input asp-for="Email" class="form-control" />
             <span asp-validation-for="Email" class="text-danger"></span>
         </div>
+    </div>
+    <div class="form-group">
+        <label asp-for="colorHighlight" class="control-label"></label>
+        <input asp-for="colorHighlight" class="form-control" />
+        <span asp-validation-for="colorHighlight" class="text-danger"></span>
     </div>
 
     <div class="form-group">
@@ -41,7 +43,6 @@
         </select>
         @*                <input class="btn btn-primary" value="Add claim for user" type="submit" />*@
     </div>
-
     <div class="form-group">
         <input type="hidden" name="Department to manage" value="" />
         <label asp-for="ReturnedDepartmentManagerId" class="control-label">Manage Department</label>
@@ -51,7 +52,6 @@
         </select>
         @*                <input class="btn btn-primary" value="Add claim for user" type="submit" />*@
     </div>
-
 
     <div class="form-group">
         <div class="col-md-offset-2 col-md-10">

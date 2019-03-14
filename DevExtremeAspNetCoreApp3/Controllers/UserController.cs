@@ -41,12 +41,6 @@ namespace HolidayWeb.Controllers
             return View();
         }
 
-        public IActionResult GetJSON()
-        {
-            return Json("This is a  test herw......");
-        }
-
-
         [HttpPost]
         public async Task<IActionResult> AddUser(AddUserViewModel addUserViewModel)
         {
@@ -72,7 +66,8 @@ namespace HolidayWeb.Controllers
                 UserName = addUserViewModel.UserName,
                 Email = addUserViewModel.Email,
                 Department = addUserViewModel.DepartmentId,
-                DepartmentManager = addUserViewModel.DepartmentManagerId
+                DepartmentManager = addUserViewModel.DepartmentManagerId,
+                colorHighlight = addUserViewModel.colorHighlight               
             };
 
             IdentityResult result = await _userManager.CreateAsync(user, addUserViewModel.Password);
@@ -98,7 +93,8 @@ namespace HolidayWeb.Controllers
                 return RedirectToAction("List", _userManager.Users);
 
             var claims = await _userManager.GetClaimsAsync(user);
-            var vm = new EditUserViewModel() { Id = user.Id, Email = user.Email, UserName = user.UserName,
+            var vm = new EditUserViewModel() { Id = user.Id, Email = user.Email, 
+                colorHighlight = user.colorHighlight,  UserName = user.UserName,
                 ReturnedDepartmentId = user.Department.Id, ReturnedDepartmentManagerId = user.DepartmentManager?.Id,
                 UserClaims = claims.Select(c => c.Value).ToList() };
 
@@ -128,6 +124,8 @@ namespace HolidayWeb.Controllers
                 {
                     _user.DepartmentManager = null;
                 }
+
+                _user.colorHighlight = editUserViewModel.colorHighlight;
 
                 var x = await _userManager.UpdateAsync(_user);
                 int affected = _AppDbContext.SaveChanges();              

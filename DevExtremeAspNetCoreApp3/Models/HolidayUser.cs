@@ -12,10 +12,13 @@ namespace HolidayWeb.Models
 {
     public class HolidayUser : IdentityUser
     {
-        public Color color;
+
+
         public virtual Department Department { get; set; }
 
         public virtual Department DepartmentManager { get; set; }
+
+        public virtual string colorHighlight { get; set; }
 
         [NotMapped]
         public float HolidaysRemaining { get; set; }

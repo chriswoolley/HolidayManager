@@ -153,7 +153,8 @@ namespace HolidayWeb.Migrations
                     LockoutEnabled = table.Column<bool>(nullable: false),
                     AccessFailedCount = table.Column<int>(nullable: false),
                     DepartmentId = table.Column<int>(nullable: true),
-                    DepartmentManagerId = table.Column<int>(nullable: true)
+                    DepartmentManagerId = table.Column<int>(nullable: true),
+                    colorHighlight = table.Column<string>(nullable: true)
                 },
                 constraints: table =>
                 {

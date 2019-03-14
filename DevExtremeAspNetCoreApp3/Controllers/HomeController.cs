@@ -85,45 +85,6 @@ namespace HolidayWeb.Controllers
 
 
 
-//        [HttpPost]
-//        public IActionResult Post(string values)
-//        {
-//            var newAppointment = new Appointment();
-//            JsonConvert.PopulateObject(values, newAppointment);
-
-//            if (!TryValidateModel(newAppointment))
-//                //                return BadRequest(ModelState.GetFullErrorMessage());
-//                return BadRequest();
-
-//            newAppointment.DepartmentID = _runtime.CurrentDepartmentId;
-
-//            _appointmentRepository.AddAppointment(newAppointment);
-////            appDbContext.SaveChanges();
-
-//            return Ok();
-//        }
-
-//        [HttpPut]
-//        public IActionResult Put(int key, string values)
-//        {
-//            var appointment = _appointmentRepository.GetAppointmentById(key);
-//            JsonConvert.PopulateObject(values, appointment);
-
-//            if (!TryValidateModel(appointment))
-//                //    return BadRequest(ModelState.GetFullErrorMessage());
-//                return BadRequest();
-
-//            _appointmentRepository.EditAppointment(appointment);
-//            return Ok();
-//        }
-
-//        [HttpDelete]
-//        public void Delete(int key)
-//        {
-//            var appointment = _appointmentRepository.GetAppointmentById(key);
-//            _appointmentRepository.DeleteAppointment(appointment);
-
-//        }
 
 
     }

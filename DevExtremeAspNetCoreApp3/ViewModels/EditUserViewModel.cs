@@ -15,17 +15,10 @@ namespace HolidayWeb.ViewModels
         [Required(ErrorMessage = "Please enter the user email")]
         public string Email { get; set; }
 
+        [Display(Name = "Color")]
+        public string colorHighlight { get; set; }
+
         public List<string> UserClaims { get; set; }
-
-        [Required(ErrorMessage = "Please enter the birth date")]
-        [Display(Name = "Birth date")]
-        [DataType(DataType.Date)]
-        [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}", ApplyFormatInEditMode = true)]
-        public DateTime Birthdate { get; set; }
-
-        public string City { get; set; }
-
-        public string Country { get; set; }
 
         public int ReturnedDepartmentId { get; set; }
         

@@ -174,6 +174,8 @@ namespace HolidayWeb.Migrations
                     b.Property<string>("UserName")
                         .HasMaxLength(256);
 
+                    b.Property<string>("colorHighlight");
+
                     b.HasKey("Id");
 
                     b.HasIndex("DepartmentId");
