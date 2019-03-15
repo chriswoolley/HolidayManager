@@ -60,32 +60,42 @@ namespace HolidayWeb.Controllers
         {
 
             var user = await GetCurrentUserAsync();
-            
+
+
+            bool IsAdmin = (user != null) && (await _userManager.IsInRoleAsync(user, "Admin"));
 
             if (DepartmentId != 0)
                 _runtime.CurrentDepartmentId = DepartmentId;
 
-            var users = _userManager.Users;
-            ViewBag.Users = users.Select(x => new SelectListItem { Text = x.UserName, Value = x.Id }).ToList();
 
-            if (_runtime.CurrentDepartmentId != 0)
-                _MainViewModel.UserList = _userManager.Users.Where(p => p.Department.Id == _runtime.CurrentDepartmentId);
+            if (IsAdmin)
+            {
+                var users = _userManager.Users;
+                ViewBag.Users = users.Select(x => new SelectListItem { Text = x.UserName, Value = x.Id }).ToList();
+
+                if (_runtime.CurrentDepartmentId != 0)
+                    _MainViewModel.UserList = _userManager.Users.Where(p => p.Department.Id == _runtime.CurrentDepartmentId);
+
+                //_MainViewModel.DepartmentList = _DepartmentList.GetAllDepartment();
+            }
+            else
+            {
+
+                if (user != null)
+                {
+                    var users = _userManager.Users;
+                    ViewBag.Users = new SelectListItem { Text = user.UserName, Value = user.Id };
+
+                    if (_runtime.CurrentDepartmentId != 0)
+                        _MainViewModel.UserList = _userManager.Users.Where(p => p.Id == user.Id);
+                    //_MainViewModel.DepartmentList = _DepartmentList.GetAllDepartment(1).Where(p => p.Id == _runtime.CurrentDepartmentId);
+                }
+
+
+            }
+
             return View("Index", _MainViewModel);
         }
-
-//        public IActionResult Test(int DepartmentId)
-        //public IActionResult Test(int DepartmentId)
-        //{
-        //    _runtime.CurrentDepartmentId = DepartmentId;
-
-        //    var users = _userManager.Users;
-        //    ViewBag.Users = users.Select(x => new SelectListItem { Text = x.UserName, Value = x.Id }).ToList();
-
-        //    if (_runtime.CurrentDepartmentId != 0)
-        //        _MainViewModel.UserList = _userManager.Users.Where(p => p.Department.Id == _runtime.CurrentDepartmentId);
-
-        //    return View("Index", _MainViewModel);
-        //}
 
     }
 }
