@@ -10,6 +10,7 @@ using Newtonsoft.Json;
 using HolidayWeb.Models;
 using HolidayWeb.Models.Interface;
 using HolidayWeb.Core;
+using Microsoft.AspNetCore.Identity;
 
 namespace HolidayWeb.Controllers.ApiControllers {
     [Route("api/[controller]")]
@@ -17,9 +18,14 @@ namespace HolidayWeb.Controllers.ApiControllers {
         InMemoryAppointmentsDataContext _data;
         IAppointment _appointment;
 
-        public SchedulerDataController(IHttpContextAccessor httpContextAccessor, IMemoryCache memoryCache, IAppointment appointment) {
+        private readonly UserManager<HolidayUser> _userManager;
+
+
+        public SchedulerDataController(IHttpContextAccessor httpContextAccessor, IMemoryCache memoryCache, IAppointment appointment, UserManager<HolidayUser> userManager)
+        {
             _data = new InMemoryAppointmentsDataContext(httpContextAccessor,appointment);
             _appointment = appointment;
+            _userManager = userManager;
         }
 
         [HttpGet]
@@ -28,15 +34,14 @@ namespace HolidayWeb.Controllers.ApiControllers {
         }
         
         [HttpPost]
-        public IActionResult Post(string values) {
-            var newAppointment = new Appointment();
+//        public async System.Threading.Tasks.Task<IActionResult> PostAsync(string values) {
+        public IActionResult Post(string values)
+            {
+                var newAppointment = new Appointment();
             JsonConvert.PopulateObject(values, newAppointment);
 
             if(!TryValidateModel(newAppointment))
-  //                return BadRequest(ModelState.GetFullErrorMessage());
                 return BadRequest();
-
-
 
             if (newAppointment.StartPeriod == Period.Morning)
             {
@@ -57,7 +62,24 @@ namespace HolidayWeb.Controllers.ApiControllers {
                 newAppointment.EndDate = new DateTime(newAppointment.EndDate.Year, newAppointment.EndDate.Month, newAppointment.EndDate.Day, 17, 0, 0);
             }
 
+            var holidayUser = _userManager.Users.Where(p => p.Id == newAppointment.UserID).FirstOrDefault();
+            if (holidayUser != null)
+            {
+                newAppointment.Description = holidayUser.UserName;
+                if (newAppointment.StartDate.Date == newAppointment.EndDate.Date)
+                {
+                    if ((newAppointment.StartPeriod == Period.Morning) && (newAppointment.EndPeriod == Period.Afternoon))
+                    {
+                        newAppointment.Description = newAppointment.Description + " All day";
+                    }
+                    else
+                    {
+                        newAppointment.Description = newAppointment.Description + " " + newAppointment.StartPeriod.ToString();
+                    }
 
+
+                }
+            }
 
             _appointment.AddAppointment(newAppointment);
 

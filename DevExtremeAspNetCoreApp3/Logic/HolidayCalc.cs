@@ -15,6 +15,8 @@ namespace HolidayWeb.Core
         Morning,
         Afternoon
     }
+
+
                 
     public class HolidayCalc : IHolidayCalc
     {

@@ -15,7 +15,7 @@ namespace HolidayWeb.Controllers
     public class HomeController : Controller
     {
 
-//        private readonly IEvent _events;
+        //        private readonly IEvent _events;
         private readonly UserManager<HolidayUser> _userManager;
         private readonly IHolidayEntitlement _holidayEntitlement;
         private readonly IDepartment _DepartmentList;
@@ -28,10 +28,10 @@ namespace HolidayWeb.Controllers
         private Task<HolidayUser> GetCurrentUserAsync() => _userManager.GetUserAsync(HttpContext.User);
 
         //        public HomeController(IEvent events, UserManager<IdentityUser> userManager, IHolidayEntitlement _HolidayEntitlement)
-        public HomeController(IDepartment department, UserManager<HolidayUser> userManager, IHolidayEntitlement _HolidayEntitlement, IState state, 
+        public HomeController(IDepartment department, UserManager<HolidayUser> userManager, IHolidayEntitlement _HolidayEntitlement, IState state,
             IRuntime _Runtime, IAppointment AppointmentRepository, IHolidayCalc holidayCalc)
         {
-//            _events = events;
+            //            _events = events;
             _userManager = userManager;
             _holidayEntitlement = _HolidayEntitlement;
             _DepartmentList = department;
@@ -55,7 +55,7 @@ namespace HolidayWeb.Controllers
             return View();
         }
 
-                
+
         public async Task<IActionResult> Index(int DepartmentId)
         {
 
@@ -81,15 +81,23 @@ namespace HolidayWeb.Controllers
             else
             {
 
-                if (user != null)
                 {
                     var users = _userManager.Users;
-                    ViewBag.Users = new SelectListItem { Text = user.UserName, Value = user.Id };
+                    if (user != null)
+                    {
+                        ViewBag.Users = new SelectListItem { Text = user.UserName, Value = user.Id };
+                    }
+                    else
+                    {
+                        ViewBag.Users = null;
+
+                    }
 
                     if (_runtime.CurrentDepartmentId != 0)
-                        _MainViewModel.UserList = _userManager.Users.Where(p => p.Id == user.Id);
-                    //_MainViewModel.DepartmentList = _DepartmentList.GetAllDepartment(1).Where(p => p.Id == _runtime.CurrentDepartmentId);
+                        //    _MainViewModel.UserList = _userManager.Users.Where(p => p.Id == user.Id);
+                        _MainViewModel.UserList = _userManager.Users.Where(p => p.Department.Id == _runtime.CurrentDepartmentId);
                 }
+
 
 
             }

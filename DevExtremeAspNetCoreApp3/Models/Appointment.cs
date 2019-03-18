@@ -39,7 +39,6 @@ namespace HolidayWeb.Models
         public int Duration { get; set; }
         [JsonProperty(PropertyName = "StartPeriod")]
         public Period StartPeriod { get; set; }
-
         [JsonProperty(PropertyName = "EndPeriod")]
         public Period EndPeriod { get; set; }
 
