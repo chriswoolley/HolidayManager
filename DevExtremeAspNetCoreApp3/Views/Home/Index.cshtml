@@ -17,74 +17,91 @@
         <h2>Main Content</h2>
 
         @(Html.DevExtreme().Scheduler()
-                                .DataSource(d => d.Mvc()
-                                .Controller("SchedulerData")
-                                .Key("AppointmentId")
-                                .LoadAction("Get")
-                                .UpdateAction("Put")
-                                .InsertAction("Post")
-                                .DeleteAction("Delete"))
-                                .TextExpr("Description")
-                                .StartDateExpr("StartDate")
-                                .EndDateExpr("EndDate")
-                                //                                                                    .Views(new SchedulerViewType[] { SchedulerViewType.Day, SchedulerViewType.TimelineMonth, SchedulerViewType.WorkWeek, SchedulerViewType.Week, SchedulerViewType.Agenda })
-                                .Views(new SchedulerViewType[] { SchedulerViewType.Week })
-                                .CurrentView(SchedulerViewType.Week)
-                                .CurrentDate(new DateTime(2019, 3, 7))
-                                .FirstDayOfWeek(FirstDayOfWeek.Sunday)
+            .DataSource(d => d.Mvc()
+            .Controller("SchedulerData")
+            .Key("AppointmentId")
+            .LoadAction("Get")
+            .UpdateAction("Put")
+            .InsertAction("Post")
+            .DeleteAction("Delete"))
+            .TextExpr("Description")
+            .StartDateExpr("StartDate")
+            .EndDateExpr("EndDate")
+            //                                                                    .Views(new SchedulerViewType[] { SchedulerViewType.Day, SchedulerViewType.TimelineMonth, SchedulerViewType.WorkWeek, SchedulerViewType.Week, SchedulerViewType.Agenda })
+            .Views(new SchedulerViewType[] { SchedulerViewType.Week })
+            .CurrentView(SchedulerViewType.Week)
+            .CurrentDate(new DateTime(2019, 3, 7))
+            .FirstDayOfWeek(FirstDayOfWeek.Sunday)
 
-                                .Option("editing.allowResizing", false)
-                                .Option("editing.allowDragging", false)
-                                .Option("editing.allowDeleting", isUserLoggedIn)
-                                .Option("editing.allowAdding", isUserLoggedIn)
-                                .Option("editing.allowUpdating", isUserLoggedIn)
-
-
-        .StartDayHour(9)
-        .EndDayHour(18)
-        .CellDuration(120)
-        .MaxAppointmentsPerCell(5)
-        .Resources(res =>
-        {
-            res.Add()
-            .FieldExpr("StartPeriod")
-            .AllowMultiple(false)
-            .Label("Start Period")
-            .DataSource
-            (new object[] {
-            new { id = 0, text = "Morning", color = "#1e90ff" },
-            new { id = 1, text = "Afternoon", color = "#ff9747" }});
+            .Option("editing.allowResizing", false)
+            .Option("editing.allowDragging", false)
+            .Option("editing.allowDeleting", isUserLoggedIn)
+            .Option("editing.allowAdding", isUserLoggedIn)
+            .Option("editing.allowUpdating", isUserLoggedIn)
 
 
-            res.Add()
-        .FieldExpr("EndPeriod")
-        .AllowMultiple(false)
-        .Label("End Period")
-        .DataSource
-        (new object[] {
-            new { id = 0, text = "Morning", color = "#1e90ff" },
-            new { id = 1, text = "Afternoon", color = "#ff9747" }});
+            .StartDayHour(9)
+            .EndDayHour(18)
+            .CellDuration(120)
+            .MaxAppointmentsPerCell(5)
+            .Resources(res =>
+            {
+                res.Add()
+                    .FieldExpr("StartPeriod")
+                    .AllowMultiple(false)
+                    .Label("Start Period")
+                    .DataSource
+                    (new object[] {
+                    //new { id = 0, text = "Morning", color = "#1e90ff" },
+                    //new { id = 1, text = "Afternoon", color = "#ff9747" }});
+
+                    new { id = 0, text = "Morning" },
+                    new { id = 1, text = "Afternoon" }});
 
 
-            res.Add()
-.FieldExpr("DepartmentID")
-.AllowMultiple(false)
-.Label("Department")
-.DataSource(Model.DepartmentList.ToList()).DisplayExpr("DepartmentName").ValueExpr("Id");
+                res.Add()
+                    .FieldExpr("EndPeriod")
+                    .AllowMultiple(false)
+                    .Label("End Period")
+                    .DataSource
+                    (new object[] {
+                    //new { id = 0, text = "Morning", color = "#1e90ff" },
+                    //new { id = 1, text = "Afternoon", color = "#ff9747" }});
+                    new { id = 0, text = "Morning"},
+                    new { id = 1, text = "Afternoon"}});
 
-            res.Add()
-.FieldExpr("UserID")
-.AllowMultiple(false)
-.ColorExpr("colorHighlight")
-.Label("User")
-.DataSource(Model.UserList.ToList()).DisplayExpr("UserName").ValueExpr("Id");
-        }
+
+                //            res.Add()
+                //.FieldExpr("DepartmentID")
+                //.AllowMultiple(false)
+                //.Label("Department")
+                //.DataSource(Model.DepartmentList.ToList()).DisplayExpr("DepartmentName").ValueExpr("Id");
+
+                res.Add()
+                    .FieldExpr("UserID")
+                    .AllowMultiple(false)
+                    .ColorExpr("colorHighlight")
+                    .Label("remove me")
+                    .DataSource(Model.DepartmentUserList.ToList()).DisplayExpr("UserName").ValueExpr("Id");
+
+
+                res.Add()
+                    .FieldExpr("UserID")
+                    .AllowMultiple(false)
+                    //.ColorExpr("colorHighlight")
+                    .Label("User")
+                    .DataSource(Model.UserList.ToList()).DisplayExpr("UserName").ValueExpr("Id");
+
+
+
+
+            }
         )
         .Height(580)
         )
     </div>
     <div class="column right">
-        @await Html.PartialAsync("~/Views/User/_UserStatView.cshtml", Model.UserList)
+        @await Html.PartialAsync("~/Views/User/_UserStatView.cshtml", Model.DepartmentUserList)
     </div>
 </div>
 

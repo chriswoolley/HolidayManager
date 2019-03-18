@@ -339,6 +339,8 @@ namespace HolidayWeb.Controllers
         {
             var user = await _userManager.FindByIdAsync(userId);
 
+
+
             if (user == null)
                 return RedirectToAction("UserManagement", _userManager.Users);
 

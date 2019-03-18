@@ -19,13 +19,16 @@ namespace HolidayWeb.Controllers.ApiControllers {
         IAppointment _appointment;
 
         private readonly UserManager<HolidayUser> _userManager;
+        private readonly IRuntime _runtime;
 
 
-        public SchedulerDataController(IHttpContextAccessor httpContextAccessor, IMemoryCache memoryCache, IAppointment appointment, UserManager<HolidayUser> userManager)
+        public SchedulerDataController(IHttpContextAccessor httpContextAccessor, IMemoryCache memoryCache, IAppointment appointment, 
+            UserManager<HolidayUser> userManager, IRuntime _Runtime)
         {
             _data = new InMemoryAppointmentsDataContext(httpContextAccessor,appointment);
             _appointment = appointment;
             _userManager = userManager;
+            _runtime = _Runtime;
         }
 
         [HttpGet]
@@ -80,6 +83,8 @@ namespace HolidayWeb.Controllers.ApiControllers {
 
                 }
             }
+            newAppointment.DepartmentID = _runtime.CurrentDepartmentId;
+
             _appointment.AddAppointment(newAppointment);
             _data.Appointments.Add(newAppointment);
             _data.SaveChanges();

@@ -43,10 +43,11 @@ namespace HolidayWeb.Controllers
             _MainViewModel = new MainViewModel();
             _MainViewModel.DepartmentList = _DepartmentList.GetAllDepartment();
             _MainViewModel.StateList = _StateList.GetAllState();
+            _MainViewModel.DepartmentUserList = _userManager.Users.ToList();
             _MainViewModel.UserList = _userManager.Users.ToList();
             _MainViewModel.AppointmentList = _appointmentRepository.GetAllAppointment();
 
-            holidayCalc.HolidayRemaining(_MainViewModel.UserList, System.DateTime.Now);
+            holidayCalc.HolidayRemaining(_MainViewModel.DepartmentUserList, System.DateTime.Now);
 
         }
 
@@ -58,50 +59,50 @@ namespace HolidayWeb.Controllers
 
         public async Task<IActionResult> Index(int DepartmentId)
         {
-
             var user = await GetCurrentUserAsync();
 
-
             bool IsAdmin = (user != null) && (await _userManager.IsInRoleAsync(user, "Admin"));
-
             if (DepartmentId != 0)
                 _runtime.CurrentDepartmentId = DepartmentId;
-
-
+            var users = _userManager.Users;
             if (IsAdmin)
             {
-                var users = _userManager.Users;
                 ViewBag.Users = users.Select(x => new SelectListItem { Text = x.UserName, Value = x.Id }).ToList();
 
                 if (_runtime.CurrentDepartmentId != 0)
+                {
+                    _MainViewModel.DepartmentUserList = _userManager.Users.Where(p => p.Department.Id == _runtime.CurrentDepartmentId);
                     _MainViewModel.UserList = _userManager.Users.Where(p => p.Department.Id == _runtime.CurrentDepartmentId);
+                }
 
-                //_MainViewModel.DepartmentList = _DepartmentList.GetAllDepartment();
             }
             else
             {
-
                 {
-                    var users = _userManager.Users;
                     if (user != null)
                     {
                         ViewBag.Users = new SelectListItem { Text = user.UserName, Value = user.Id };
+                        _MainViewModel.UserList = _userManager.Users.Where(p => p.Id == user.Id);
+
                     }
                     else
                     {
                         ViewBag.Users = null;
-
+                        _MainViewModel.UserList = _userManager.Users.Where(p => p.Id == "XXX");
                     }
 
-                    if (_runtime.CurrentDepartmentId != 0)
-                        //    _MainViewModel.UserList = _userManager.Users.Where(p => p.Id == user.Id);
-                        _MainViewModel.UserList = _userManager.Users.Where(p => p.Department.Id == _runtime.CurrentDepartmentId);
+                    _MainViewModel.DepartmentUserList = _userManager.Users.Where(p => p.Department.Id == _runtime.CurrentDepartmentId);
+
+                    //if ((_runtime.CurrentDepartmentId != 0) && (user != null))
+                    //{  // only this users  
+                    //    _MainViewModel.DepartmentUserList = _userManager.Users.Where(p => p.Id == user.Id);
+                    //}
+                    //else
+                    //{   // fill list with nothing
+                    //    _MainViewModel.DepartmentUserList = _userManager.Users.Where(p => p.Id=="xxx");
+                    //}
                 }
-
-
-
             }
-
             return View("Index", _MainViewModel);
         }
 
