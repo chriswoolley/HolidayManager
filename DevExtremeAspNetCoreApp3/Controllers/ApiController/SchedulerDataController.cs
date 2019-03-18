@@ -80,12 +80,9 @@ namespace HolidayWeb.Controllers.ApiControllers {
 
                 }
             }
-
             _appointment.AddAppointment(newAppointment);
-
             _data.Appointments.Add(newAppointment);
             _data.SaveChanges();
-
             return Ok();
         }
 
